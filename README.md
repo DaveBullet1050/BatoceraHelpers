@@ -42,3 +42,6 @@ If you get any:
 -bash: ./tos428cl.exe: cannot execute: required file not found
 
 or other errors - check you have the correct libraries and they are in the same path as the exe and you are launching using the library method above (and all files have executable permissions, e.g. chmod 755 ...)
+
+## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
+
