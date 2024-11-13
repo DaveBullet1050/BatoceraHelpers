@@ -33,10 +33,18 @@ Assuming your file locations are as follows:
 /usr/bin/tos_grs/ld-linux-armhf.so.3
 /usr/bin/tos_grs/libc.so.6
 
-You can launch the executable, as per:
+You can launch the executable as follows:
 
 cd /usr/bin/tos_grs
-./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe
+
+-- Gets the current /dev/tty for the connected controller (used to change orientation)
+./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe getport
+
+-- Switches all joysticks connected to 4 way mode
+./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,4
+
+-- Switches all joysticks connected to 8 way mode
+./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,8
 
 If you get any:
 -bash: ./tos428cl.exe: cannot execute: required file not found
@@ -44,4 +52,8 @@ If you get any:
 or other errors - check you have the correct libraries and they are in the same path as the exe and you are launching using the library method above (and all files have executable permissions, e.g. chmod 755 ...)
 
 ## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
+
+Assuming you have your TOS GRS tos428cl.exe running as per above, you can use this script to automatically load 4 or 8 way mode per ROM / game.
+
+
 
