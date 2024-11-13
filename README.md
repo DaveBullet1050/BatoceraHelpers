@@ -29,26 +29,25 @@ http://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
 3. Now, you don't want to overwrite your 64 bit system libraries, so the easiest option is to copy the two 32 bit libraries you extracted to the same directory as the tos428cl.exe executable.  Ensure you chmod 755 the libraries and executable
 
 Assuming your file locations are as follows:
-/usr/bin/tos_grs/tos428cl.exe
-/usr/bin/tos_grs/ld-linux-armhf.so.3
-/usr/bin/tos_grs/libc.so.6
 
-You can launch the executable as follows:
+`/usr/bin/tos_grs/tos428cl.exe`  
+`/usr/bin/tos_grs/ld-linux-armhf.so.3`  
+`/usr/bin/tos_grs/libc.so.6`  
 
-cd /usr/bin/tos_grs
+You can launch the executable as follows:  
+`cd /usr/bin/tos_grs`  
 
--- Gets the current /dev/tty for the connected controller (used to change orientation)
-./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe getport
+Gets the current <port> (/dev/ttyxxx) for the connected controller (used to change orientation).  Use in subsequent commands:  
+`./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe getport`  
 
--- Switches all joysticks connected to 4 way mode
-./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,4
+Switches all joysticks connected to 4 way mode:  
+`./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,4`  
 
--- Switches all joysticks connected to 8 way mode
-./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,8
+Switches all joysticks connected to 8 way mode:  
+`./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,8`  
 
-If you get any:
--bash: ./tos428cl.exe: cannot execute: required file not found
-
+If you get any:  
+`-bash: ./tos428cl.exe: cannot execute: required file not found`  
 or other errors - check you have the correct libraries and they are in the same path as the exe and you are launching using the library method above (and all files have executable permissions, e.g. chmod 755 ...)
 
 ## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
