@@ -23,7 +23,7 @@ if you have 32-bit.
 ld-linux-armhf.so.3
 libc.so.6
 
-You can download these (extract from within /usr/lib) for an Rpi3 from:
+You can either get these from the contained TOS_GRS folder or download these (extract from within /usr/lib) for an Rpi3 from:
 http://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
 
 3. Now, you don't want to overwrite your 64 bit system libraries, so the easiest option is to copy the two 32 bit libraries you extracted to the same directory as the tos428cl.exe executable.  Ensure you chmod 755 the libraries and executable
@@ -52,7 +52,23 @@ or other errors - check you have the correct libraries and they are in the same 
 
 ## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
 
-Assuming you have your TOS GRS tos428cl.exe running as per above, you can use this script to automatically load 4 or 8 way mode per ROM / game.
+Assuming you have your TOS GRS tos428cl.exe running as per above, you can use this script to automatically load 4 or 8 way mode per ROM / game.  
+https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/TOS_GRS_Switch/tos_grs_switch.sh
 
+The above script will also store the selected setting when you exit a game, so it can be "remembered" on next play.  This assumes you've wired your TOS GRS button up and can switch modes during play.  Close the emulator and the current setting for that ROM will be stored.
 
+Place the above script into the existing:  
+`/userdata/system/scripts`  
+directory.  Don't forget to chmod 755 so it is executable.
+
+Also download the file that contains the ROMS that should be 4 way (otherwise 8 way is the default):  
+`roms4wayWithPath.txt`  
+and put into a directory named:  
+`/userdata/system/configs/tos_grs`  
+
+The only 2 configuration parameters are buried in the file.  Change these if you have different locations:  
+`tos428exe=/usr/bin/tos_grs/tos428cl.exe`  
+`roms4wayFile=/userdata/system/configs/tos_grs/roms4wayWithPath.txt`  
+
+Batocera runs all scripts in this folder on both game startup and shutdown, passing the name of the ROM and whether a game start or stop event has occurred.  The roms4WayWithPath.txt is exactly the same list of pre-configured 4 way MAME ROM list from the Thunderstick site, but qualified with a `mame/` ROM directory. This allows the same ROM across 2 emulator cores to have a different orientation. 
 
