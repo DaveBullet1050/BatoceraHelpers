@@ -46,6 +46,9 @@ Switches all joysticks connected to 4 way mode:
 Switches all joysticks connected to 8 way mode:  
 `./ld-linux-armhf.so.3 --library-path ${PWD} ./tos428cl.exe <port> setway,all,8`  
 
+Lastly, don't forget to save the overlay as you've modified files under /usr (or Batocera will lose these on reboot):  
+`batocera-save-overlay`  
+
 If you get any:  
 `-bash: ./tos428cl.exe: cannot execute: required file not found`  
 or other errors - check you have the correct libraries and they are in the same path as the exe and you are launching using the library method above (and all files have executable permissions, e.g. chmod 755 ...)
