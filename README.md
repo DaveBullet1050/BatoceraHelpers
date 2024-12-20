@@ -10,12 +10,14 @@ Then purchase one of these kits for each additional joystick: https://thundersti
 
 The software (on the same page) is designed to run on a Raspberry Pi - but on 32-bit / Armv7 Linux (Retropie).  Batocera v39+ is Aarch64 therefore does not have native 32-bit library support.  The good news is Batocera linux is compiled with 32-bit compatibility, so you can provide your own 32-bit library dependencies, and run the library with a 32-bit executable target (as shown below):
 
-1. First, confirm your Batocera linux has been compiled with 32-bit compatibility
+1. First, confirm your Batocera linux has been compiled with 32-bit compatibility. run:
+```
 zcat /proc/config.gz | grep CONFIG_COMPAT=
-
+```
 you should get a:
+```
 CONFIG_COMPAT=y
-
+```
 if you have 32-bit.
 
 2. You'll need the following 2 32 bit libraries to make tos428cl.exe run:
