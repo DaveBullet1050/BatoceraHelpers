@@ -25,17 +25,17 @@ if you have 32-bit.
 ld-linux-armhf.so.3
 libc.so.6
 
-You can either get these from the contained TOS_GRS folder or download these (extract from within /usr/lib) for an Rpi3 from:
+You can either get these from the TOS_GRS_Switch folder in this repo or download these (extract from within /usr/lib) for an Rpi3 from:
 http://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
 
 3. Now, you don't want to overwrite your 64 bit system libraries, so the easiest option is to copy the two 32 bit libraries you extracted to the same directory as the tos428cl.exe executable.  Ensure you chmod 755 the libraries and executable
 
 Assuming your file locations are as follows:
-
-`/usr/bin/tos_grs/tos428cl.exe`  
-`/usr/bin/tos_grs/ld-linux-armhf.so.3`  
-`/usr/bin/tos_grs/libc.so.6`  
-
+```
+/usr/bin/tos_grs/tos428cl.exe
+/usr/bin/tos_grs/ld-linux-armhf.so.3
+/usr/bin/tos_grs/libc.so.6
+```
 You can launch the executable as follows:  
 `cd /usr/bin/tos_grs`  
 
