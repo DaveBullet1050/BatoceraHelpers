@@ -8,22 +8,16 @@ As with any system, before you apply any of these changes, do a backup!  You can
 This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  The help pages below link to the relevant files for configuring that feature:  
 
 [Controller Reference](./README/Controller%20Reference%20README.md#controller-reference)
-
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)
-
 [GPIO based shutdown / startup for Pi 3B+](./README/PowerOffOn%20README.md#gpio-based-shutdown--startup-for-pi-3b)
-
 [Controller based volume up / down](./README/VolumeUpDown%20README.md#controller-based-volume-up--down)
-
 [Coin acceptor / slot](./README/CoinAcceptor%20README.md#coin-acceptor--slot)
-
 [Daphne (laserdisc games)](./README/Daphne%20README.md#daphne-laserdisc-games)
-
 [Custom screen resolution](./README/ScreenRes%20README.md#custom-screen-resolution)
-
 [Keystroke generation and mapping](./README/Keystroke%20README.md#keystroke-generation-and-mapping)
-
 [Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)
 
 [Batocera backup](./README/Backup%20README.md)
+
+[Network including static IP](./README/Network%20README.md)
 
