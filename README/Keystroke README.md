@@ -1,5 +1,6 @@
 # Keystroke generation and mapping
 
+## pad2key (send controller joystick movement/buttons as key events)
 Some games are just keyboard oriented and do not accept joystick input.  Although this page is dedicate to VIC 20 and C64 keyboard oriented games, the same concepts should work for any other keyboard centric emulator.
 
 Batocera provides pad2key - which essentially listens for controller events (joystick and button pushes) then when they are detected (combinations are allowed) one (or more) keystrokes can be sent to the game / emulator.
@@ -25,3 +26,14 @@ You can also override them per game, by adding a "<full rom name>.keys" file in 
 Jupiter Lander - VIC Super Lander (1981)(Commodore)(NTSC)[CG][A000].crt
 Jupiter Lander - VIC Super Lander (1981)(Commodore)(NTSC)[CG][A000].crt.keys
 ```
+You can see more examples here:  
+[c20 keys](https://github.com/DaveBullet1050/BatoceraHelpers/tree/main/userdata/roms/c20)
+[c64 keys](https://github.com/DaveBullet1050/BatoceraHelpers/tree/main/userdata/roms/c64)
+
+The c64 examples above allow a joystick to control movement (and player attack via a button), by sending the joystick and firebutton as the default movement keys in Ultima (being @ : ; and /).
+
+Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.
+
+## VICE key mapping
+
+For Ultima, using @ : ; and / Commodore keyboard keys are a pain for character movement.  Wouldn't it be nice to use your normal keyboard arrow keys?  You can do that via editing the [sdl_pos.vkm](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/share/vice/C64/sdl_pos.vkm) file.  A youtuber explained the code / format, but I've already modified the following rows in the file, to map the up/left/right/down arrow keys to the commodore @ : ; / equivalents:
