@@ -2,6 +2,7 @@
 
 Daphne seems to be broken in v40, so if your games are crashing, then revert to v39.  v41 may have fixed the hypseus/singe (aka Daphne) emulator, but I haven't tested it.
 
+## Controller config
 Hypseus uses its own contoller configuration files, but Batocera invoked Hypseus with a "--gamepad" option and I couldn't get Hypseus to recognise my controller buttons nor joystick.  The solution was to hack the Batocera [Daphne Generator](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/lib/python3.11/site-packages/configgen/generators/daphne/daphneGenerator.py) script to omit the --gamepad option.  Then I could get Hypseus to recognise my controller and use my own controller [custom.ini](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/daphne/custom.ini).  
 
 If you need to find the correct codes to use in custom.ini for a different button layout to mine, then you can use the [hypjsch_cli](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/hypjsch_cli) executable to spit out the correct button codes.  
@@ -23,3 +24,23 @@ As you can see in [custom.ini](https://github.com/DaveBullet1050/BatoceraHelpers
 `KEY_BUTTON1 = SDLK_LCTRL 0 004`  
 
 Using the above CLI utility, you can remap / change buttons as needed.
+
+## ROM and BIOS placement
+I found it hard to piece together where to put things for Daphne, so hopefully this helps.  
+
+Each game must be placed in its own ".daphne" suffixed directory under /userdata/roms as shown:
+```
+/userdata/roms/daphne/lair.daphne/
+├── lair.dat
+├── lair.m2v
+├── lair.ogg
+└── lair.txt
+```
+
+You also need the BIOS files for the particular game in the following folder, eg:  
+```
+/userdata/system/configs/daphne/singe
+...
+├── lair.zip
+...
+```   
