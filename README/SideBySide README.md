@@ -12,6 +12,6 @@ global.retroarch.input_shader_prev_btn=7
 global.retroarch.input_shader_next_btn=7
 global.retroarch.input_shader_toggle_btn=nul
 ```
-When pressing this - it sequences from the stock shader (right side up) to upside down.  It does require a manual press every time player 1 / 2 dies, as MAME ROMS are pure to the machine (as they should be) and do not emit events to an emulator that can be hooked for automatic changing of the shader.  
+When pressing Select - P1 Start, retroarch sequences from the stock shader (right side up) to the custom upside down shader.  It does require a manual press every time player 1 / 2 dies, as MAME ROMS were never designed to run under emulators, therefore have no events that can be hooked for automatic changing of the shader.  
 
 The other small hit is frame skipping on a Pi3B+.  The shader adds some compute and I don't think the Pi3B+ has enough grunt to maintain the frame rate, so you are aware of play not being as smooth. This should be better on a gruntier Pi / x64 platform.  
