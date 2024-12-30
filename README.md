@@ -9,23 +9,23 @@ This repo contains my batocera overlay file (expanded into the directories and f
 
 Click on a heading below for a specific feature:  
 
-[Controller Reference](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#controller-reference)
+[Controller Reference](./README/Controller%20Reference%20README.md#controller-reference)
 
-[TOS GRS - Automatic 4/8 way restrictor gate](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)
+[TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)
 
-[GPIO based shutdown / startup for Pi 3B+](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/PowerOffOn%20README.md#gpio-based-shutdown--startup-for-pi-3b)
+[GPIO based shutdown / startup for Pi 3B+](./README/PowerOffOn%20README.md#gpio-based-shutdown--startup-for-pi-3b)
 
-[Controller based volume up / down](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/VolumeUpDown%20README.md#controller-based-volume-up--down)
+[Controller based volume up / down](./README/VolumeUpDown%20README.md#controller-based-volume-up--down)
 
-[Coin acceptor / slot](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/CoinAcceptor%20README.md#coin-acceptor--slot)
+[Coin acceptor / slot](./README/CoinAcceptor%20README.md#coin-acceptor--slot)
 
-[Daphne (laserdisc games)](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Daphne%20README.md#daphne-laserdisc-games)
+[Daphne (laserdisc games)](./README/Daphne%20README.md#daphne-laserdisc-games)
 
-[Custom screen resolution](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/ScreenRes%20README.md#custom-screen-resolution)
+[Custom screen resolution](./README/ScreenRes%20README.md#custom-screen-resolution)
 
-[Keystroke generation and mapping](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Keystroke%20README.md#keystroke-generation-and-mapping)
+[Keystroke generation and mapping](./README/Keystroke%20README.md#keystroke-generation-and-mapping)
 
-[Side by side cabinet and switching player controls for single player MAME games]
+[Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)
 
 [VICE specific config - cartridge, key reamapping and disk swapping]
 
