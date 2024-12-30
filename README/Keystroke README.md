@@ -43,7 +43,7 @@ For Ultima, using @ : ; and / Commodore keyboard keys are a pain for character m
 275 6 2 0              /*        Right -> ;            */
 274 6 7 0              /*         Down -> /		       */
 ```  
-The first code is the keycode (don't change that).  The next 2 come from the table in the file and last code is an OR'ed value for CBM/shift key combinations.  
+The first code is the keycode that is generated on your arrow up cursor key (don't change that).  The next 2 come from the table in the file (see below) and last code is an OR'ed value for CBM/shift key combinations.  
 
 To explain - let's take the Up key mapping to "@".  Up is keycode 273 (this was already in the default file) as per:  
 `273 0 7 1              /*           Up -> CRSR UP      */`  
@@ -79,7 +79,18 @@ Finally, the last number (shiftflag) is zero is we don't need a shift / combinat
 Therefore we get:  
 `273 5 6 0              /*           Up -> @		       */`  
 
-To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys).  
+To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys).  This generates the physical (i.e. US101 keyboard) key events, eg:
+```
+        {
+            "trigger": "left",
+            "type": "key",
+            "target": "KEY_SEMICOLON"
+        },
+```
+Left joystick direction will send the physical US101 keyboard semicolon key, which is then mapped by VICE via the .vkm file to the Commodore colon key (left movement in game) as per:  
+`59 5 5 8               /*            ; -> :            */`  
+
+Remember - pad2key files generate the physical keyboard event, then the emulator (VICE) has its own key mapping to map the keys to the keyboard of the emulated machine.  
 
 The reason the /userdata/bios/vice/c64 directory has 3 files (and I linked to the Ultima one) is I only want to map the arrow keys to the above keyboard keys for Ultima. There's a script which runs on game start and stop, [c64_ultima_keyboard.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/c64_ultima_keyboard.sh) which toggles which keyboard is in play.  The one with a ".default" extension is used for all non-Ultima C64 games and switched in, vs. ".ultima" when any Ultima game is playing.  
 
