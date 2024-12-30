@@ -1,5 +1,8 @@
 # Batocera Helpers
-A bunch of config or how to scripts / info for a Batocera gaming machine.  All of these are running on v39 on a Raspberry Pi 3B+.  Therefore some may not work on a later version of Batocera or on another architecture (e.g. x86).  Click on a heading below to find out more:
+A bunch of config or how to scripts / info for a Batocera gaming machine.  All of this was running successfully on v39 on a Raspberry Pi 3B+.  Therefore some may not work on a later version of Batocera or on another architecture (e.g. x86).  
+This repo contains my batocera overlay file plus other config / scripts (under /userdata).  The help pages below link to the relevant files for configuring that feature.  
+
+Click on a heading below for a specific feature:  
 
 [TOS GRS - Automatic 4/8 way restrictor gate](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)
 
@@ -7,9 +10,7 @@ A bunch of config or how to scripts / info for a Batocera gaming machine.  All o
 
 [Controller based volume up / down](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/VolumeUpDown%20README.md#controller-based-volume-up--down)
 
-[Coin acceptor / coin slot]
-
-[Batocera.conf]
+[Coin acceptor / slot](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/CoinAcceptor%20README.md#coin-acceptor--slot)
 
 [Daphne (laserdisc games)]
 
