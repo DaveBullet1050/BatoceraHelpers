@@ -6,7 +6,7 @@ Early MAME games (e.g. Puckman) only supported a single joystick / set of contro
 
 The problem with the above setting, is when in 2 player mode and player 1 dies, the screen will flip for the 2nd player to take their turn.  In a side by side player cabinet, this isn't helpful!
 
-I ended up using a custom shader: [upside_down.glslp](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/share/batocera/shaders/upside_down.glslp) which flips the screen in the X/Y axis.  To activate, I have a hotkey setup (Seleft + P1 Start button) in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf):  
+I ended up using a custom shader: [upside_down.glslp](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/share/batocera/shaders/upside_down.glslp) which flips the screen in the X/Y axis.  To activate, I have a hotkey setup (Select + P1 Start button) in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf):  
 ```
 global.retroarch.input_shader_prev_btn=7
 global.retroarch.input_shader_next_btn=7
