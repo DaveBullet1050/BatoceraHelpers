@@ -1,0 +1,37 @@
+{
+   "actions_player1":[
+      {
+         "trigger":"right",
+         "type":"key",
+         "target":"KEY_A"
+      },
+      {
+         "trigger":"left",
+         "type":"key",
+         "target":"KEY_D"
+      },
+      {
+         "trigger":"b",
+         "type":"key",
+         "target":"KEY_F1"
+      },
+      {
+         "trigger":"a",
+         "type":"key",
+         "target":"KEY_F3"
+      },
+      {
+         "trigger":"pagedown",
+         "type":"key",
+         "target":"KEY_F5"
+      },
+      {
+         "trigger":"start",
+         "type":"key",
+         "target":[
+            "KEY_LEFTALT",
+            "KEY_F4"
+         ]
+      }
+   ]
+}
