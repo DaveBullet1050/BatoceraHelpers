@@ -14,7 +14,7 @@ Click on a heading below for a specific feature:
 
 [Coin acceptor / slot](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/CoinAcceptor%20README.md#coin-acceptor--slot)
 
-[Daphne (laserdisc games)]
+[Daphne (laserdisc games)](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Daphne%20README.md#daphne-laserdisc-games)
 
 [Custom screen resolution]
 
