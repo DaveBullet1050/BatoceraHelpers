@@ -18,7 +18,7 @@ Click on a heading below for a specific feature:
 
 [Custom screen resolution](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/ScreenRes%20README.md#custom-screen-resolution)
 
-[Keystroke generation]
+[Keystroke generation and mapping](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Keystroke%20README.md#keystroke-generation-and-mapping)
 
 [Side by side cabinet and switching player controls for single player MAME games]
 
