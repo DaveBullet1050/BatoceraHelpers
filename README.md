@@ -5,7 +5,7 @@ A bunch of config or how to scripts / info for a Batocera gaming machine.  All o
 
 [GPIO based shutdown / startup for Pi 3B+](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/PowerOffOn%20README.md#gpio-based-shutdown--startup-for-pi-3b)
 
-[Controller button volume up / down]
+[Controller based volume up / down](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/VolumeUpDown%20README.md#controller-based-volume-up--down)
 
 [Coin acceptor / coin slot]
 
