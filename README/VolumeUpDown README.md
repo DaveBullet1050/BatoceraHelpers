@@ -1,6 +1,6 @@
 # Controller based volume up / down
 
-To enable volume control, you can use any combination of controller buttons via the triggerhappy daemon running on Batocera. Using a button combination means in normal play, these buttons won't normally be pressed together, so it makes sense to choose something like your hotkey (SELECT) button in combination with a volume up and down button.  
+To enable volume control, you can use any combination of controller buttons via the triggerhappy daemon running on Batocera. Using a button combination means in normal play, these buttons won't normally be pressed together, so it makes sense to choose something like your hotkey (SELECT) button in combination with any other convenient player 1 buttons for volume up and down.  
 
 First we need to work out what events are generated for each button, so we can name them correctly in the triggerhappy file.  
 
