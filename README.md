@@ -25,7 +25,7 @@ Click on a heading below for a specific feature:
 
 [Keystroke generation and mapping](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Keystroke%20README.md#keystroke-generation-and-mapping)
 
-[Side by side cabinet and switching player controls for single player MAME games]
+[Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)
 
 [VICE specific config - cartridge, key reamapping and disk swapping]
 
