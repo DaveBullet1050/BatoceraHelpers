@@ -27,7 +27,5 @@ Click on a heading below for a specific feature:
 
 [Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)
 
-[VICE specific config - cartridge, key reamapping and disk swapping]
-
-[Batocera backup]
+[Batocera backup](./README/Backup%20README.md)
 

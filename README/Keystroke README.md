@@ -79,6 +79,37 @@ Finally, the last number (shiftflag) is zero is we don't need a shift / combinat
 Therefore we get:  
 `273 5 6 0              /*           Up -> @		       */`  
 
-To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys)  
+To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys).  
 
 The reason the /userdata/bios/vice/c64 directory has 3 files (and I linked to the Ultima one) is I only want to map the arrow keys to the above keyboard keys for Ultima. There's a script which runs on game start and stop, [c64_ultima_keyboard.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/c64_ultima_keyboard.sh) which toggles which keyboard is in play.  The one with a ".default" extension is used for all non-Ultima C64 games and switched in, vs. ".ultima" when any Ultima game is playing.  
+
+## VICE disk swap
+
+Some C64 games are multi-disk requiring you to eject, switch then close the virtual 1541 drive during a game.  This is achieved via configuring a ".m3u" file for such games and placing them in the same directory as the ROM (.d64) files.  See [Ultima 4.m3u](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%204.m3u) as an example:  
+```
+ULTIMA4A.D64|Side A - Program Disk
+ULTIMA4B.D64|Side B - Towns
+ULTIMA4C.D64|Side C - Britannia
+ULTIMA4D.D64|Side D - Underworld
+```  
+The format is:  
+`<filename>|<Friendly name>`  
+
+The filename is the full name including file extension and friendly name is whatever you want VICE to display when you change disks.  
+
+Once we setup the above file and update our game collection / scraper.  The problem is we now have 5 "Ultima 4" games being displayed in Emulation Station (one for the .m3u and 4 for the game disks).  We can hide the game disks by holding the launch (P1 red button on my machine) on each of the .d64 entries in ES, to bring up the game specific configuration menu.  Then select Edit This Game's Metadata -> Hidden and toggle on, then save.  This will hide that .d64 from display.  Do this for each .d64 until just the .m3u is showing.  
+
+Although the above groups the disks together for a game, we need a way of toggling / activating the disk swap.  These mappings in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) achieve this:  
+```
+### You need to toggle game focus off for these keys to work (by pressing scroll_lock key), so Game Focus = OFF), then eject the disk (via pageup key), select disk (via either insert or home to scroll up / down through the disks) then close the virtual drive door (via pageup again)
+c64.retroarch.input_disk_prev="insert"
+c64.retroarch.input_disk_next="home"
+c64.retroarch.input_disk_eject_toggle=pageup
+### controller button equivalents for the above - again need to have game focus = off (scroll_lock key toggles)
+c64.retroarch.input_disk_prev_btn=0
+c64.retroarch.input_disk_next_btn=3
+c64.retroarch.input_disk_eject_toggle_btn=4
+```  
+The comments should be self explanatory on how the keys / buttons work.  For the button code mapping, see: [Physical to virtual mapping](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-to-virtual-mapping)  
+
+When ejecting a disk, swapping and closing the virtual drive door, you'll see popup messages from Retroarch.  
