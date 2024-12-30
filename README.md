@@ -3,7 +3,7 @@ A bunch of config or how to scripts / info for a Batocera gaming machine.  All o
 
 [TOS GRS - Automatic 4/8 way restrictor gate](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)
 
-[Raspberry PI - GPIO based power off / on]
+[GPIO based shutdown / startup for Pi 3B+](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/PowerOffOn%20README.md#gpio-based-shutdown--startup-for-pi-3b)
 
 [Controller button volume up / down]
 
