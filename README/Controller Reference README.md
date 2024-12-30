@@ -11,7 +11,8 @@ My mockup panel is shown below:
 ![Test panel](../image/Arcade%20panel%20mockup.png)  
 
 Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
-Red labels are where the button plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0).  
+Red labels are where the button plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0) as per:
+
 
 There is no way to configure each USB delay encoder with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
 
