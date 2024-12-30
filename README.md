@@ -16,7 +16,7 @@ Click on a heading below for a specific feature:
 
 [Daphne (laserdisc games)](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Daphne%20README.md#daphne-laserdisc-games)
 
-[Custom screen resolution]
+[Custom screen resolution](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/ScreenRes%20README.md#custom-screen-resolution)
 
 [Keystroke generation]
 
