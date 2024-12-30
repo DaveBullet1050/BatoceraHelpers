@@ -20,11 +20,15 @@ if you have 32-bit compatibility enabled. This is required in order to launch th
 
 ## Second, you'll need the following 2 32 bit libraries to make tos428cl.exe run
 
-ld-linux-armhf.so.3
-libc.so.6
+```
+/usr/bin/tos_grs/ld-linux-armhf.so.3
+/usr/bin/tos_grs/libc.so.6
+```
 
-You can either get these from same folder in this repo or download these (extract from within /usr/lib) for an Rpi3 from:
+You can either get these from the folder in this repo or download these (extract from within /usr/lib) for an Rpi3 from:
 http://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
+
+Note: if you are running a Pi4/5 - you may need libraries specific to those versions.
 
 ## How to run tos428cl.exe
 
@@ -58,21 +62,19 @@ or other errors - check you have the correct libraries and they are in the same 
 ## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
 
 Assuming you have your TOS GRS tos428cl.exe running as per above, you can use this script to automatically load 4 or 8 way mode per ROM / game.  
-https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/TOS_GRS_Switch/tos_grs_switch.sh
+`/userdata/system/scripts/tos_grs_switch.sh`  
 
-The above script will also store the selected setting when you exit a game, so it can be "remembered" on next play.  This assumes you've wired your TOS GRS button up and can switch modes during play.  Close the emulator and the current setting for that ROM will be stored.
-
-Place the above script into the existing:  
-`/userdata/system/scripts`  
-directory.  Don't forget to chmod 755 so it is executable.
+The above script will also store the selected setting when you exit a game, so it can be "remembered" on next play.  This assumes you've wired your TOS GRS button up and can switch modes during play.  Close the emulator and the current setting for that ROM will be stored.  Don't forget to chmod 755 so it is executable.
 
 Also download the file that contains the ROMS that should be 4 way (otherwise 8 way is the default):  
-`roms4wayWithPath.txt`  
-and put into a directory named:  
-`/userdata/system/configs/tos_grs`  
+`/userdata/system/configs/tos_grs/roms4wayWithPath.txt`  
 
-The only 2 configuration parameters are buried in the file.  Change these if you have different locations:  
+When you are playing a game, if you want to change the orientation, use the supplied button to toggle, then on game exit, the tos_grs_switch.sh script will run and update/store the preference for that game so it will be recalled next play.
+
+The only 2 configuration parameters for tos_grs_switch.sh are:  
 `tos428exe=/usr/bin/tos_grs/tos428cl.exe`  
 `roms4wayFile=/userdata/system/configs/tos_grs/roms4wayWithPath.txt`  
+
+Change the above if you place the files pointed to in different locations.
 
 Batocera runs all scripts in this folder on both game startup and shutdown, passing the name of the ROM and whether a game start or stop event has occurred.  The roms4WayWithPath.txt is exactly the same list of pre-configured 4 way MAME ROM list from the Thunderstick site, but qualified with a `mame/` ROM directory. This allows the same ROM across 2 emulator cores to have a different orientation. 
