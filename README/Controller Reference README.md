@@ -6,6 +6,7 @@ Looking at the back of the Pi 3b+, I simply plugged them into the top left (play
 
 I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt-joystick-precursor-to-jlx-tp-8yt/) with the [TOS GRS 4/8 way servo switched restrictor gates](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate).  I am also using 30mm screw in Sanwa buttons for the player buttons, with a mix of 24mm buttons for coin, select and start and Happ style P1/2 start buttons.
 
+## Physical layout
 My mockup panel is shown below:
 ![Test panel](../image/Arcade%20panel%20mockup.png)  
 
@@ -36,9 +37,11 @@ There is no way to configure each USB delay encoder with a different button conf
 
 You don't have to connect your USB zero delay controller to buttons this way.  It's just the order I plugged them in.  I've shown this purely so it helps visualise the setup in the various config files in this repo.
 
+## Physical to virtual mapping
 My config files all reference the buttons as follows:
 ![Button mapping](../image/Button%20mapping.png)  
 
+## Full set of configured button combinations
 The full open office spreadsheet to show you how the various hotkey combinations and per game overrides I've setup in batocera.conf is here:  
 [Button mapping spreadsheet](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Button%20mapping.ods)  
 
