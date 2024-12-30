@@ -32,7 +32,7 @@ You can see more examples here:
 
 The c64 examples above allow a joystick to control movement (and player attack via a button), by sending the joystick and firebutton as the default movement keys in Ultima (being @ : ; and /).  
 
-Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  
+Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  That led me to the following solution for how to map one key press to another for VICE games...
 
 ## VICE key mapping
 
