@@ -5,9 +5,7 @@ There are no ROMS included in this repo for obvious legal and copyright reasons.
 
 As with any system, before you apply any of these changes, do a backup!  You can do this via plugging in a USB stick formatted to exFAT, the via the main ES menu: System Settings -> Backup User Data (Target Device = should show your USB stick) -> Start.
 
-This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  The help pages below link to the relevant files for configuring that feature.  
-
-Click on a heading below for a specific feature:  
+This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  The help pages below link to the relevant files for configuring that feature:  
 
 [Controller Reference](./README/Controller%20Reference%20README.md#controller-reference)
 
