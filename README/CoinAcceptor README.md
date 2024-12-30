@@ -9,6 +9,8 @@ Refer to the circuit diagram below:
 
 Everything prefixed with "P1" is duplicated for Player 2 (i.e. the power supply and coin slot are the same).  This allows a single coin acceptor mechanism to be used for 2 players, with each one separately enabled or disabled via their own toggle switch.
 
+Normally the white wire is meant to be connected to the relay (IN2) and not the grey (counter) wire.  I couldn't get a reliable pulse on my acceptor, but the counter (grey) wire seemed to emit a suitable voltage to trigger the relay (> 1.4v) every time a coin was inserted, so went with that.   
+
 The way it works...
 1. When power is supplied to your arcade machine, the 12vDC power goes on and turns on the coin acceptor
 2. When either player turns their toggle switch on, this supplies power to their relay.  The relay supplies power to IN1 which causes NC1 connection to go open and this disables the coin button from working
