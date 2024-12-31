@@ -9,6 +9,8 @@ I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt
 ## Physical layout
 My mockup panel is shown below:
 ![Test panel](../image/Arcade%20panel%20mockup.png)  
+Backside:  
+![Test panel back](../image/Arcade%20panel%20mockup%20-%20back.png)  
 
 Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
 Red labels are where the button plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0) as per:  
