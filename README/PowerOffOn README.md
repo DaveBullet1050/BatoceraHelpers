@@ -6,7 +6,7 @@ Add
 The above does NOT do a power off.  Reason being, you may want to power cycle for some reason and a poweroff prevents the button from turning it back on.  If you want to power off then change to:  
 `dtoverlay=gpio-poweroff,gpio_pin=3,active_low=1,gpio_pull=up`  
 
-Note: the above assumes your button is connected between physical pins 5 and 6 as per: https://pinout.xyz/  Physical pin 5 is mapped to logical "GPIO 3".
+Note: the above assumes your button is connected between physical pins 5 and 6 as per: https://pinout.xyz/  Physical pin 5 is mapped to logical "GPIO 3".  There is no need to put an inline resistor or other component in.  i.e. a basic momentary push button that connects (shorts) pin 5 (GPIO 3) and pin 6 (Ground) is all you need.  
 
 ## batocera.conf change to support a momentary push button
 Update your batocera.conf to include:  
