@@ -12,8 +12,8 @@
 
 # Deubgging (optional). Uncomment /tmp/game_start_stop.log and comment the /dev/null line
 # if you want to debug
-logfile='/dev/null'
-#logfile='/tmp/load_disk.log'
+#logfile='/dev/null'
+logfile='/tmp/load_disk.log'
 
 progname=`basename ${0}`
 echo LAUNCHED: ${progname} on `date +%x' '%X` >> ${logfile}
@@ -79,6 +79,14 @@ fi
 # Close the disk drive
 echo Closing disk. >> ${logfile}
 echo -n "DISK_EJECT_TOGGLE" | nc -c -u -w1 127.0.0.1 55355
+
+# And press F1 to continue (if Ultima IV)
+romName=`cat /tmp/curr_game.log`
+if [[ $romName == c64/Ultima* ]]
+then
+	echo Game is Ultima so sending F1 key >> ${logfile}
+	python /usr/bin/press_key_f1.py
+fi
 
 # Lastly, store the current disk state for next time
 echo $curr_disk > /tmp/curr_disk.txt

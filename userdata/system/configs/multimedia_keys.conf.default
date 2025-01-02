@@ -2,8 +2,3 @@ BTN_THUMB2+BTN_BASE3	1	batocera-audio setSystemVolume +5
 BTN_PINKIE+BTN_BASE3	1	batocera-audio setSystemVolume -5
 KEY_POWER       1               batocera-shutdown 1
 KEY_POWER       0               batocera-shutdown 0
-KEY_KP1	1	load_disk.sh 1
-KEY_KP2	1	load_disk.sh 2
-KEY_KP3	1	load_disk.sh 3
-KEY_KP4	1	load_disk.sh 4
-KEY_PAUSE		1				toggle_pause_game.sh

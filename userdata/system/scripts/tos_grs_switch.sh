@@ -88,6 +88,9 @@ port=`${tosExe} getport`
 romName=`basename \`dirname "${5}"\``/`basename "${5}"`
 echo \$romName: $romName >> ${logfile}
 
+# Also store the ROM name as the current game for querying in other scripts
+echo $romName > /tmp/curr_game.log
+
 is4wayGame=`grep -c -F "${romName}" $roms4wayFile`
 echo \$is4wayGame: $is4wayGame >> ${logfile}
 
@@ -139,5 +142,7 @@ case $1 in
 				mv $roms4wayFile.b $roms4wayFile
 			fi
 		fi
+		
+		rm /tmp/curr_game.log > /dev/null 2>&1
 	;;
 esac
