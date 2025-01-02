@@ -96,6 +96,7 @@ The reason the /userdata/bios/vice/c64 directory has 3 files (and I linked to th
 
 ## VICE disk swap
 
+### Manual swapping
 Some C64 games are multi-disk requiring you to eject, switch then close the virtual 1541 drive during a game.  This is achieved via configuring a ".m3u" file for such games and placing them in the same directory as the ROM (.d64) files.  See [Ultima 4.m3u](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%204.m3u) as an example:  
 ```
 ULTIMA4A.D64|Side A - Program Disk
@@ -124,3 +125,20 @@ c64.retroarch.input_disk_eject_toggle_btn=4
 The comments should be self explanatory on how the keys / buttons work.  For the button code mapping, see: [Physical to virtual mapping](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-to-virtual-mapping)  
 
 When ejecting a disk, swapping and closing the virtual drive door, you'll see popup messages from Retroarch.  
+
+### Semi-automated swapping
+The [load_disk.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/load_disk.sh) script takes the number of a disk to load and keeps a running tab on which disk is loaded via storing the last disk switched to in a /tmp file.  
+eg:  
+`load_disk.sh 3`  
+Will jump to the 3rd disk (assuming there is a 3rd disk).  
+
+As only eject disk, previous disk and next disk are supported, there is no way to query the current index nor set the name of the disk to jump to.  The above script first ejects the current disk, then skips forward or back until the desired disk number is reached, finally closing the drive.  
+
+It uses netcat to send commands to libretro.  A full set of the commands supported is here: https://github.com/libretro/RetroArch/blob/94dce4001ee5c8329216bca8fd0043061129986c/command.h#L438  
+
+To setup the script for a specific game, simply name scripts / shortcuts with the disk to jump to.  Because Batocera is running exclusively on the host and I don't want to have another window open, I can use my phone (or laptop) with SSH to invoke the script.  SSH Button for Android works well for this.  Using Ultima IV as an example (which has 4 disks), I have configured 4 commands, one for each disk:  
+![SSH buttons](../image/load_disk%20ssh%20config.png)  
+
+Here's what the 3rd disk command looks like:  
+![SSH config](../image/SSH%20config%20disk%203.png)  
+
