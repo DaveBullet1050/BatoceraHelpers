@@ -1,5 +1,11 @@
 # Keystroke generation and mapping
 
+## Simulated key presses
+
+What say you want to generate/inject an actual keypress?  This python script (used to tell the C64 to continue with the game after swapping C64 game disks) can be adapted to send any number of key presses.  [press_key_f1.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/press_key_f1.py).  
+
+The for loop is purely there to grap the first evdev (/dev/input/eventX) device which has a "Keyboard" description.  No point sending the key to some random device on the evdev list!  
+
 ## pad2key (send controller joystick movement/buttons as key events)
 Some games are just keyboard oriented and do not accept joystick input.  Although this page is dedicate to VIC 20 and C64 keyboard oriented games, the same concepts should work for any other keyboard centric emulator.
 
@@ -35,7 +41,6 @@ The c64 examples above allow a joystick to control movement (and player attack v
 Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  That led me to the following solution for how to map one key press to another for VICE games...
 
 ## VICE key mapping
-
 For Ultima, using @ : ; and / Commodore keyboard keys are a pain for character movement.  Wouldn't it be nice to use your normal keyboard arrow keys?  You can do that via editing the [sdl_pos.vkm](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/bios/vice/c64/sdl_pos.vkm.ultima) file.  A youtuber explained the code / format, but I've already modified the following rows in the file, to map the up/left/right/down arrow keys to the commodore @ : ; / equivalents:  
 ```
 273 5 6 0              /*           Up -> @		       */
@@ -96,7 +101,7 @@ The reason the /userdata/bios/vice/c64 directory has 3 files (and I linked to th
 
 ## VICE disk swap
 
-### Manual swapping
+### Configuring a multi-disk game
 Some C64 games are multi-disk requiring you to eject, switch then close the virtual 1541 drive during a game.  This is achieved via configuring a ".m3u" file for such games and placing them in the same directory as the ROM (.d64) files.  See [Ultima 4.m3u](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%204.m3u) as an example:  
 ```
 ULTIMA4A.D64|Side A - Program Disk
@@ -109,6 +114,7 @@ The format is:
 
 The filename is the full name including file extension and friendly name is whatever you want VICE to display when you change disks.  
 
+### Manual swapping
 Once we setup the above file and update our game collection / scraper.  The problem is we now have 5 "Ultima 4" games being displayed in Emulation Station (one for the .m3u and 4 for the game disks).  We can hide the game disks by holding the launch (P1 red button on my machine) on each of the .d64 entries in ES, to bring up the game specific configuration menu.  Then select Edit This Game's Metadata -> Hidden and toggle on, then save.  This will hide that .d64 from display.  Do this for each .d64 until just the .m3u is showing.  
 
 Although the above groups the disks together for a game, we need a way of toggling / activating the disk swap.  These mappings in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) achieve this:  
@@ -127,18 +133,35 @@ The comments should be self explanatory on how the keys / buttons work.  For the
 When ejecting a disk, swapping and closing the virtual drive door, you'll see popup messages from Retroarch.  
 
 ### Semi-automated swapping
-The [load_disk.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/load_disk.sh) script takes the number of a disk to load and keeps a running tab on which disk is loaded via storing the last disk switched to in a /tmp file.  
-eg:  
+
+Rather than having to manually eject, then press previous / next, working out which direction and which disk to load.... can we do that via API?  Yes we can!  
+We can send commands to RetroArch over its UDP/55355 port.  The full set of the command enumerations are documented here: https://github.com/libretro/RetroArch/blob/94dce4001ee5c8329216bca8fd0043061129986c/command.h#L438  
+
+To send a command we can use netcat (aliased as nc):  
+`echo -n "DISK_EJECT_TOGGLE" | nc -c -u -w1 127.0.0.1 55355`  
+
+Tells retroarch to perform a disk eject command.  
+
+We can then string together the commands to eject, go previous/next then eject(load) the disk.  We need to inject a sleep() between them to allow the emulator time to complete the actions, then finally we can inject a keypress (e.g. for Ultima IV) to tell the game to continue. Basically, we want one "key" (or could be mapped to a controller hotkey button combo etc...) to press to change to the right disk and continue the game.
+
+I created the [load_disk.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/load_disk.sh) script which takes as a single parameter, the number / index of the disk to load.  e.g. say you have a 4 disk game like Ultima IV, then:
 `load_disk.sh 3`  
-Will jump to the 3rd disk (assuming there is a 3rd disk).  
+Will jump to the 3rd disk (assuming there is a 3rd disk) by using netcat to eject, scroll through (previous/next disk) then eject again to reload the disk, finally pressing the F1 Key if we are playing Ultima IV.  The index number is determined by the order of disks in your .m3u file.  
 
-As only eject disk, previous disk and next disk are supported, there is no way to query the current index nor set the name of the disk to jump to.  The above script first ejects the current disk, then skips forward or back until the desired disk number is reached, finally closing the drive.  
+The problem with netcat, is it only returns success or failure.  As only eject disk, previous disk and next disk are supported, there is no way to query the current index nor set the name of the disk to jump to.  The above script first ejects the current disk, then skips forward or back until the desired disk number is reached, finally closing the drive.    No problem, the load_disk.sh script writes a /tmp/curr_disk.txt file to track the last loaded disk (and this file is removed when the game is stopped to reset).  
 
-It uses netcat to send commands to libretro.  A full set of the commands supported is here: https://github.com/libretro/RetroArch/blob/94dce4001ee5c8329216bca8fd0043061129986c/command.h#L438  
+The final piece of the puzzle is how to simulate an F1 key press to allow Ultima IV to continue?  
 
-To setup the script for a specific game, simply name scripts / shortcuts with the disk to jump to.  Because Batocera is running exclusively on the host and I don't want to have another window open, I can use my phone (or laptop) with SSH to invoke the script.  SSH Button for Android works well for this.  Using Ultima IV as an example (which has 4 disks), I have configured 4 commands, one for each disk:  
+Batocera uses triggerhappy to listen to and generate key presses (this is outside of any emulator).  However Batocera triggerhappy config is system wide and not intended to be per game.  I don't want the disk change keys to be usable outside of Ultima IV (otherwise some games may need the numeric keypad and I'll be generating spurious actions).  So instead I switch in/out the triggerhappy config file to map numeric keys 1-4 as the Ultima disk change keys in a game start/stop script that also switches out the keyboard maps: [c64_ultima_keyboard.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/c64_ultima_keyboard.sh).  
+The default triggerhappy config is: [multimedia_keys.conf.default](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/multimedia_keys.conf.default).  The Ultima specific one is: [multimedia_keys.conf.ultima](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/multimedia_keys.conf.ultima)  
+
+We can see for the Ultima one, when the numeric keypad key 2 is pressed, load_disk.sh 2 is called to switch Ultima to the 2nd disk.  
+
+At the end of the load_disk.sh script, I check if the game is Ultima (after previously storing which game was started here: [tos_grs_switch.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/9dfe15f27f923c2b4396246be1f2f1f23ce95272/userdata/system/scripts/tos_grs_switch.sh#L92)) then I send the F1 key using this Python script: [press_key_f1.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/press_key_f1.py).  This completes the disk change over AND tells Ultima Iv to continue from a single key press. Nice!  
+
+### Execution of commands from another device
+IF you don't want to use a keyboard or controller, you can use any other SSH device e.g. a phone, laptop etc... to invoke the script load_disk.sh script.  SSH Button for Android works well for this.  Using Ultima IV as an example (which has 4 disks), I have configured 4 commands, one for each disk:  
 ![SSH buttons](../image/load_disk%20ssh%20config.png)  
 
 Here's what the 3rd disk command looks like:  
 ![SSH config](../image/SSH%20config%20disk%203.png)  
-

@@ -28,7 +28,7 @@ if you have 32-bit compatibility enabled. This is required in order to launch th
 You can either get these from the folder in this repo or download these (extract from within /usr/lib) for an Rpi3 from:
 http://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-rpi-armv7-latest.tar.gz
 
-Note: if you are running a Pi4/5 - you may need libraries specific to those versions.
+Note: if you are running a Pi5, You're out of luck. Pi5 has no 32-bit compatibility mode, so you'll need to reach out to the author and ask for source and recompile (I don't think the source is available).  I also don't know if Pi4 has 32-bit compatibility at a hardware level.
 
 ## How to run tos428cl.exe
 
