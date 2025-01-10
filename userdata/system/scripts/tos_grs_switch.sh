@@ -113,8 +113,8 @@ case $1 in
 	gameStop)
 		echo Game is stopping >> ${logfile}
 
-		# Get the controller position. As both controllers are pivoted together
-		# we only need to sample the first controller
+		# Get the joystick position. As both joysticks are pivoted together
+		# we only need to sample the first joystick.
 		echo "getway,1" > $port
 		read currentWay < $port
 		echo \$currentWay: $currentWay >> ${logfile} 2>&1
