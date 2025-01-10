@@ -9,7 +9,7 @@ The software that comes with the kit is designed to run on a 32-bit AARM archite
 
 ## Files and commands (should you want to roll your own scripts etc...)
 
-One way to dynamically find the tty device the controller:  
+One way to dynamically find the tty device the TOS GRS controller:  
 `grep -l -m1 PRODUCT=2341/8036/100 /sys/class/tty/tty*/device/uevent | cut -f 5 -d"/"`  
 
 This will return your device name, eg:  
@@ -17,7 +17,7 @@ This will return your device name, eg:
 
 I've put the above in the script [get_tos_tty.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/tos_grs/get_tos_tty.sh) which will return a fully qualified /dev/ttyXXX so you can then send commands.  
 
-The commands are simply done via echo to the tty then a read to see the result.  A value of zero "0" or "all" can be used to send the same command to all attached joysticks, otherwise numbers 1-4 can be used to switch individual jouysticks.
+The commands are simply done via echo to the tty then a read to see the result.  A value of zero "0" or "all" can be used to send the same command to all attached joysticks, otherwise numbers 1-4 can be used to switch individual joysticks.
 
 This sets the direction of the all joysticks 4 to way (assuming your device is what is reported above):  
 ```
