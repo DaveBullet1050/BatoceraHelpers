@@ -17,7 +17,7 @@ This will return your device name, eg:
 
 I've put the above in the script [get_tos_tty.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/tos_grs/get_tos_tty.sh) which will return a fully qualified /dev/ttyXXX so you can then send commands.  
 
-The commands are simply done via echo to the tty then a read to see the result.  A value of zero "0" or all" can be used to send the same command to all attached joysticks.
+The commands are simply done via echo to the tty then a read to see the result.  A value of zero "0" or "all" can be used to send the same command to all attached joysticks, otherwise numbers 1-4 can be used to switch individual jouysticks.
 
 This sets the direction of the all joysticks 4 to way (assuming your device is what is reported above):  
 ```
@@ -35,6 +35,12 @@ echo $rc
 ```  
 
 Which will either be ok or err.  
+
+If we want to read the orientation of joystick 1 we can send:
+```
+echo getway,1 > `/usr/bin/tos_grs/get_tos_tty.sh`
+```
+Then read the result stored on the tty via the read command above.  We will get either 4 or 8 as a result.  
 
 ## Automatic switching of TOS GRS restrictor gate between 4 and 8 way
 
