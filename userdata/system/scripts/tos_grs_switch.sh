@@ -9,20 +9,8 @@
 # Then purchase one of these kits for each additional joystick
 # https://thunderstickstudio.com/products/tos-grs-4-to-8-way-restrictor-extension-kit
 #
-# Software needed
-# ---------------
-# Put the following in the same folder (and ensure you make them executable with a chmod 755 *)
-# Default location: /usr/bin/tos_grs
-#
-# tos428cl.exe - downloaded from the thunderstickstudio site (see links above)
-# ld-linux-armhf.so.3 - obtained from an Armv7 / 32-bit Raspberry Pi distribution
-# libc.so.6 - obtained from an Armv7 / 32-bit Raspberry Pi distribution
-#
-# Put the following in a configuration folder.  Default location: /userdata/system/configs/tos_grs/roms4wayWithPath.txt
-#
-# roms4way.txt - downloaded from the thunderstickstudio site (see links above)
-#
-# NB: The thunderstick version of roms4way.txt needs to have each line prefixed with "mame/" for this script to work (as it is multi-emulator capable)
+# This is purely shell driven, reading and writing directly to the TOS GRS TTY device.
+# No additional software is required
 #
 # How the script works and configuration
 # --------------------------------------
@@ -33,10 +21,9 @@
 # for the game you are currently playing, and on exit, the setting will be stored.
 #
 # To configure the script - set the 3 variables in the CONFIGURATION section below.  They are
-# 1. Path to TORS GRS exe (to get / set controller direction)
-# 2. Path to file containing roms that should be in 4 way mode
+# 1. Path to file containing roms that should be in 4 way mode
 # And optionally:
-# 3. Log file location (if you want to debug things) - default is /dev/null
+# 2. Log file location (if you want to debug things) - default is /dev/null
 # All paths are absolute (fully qualified)
 
 # roms4way file format
@@ -54,10 +41,9 @@
 
 # CONFIGURATION STARTS.
 #
-# Set the following to your desired locations and where the EXE and ROMS 4 way file are located
+# Set the following to your desired locations and where the ROMS 4 way file are located
 
 # Change these depending on where you've located the tos428cl_exe (and 32 bit library files) and roms4way.txt
-tos428exe=/usr/bin/tos_grs/tos428cl.exe
 roms4wayFile=/userdata/system/configs/tos_grs/roms4wayWithPath.txt
 
 # Deubgging (optional). Uncomment /tmp/game_start_stop.log and comment the /dev/null line
@@ -74,10 +60,17 @@ echo LAUNCHED: ${progname} on `date +%x' '%X` >> ${logfile}
 
 echo Command line from Batocera: "$@" >> ${logfile}
 scriptPath=`dirname -- ${0}`
-exePath=`dirname ${tos428exe}`
-tosExe="${exePath}/ld-linux-armhf.so.3 --library-path ${exePath} ${tos428exe}"
-echo \$tosExe: ${tosExe} >> ${logfile}
-port=`${tosExe} getport`
+
+echo "Trying to find TOS GRS controller port." >> ${logfile}
+port=`/usr/bin/tos_grs/get_tos_tty.sh`
+
+if ! [ -z $port ]
+then
+	echo \$port: $port >> ${logfile}
+else
+	echo "TOS GRS controller not connected or port not found.  Exiting" >> ${logfile}
+	exit
+fi
 
 # Get the ROM name (without path)
 #romName=`echo $5 | rev | cut -s -f1 -d/ | rev`
@@ -88,30 +81,42 @@ port=`${tosExe} getport`
 romName=`basename \`dirname "${5}"\``/`basename "${5}"`
 echo \$romName: $romName >> ${logfile}
 
-# Also store the ROM name as the current game for querying in other scripts
-echo $romName > /tmp/curr_game.log
-
 is4wayGame=`grep -c -F "${romName}" $roms4wayFile`
 echo \$is4wayGame: $is4wayGame >> ${logfile}
 
-# Case selection for first parameter parsed, our event.
+# Batocera tells us the event, we're only interested in games starting or stopping.
 case $1 in
     gameStart)
 		echo Game is starting >> ${logfile}
+
+		# Also store the ROM name as the current game for querying in other scripts
+		echo $romName > /tmp/curr_game.log
+
 		if [ $is4wayGame = 1 ]
 		then
 			echo "$romName is 4 way.  Setting controller" >> ${logfile}
-			${tosExe} ${port} setway,all,4 >> ${logfile} 2>&1
+			echo "setway,all,4" > $port
 		else
 			echo "$romName is 8 way.  Setting controller" >> ${logfile}
-			${tosExe} ${port} setway,all,8 >> ${logfile} 2>&1
+			echo "setway,all,8" > $port
+		fi
+		# Check for errors
+		read setWayResult < $port
+		# We use regex to match as read adds carriage return to the variable, so this is a lazy way of matching
+		if [[ $setWayResult == ok* ]]
+		then
+			echo "Command succeeded." >> ${logfile}
+		else
+			echo "Error sending command.  Error code: $setWayResult" >> ${logfile}
 		fi
     ;;
 	gameStop)
 		echo Game is stopping >> ${logfile}
+
 		# Get the controller position. As both controllers are pivoted together
 		# we only need to sample the first controller
-		currentWay=`${tosExe} ${port} getway,1`
+		echo "getway,1" > $port
+		read currentWay < $port
 		echo \$currentWay: $currentWay >> ${logfile} 2>&1
 		
 		# Combinations:
@@ -120,12 +125,12 @@ case $1 in
 		# If the current position is 8 way and rom is NOT in the 4 way file, do nothing
 		# If the current position is 8 way and rom IS in the 4 way file, REMOVE IT
 		
-		if [ $currentWay = 4 ]
+		# We use regex to match as read adds carriage return to the variable, so this is a lazy way of matching
+		if [[ $currentWay == 4* ]]
 		then
 			if [ $is4wayGame = 1 ]
 			then
 				echo Current setting: 4 way and already in file, do nothing >> ${logfile} 2>&1
-				break
 			else
 				echo Current setting: 4 way and NOT in file, add it >> ${logfile} 2>&1
 				echo $romName >> $roms4wayFile
@@ -135,7 +140,6 @@ case $1 in
 			if [ $is4wayGame = 0 ]
 			then
 				echo Current setting: 8 way and NOT in file, do nothing >> ${logfile} 2>&1
-				break
 			else
 				echo Current setting: 8 way and IN file, remove it >> ${logfile} 2>&1
 				grep -v $romName $roms4wayFile > $roms4wayFile.b
@@ -143,6 +147,7 @@ case $1 in
 			fi
 		fi
 		
+		# Remove currently playing game now it is stopping
 		rm /tmp/curr_game.log > /dev/null 2>&1
 	;;
 esac

@@ -22,6 +22,7 @@ echo \$romName: $romName >> ${logfile}
 
 if [ $2 != 'c64' ]
 then
+	echo "Not a C64 game, exiting." >> ${logfile}
 	# Nothing to do if not a c64 game
 	exit
 fi
