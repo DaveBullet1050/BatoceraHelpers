@@ -9,7 +9,7 @@ If making any changes to files in any other location other than /userdata, remem
 `batocera-save-overlay`  
 To persist your changes (otherwise they will be lost on reboot).  
 
-This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  The help pages below link to the relevant files for configuring that feature:  
+This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  If using any of the config or scripts linked under these pages, simply copy to the same structure in this repo - to your Batocera machine.  i.e. files under /usr/bin/tos_grs get copied to the same location (create directories if required).  The help pages below link to the relevant files for configuring that feature:  
 
 [Controller Reference](./README/Controller%20Reference%20README.md#controller-reference)  
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)  
