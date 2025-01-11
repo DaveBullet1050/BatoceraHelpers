@@ -1,6 +1,6 @@
 # Controller based volume up / down
 
-To enable volume control, you can use any combination of controller buttons via the triggerhappy daemon running on Batocera. Using a button combination means in normal play, these buttons won't normally be pressed together, so it makes sense to choose something like your hotkey (SELECT) button in combination with any other convenient player 1 buttons for volume up and down.  
+To enable volume control, you can use any combination of controller buttons via the triggerhappy daemon running on Batocera. The reason I wanted to use triggerhappy is it works at the operating system level. That means I can control Linux/ALSA volume independent of any particular emulator behaviour / capability.  You want to use button combinations that won't normally be pressed together, so it makes sense to choose something like your hotkey (SELECT) button in combination with any other convenient player 1 buttons for volume up and down.  
 
 First we need to work out what events are generated for each button, so we can name them correctly in the triggerhappy file.  
 
@@ -43,4 +43,8 @@ For example:
 BTN_THUMB2+BTN_BASE3	1	batocera-audio setSystemVolume +5
 BTN_PINKIE+BTN_BASE3	1	batocera-audio setSystemVolume -5
 ```
-The order of buttons is signficant. If the combination doesn't work, swap the order.  In my example, the hotkey has to be placed at the end of the combination.  '1' tells triggerhappy that an "on" for the button combo should call the command, which is batocera-audio with a setSystemVolume parameter.  The +5 or -5 is a percentage.
+The order of buttons is signficant. If the combination doesn't work, swap the order.  In my example, the hotkey has to be placed at the end of the combination.  '1' tells triggerhappy that an "on" for the button combo should call the command, which is batocera-audio with a setSystemVolume parameter.  The +5 is go up 5% in volume or -5, down 5%.
+
+I set my amplifier volume knob to half way. This provides enough range for volume adjustment without having to physically access the amp / inside the machine.  To set the initial volume to midway, eg. 55%, set:  
+`audio.volume=55`  
+in your batocera.conf, then you can increase / decrease via the buttons.  
