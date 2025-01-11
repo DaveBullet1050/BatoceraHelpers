@@ -4,13 +4,14 @@
 
 What say you want to generate/inject an actual keypress?  This python script (used to tell the C64 to continue with the game after swapping C64 game disks) can be adapted to send any number of key presses.  [press_key_f1.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/press_key_f1.py).  
 
-The for loop is purely there to grap the first evdev (/dev/input/eventX) device which has a "Keyboard" description.  No point sending the key to some random device on the evdev list!  
+It dynamically tries to guess hthe device for the keyboard attached to your system (assuming you have one).  The for loop is purely there to grab the first evdev (/dev/input/eventX) device which has a "Keyboard" description.  No point sending the key to some random device on the evdev list!  
+
+The above is only for generating keys "From nothing".  If you want to map an actual controller movement to a keyboard key press, then pad2key is for you...  
 
 ## pad2key (send controller joystick movement/buttons as key events)
-Some games are just keyboard oriented and do not accept joystick input.  Although this page is dedicate to VIC 20 and C64 keyboard oriented games, the same concepts should work for any other keyboard centric emulator.
+Some games are just keyboard oriented and do not accept joystick input.  Although this page is dedicated to VIC 20 and C64 keyboard oriented games, the same concepts should work for any other keyboard centric emulator or game.  
 
-Batocera provides pad2key - which essentially listens for controller events (joystick and button pushes) then when they are detected (combinations are allowed) one (or more) keystrokes can be sent to the game / emulator.
-
+Batocera provides pad2key, which essentially listens for controller events (joystick and button presses) then when they are detected (combinations are allowed) one (or more) keystrokes can be sent to the game / emulator.  
 You can set these at an emulator level, see [c64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/evmapy/c64.keys) as an example.  For example in c64.keys:
 ```
 ...
@@ -21,7 +22,7 @@ You can set these at an emulator level, see [c64.keys](https://github.com/DaveBu
         },
 ...
 ```
-The above says when "x" button (aka P1 green button) is pressed, then send the F11 key to the game.  VICE defaults F11 to "warp mode" so I saw no reason to change.  Although VICE will auto-warp drive and tape access, I found any "compute" functions were also slow... so you can hold the green button (or F11 if you have a keyboard plugged in) to "warp" VICE any time.
+The above says when "x" button (aka [P1 green button](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-layout)) is pressed, then send the F11 key to the game.  VICE defaults F11 to "warp mode" so I saw no reason to change.  Although VICE will auto-warp drive and tape access, I found any "compute" functions were also slow... so you can hold the P1 green button aka X (or F11 if you have a keyboard plugged in) to "warp" VICE any time.  I didn't combine say the SELECT (hotkey) with the X button, since the green button has no input into the Vic20/C64 (i.e. unused). 
 
 The other keys in the c64.keys file are:  
 - pageup (aka P1 pink button) sends the Escape key which defaults in VICE = Run/stop key  
@@ -41,14 +42,14 @@ The c64 examples above allow a joystick to control movement (and player attack v
 Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  That led me to the following solution for how to map one key press to another for VICE games...
 
 ## VICE key mapping
-For Ultima, using @ : ; and / Commodore keyboard keys are a pain for character movement.  Wouldn't it be nice to use your normal keyboard arrow keys?  You can do that via editing the [sdl_pos.vkm](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/bios/vice/c64/sdl_pos.vkm.ultima) file.  A youtuber explained the code / format, but I've already modified the following rows in the file, to map the up/left/right/down arrow keys to the commodore @ : ; / equivalents:  
+As the C64 had no arrow/cursor keys for movement, games had to resort to other key combinations.  For Ultima, @ : ; and / Commodore keys are used for up/left/right/down movement and a pain.  Wouldn't it be nice to use your normal keyboard arrow keys?  You can do that via editing the [sdl_pos.vkm](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/bios/vice/c64/sdl_pos.vkm.ultima) file.  A youtuber explained the code / format, but I've already modified the following rows in the file, to map the up/left/right/down arrow keys to the commodore @ : ; / equivalents:  
 ```
 273 5 6 0              /*           Up -> @		       */
 276 5 5 0              /*         Left -> :			   */
 275 6 2 0              /*        Right -> ;            */
 274 6 7 0              /*         Down -> /		       */
 ```  
-The first code is the keycode that is generated on your arrow up cursor key (don't change that).  The next 2 come from the table in the file (see below) and last code is an OR'ed value for CBM/shift key combinations.  
+The first code is the keycode (273) is generated when you press your arrow up cursor key (don't change that).  The next 2 come from the table in the file (see below) and last code is an OR'ed value for CBM/shift key combinations.  
 
 To explain - let's take the Up key mapping to "@".  Up is keycode 273 (this was already in the default file) as per:  
 `273 0 7 1              /*           Up -> CRSR UP      */`  
@@ -84,7 +85,9 @@ Finally, the last number (shiftflag) is zero is we don't need a shift / combinat
 Therefore we get:  
 `273 5 6 0              /*           Up -> @		       */`  
 
-To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys).  This generates the physical (i.e. US101 keyboard) key events, eg:
+Which says, when we press up arrow keyboard key (273) send an @ key to the emulator - comprised of bits 5 6 (from the matrix above).  
+
+To get the joystick working - we then have a ".keys" file for each Ultima game which sends selected same joystick movements and buttons to the original movement and attack keys for Ultima, ie: [Ultima 1.d64.keys](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/roms/c64/Ultima%201.d64.keys).  The target key is your actual keyboard, not the Commodore key, This generates the physical (i.e. US101 keyboard) key events, eg:
 ```
         {
             "trigger": "left",
@@ -95,7 +98,7 @@ To get the joystick working - we then have a ".keys" file for each Ultima game w
 Left joystick direction will send the physical US101 keyboard semicolon key, which is then mapped by VICE via the .vkm file to the Commodore colon key (left movement in game) as per:  
 `59 5 5 8               /*            ; -> :            */`  
 
-Remember - pad2key files generate the physical keyboard event, then the emulator (VICE) has its own key mapping to map the keys to the keyboard of the emulated machine.  
+Remember - pad2key files generate the physical keyboard event from your joystick axis or button movement, then the emulator (VICE) has its own key mapping to map the keys to the keyboard of the emulated machine.  
 
 The reason the /userdata/bios/vice/c64 directory has 3 files (and I linked to the Ultima one) is I only want to map the arrow keys to the above keyboard keys for Ultima. There's a script which runs on game start and stop, [c64_ultima_keyboard.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/c64_ultima_keyboard.sh) which toggles which keyboard is in play.  The one with a ".default" extension is used for all non-Ultima C64 games and switched in, vs. ".ultima" when any Ultima game is playing.  
 
@@ -160,7 +163,7 @@ We can see for the Ultima one, when the numeric keypad key 2 is pressed, load_di
 At the end of the load_disk.sh script, I check if the game is Ultima (after previously storing which game was started here: [tos_grs_switch.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/9dfe15f27f923c2b4396246be1f2f1f23ce95272/userdata/system/scripts/tos_grs_switch.sh#L92)) then I send the F1 key using this Python script: [press_key_f1.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/press_key_f1.py).  This completes the disk change over AND tells Ultima Iv to continue from a single key press. Nice!  
 
 ### Execution of commands from another device
-IF you don't want to use a keyboard or controller, you can use any other SSH device e.g. a phone, laptop etc... to invoke the script load_disk.sh script.  SSH Button for Android works well for this.  Using Ultima IV as an example (which has 4 disks), I have configured 4 commands, one for each disk:  
+If you don't want to use a keyboard or controller, you can use any other SSH device e.g. a phone, laptop etc... to invoke the script load_disk.sh script.  SSH Button for Android works well for this.  Using Ultima IV as an example (which has 4 disks), I have configured 4 commands, one for each disk:  
 ![SSH buttons](../image/load_disk%20ssh%20config.png)  
 
 Here's what the 3rd disk command looks like:  
