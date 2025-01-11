@@ -2,9 +2,9 @@
 
 This page documents how I've configured the 2 Zero delay "DragonRise" decoders on my system.
 
-Looking at the back of the Pi 3b+, I simply plugged them into the top left (player 1) and top right (player 2) USB ports.  I've never had a problem with them "switching" on reboot.  (i.e. they seem to be sticky).  
+Looking at the back of the Pi 3b+, I simply plugged them into the top left (player 1) and top right (player 2) USB ports.  I've never had a problem with them "switching" and mucking up the order of player 1 or 2 on reboot.  (i.e. they seem to be sticky).  
 
-I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt-joystick-precursor-to-jlx-tp-8yt/) with the [TOS GRS 4/8 way servo switched restrictor gates](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate).  I am also using 30mm screw in Sanwa buttons for the player buttons, with a mix of 24mm buttons for coin, select and start and Happ style P1/2 start buttons.
+I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt-joystick-precursor-to-jlx-tp-8yt/) with the [TOS GRS 4/8 way servo switched restrictor gates](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate).  I am also using 30mm screw in Sanwa buttons for the player buttons, with a mix of 24mm buttons for coin, select and start and Happ style P1/2 start buttons.  I am also using a cheapo CH-616 coin acceptor, allowing coins to add credits for MAME games.
 
 ## Physical layout
 My mockup panel is shown below:
@@ -13,7 +13,7 @@ Backside:
 ![Test panel back](../image/Arcade%20panel%20mockup%20-%20back.png)  
 
 Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
-Red labels are where the button plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0) as per:  
+Red labels are where the button physically plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0) as per:  
 ![USB Encoder](../image/USB%20zero%20delay%20encoder.png)  
 
 There is no way to configure each (player 1 and 2) USB delay encoders with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
@@ -38,7 +38,7 @@ There is no way to configure each (player 1 and 2) USB delay encoders with a dif
 	</inputConfig>
 ```  
 
-You don't have to connect your USB zero delay controller to buttons this way.  It's just the order I plugged them in.  I've shown this purely so it helps visualise the setup in the various config files in this repo.
+You don't have to wire your USB zero delay controller to buttons in the same order.  It's just the order I plugged them in.  I've shown this purely so it helps visualise the setup in the various config files in this repo (i.e. when reading batocera.conf and button "5" is referenced, you know which one it is).
 
 ## Physical to virtual mapping
 My config files all reference the buttons as follows:
