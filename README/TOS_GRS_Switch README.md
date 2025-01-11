@@ -46,7 +46,7 @@ This will return your device name, eg:
 
 I've put the above in the script [get_tos_tty.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/tos_grs/get_tos_tty.sh) which will return a fully qualified /dev/ttyXXX so you can then send commands.  
 
-Although you can read/write to the TOS GRS tty report directly with echo / read commands, I found this inconsistent as there would be read failures on the result of setting or getting current controller orientation.  I therefore ditched the shell approach and used python pySerial library which is reliable. I still set a timeout on read/write to prevent any hangs (which would cause Batocera to appear frozen as it would wait for all scripts to execute).
+Although you can read/write to the TOS GRS tty device directly with echo / read commands, I found this inconsistent as there would be read failures on the result of setting or getting current controller orientation.  I therefore ditched the shell approach and used python pySerial library which is reliable. I still set a timeout on read/write to prevent any hangs (which would cause Batocera to appear frozen as it would wait for all scripts to execute).
 
 The python code is in [tos_grs_command.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/tos_grs/tos_grs_command.py).
 
