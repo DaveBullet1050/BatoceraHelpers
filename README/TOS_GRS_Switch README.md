@@ -5,15 +5,23 @@
 1.  Copy these files to these locations (creating directories as required). All default root owner / permissions are fine:
 ```
 /usr/bin/tos_grs/get_tos_tty.sh
-/userdata/system/configs/tos_grs/roms4wayWithPath.txt
+/usr/bin/tos_grs/tos_grs_command.py
 /userdata/system/scripts/tos_grs_switch.sh
+/userdata/system/configs/tos_grs/roms4wayWithPath.txt
 ```  
 2. Run:  
 ```
 chmod 755 /usr/bin/tos_grs/get_tos_tty.sh
 chmod 755 /userdata/system/scripts/tos_grs_switch.sh
 ```  
-That should be all you need. No additional software (no exes/binaries as previously mentioned). My scripts purely work on echo / reading TTY now so you don't need any additional software.
+
+3. Run:
+```
+batocera-save-overlay
+```  
+This saves the new files you've added /usr/bin/tos_grs (so not lost on reboot).  
+
+That should be all you need. No additional software (no exes/binaries as previously mentioned). Just shell scripting and a python helper to reliably write to/read from the TOS GRS controller TTY port.  
 
 ## Overview
 
