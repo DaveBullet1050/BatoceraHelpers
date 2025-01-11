@@ -22,4 +22,4 @@ KEY_POWER       0               batocera-shutdown 0
 to:  
 `/userdata/system/configs/multimedia_keys.conf`  
 
-With all of the above done, the KEY_POWER event is enabled and will be triggered when the GPIO pin 3 (physical pin 5) is shorted to ground via the button.  Pressing again, will boot the pi back up again.
+With all of the above done, the KEY_POWER event is enabled and will be triggered when the GPIO pin 3 (physical pin 5) is shorted to ground via the button and triggerhappy will receive it and call the batocera-shutdown script to shut the Pi down, safe to remove power.  Pressing the button down again, will boot the Pi back up again.
