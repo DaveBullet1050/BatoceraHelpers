@@ -22,4 +22,4 @@ This repo contains my batocera overlay file (expanded into the directories and f
 [Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)  
 [Batocera backup](./README/Backup%20README.md)  
 [Network including static IP](./README/Network%20README.md)  
-[DIY LED Marquee on Batocera V39](./README/DMDMarquee README.md)  
+[DIY LED Marquee on Batocera V39](./README/DMDMarquee%20README.md)  
