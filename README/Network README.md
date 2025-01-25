@@ -35,6 +35,9 @@ directory mask = 0755
 force user = root
 ```
 
+## Router woes
+My router was set to "auto" channel config.  This meant the router would either change channels or choose a conflicting channel.  In both cases, there would be a disconnect without reconnect on Batocera.  Ensure you change the channel on your router to a static setting.  For me in New Zealand, I used channel 3 and haven't had a problem since.  No changes are needed Batocera side.
+
 samba maintains its own user/password list, so you may need to run:  
 `smbpasswd -a root`  
 
