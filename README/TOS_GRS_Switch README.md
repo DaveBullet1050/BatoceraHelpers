@@ -30,6 +30,8 @@ The 4/8 way restrictor gate allows selection of 4 way (diamond) or 8 way (square
 First link is a full kit to do one joystick: https://thunderstickstudio.com/products/tos-grs-4-to-8-way-restrictor-all-in-one-kit
 Then purchase one of these kits for each additional joystick: https://thunderstickstudio.com/products/tos-grs-4-to-8-way-restrictor-extension-kit
 
+FYI.... the height of the restrictor gate and servo is about 81mm (from centre top plate where joystick shaft is attached to the tip of the motor servo) if you are needing to plan for controller panel space.
+
 The software that comes with the kit is designed to run on a 32-bit AARM architecture (ie. Pi 3, but not Pi 5 which is 64-bit only) or Windows.  The scripts below should work on any Linux Batocera distribution (x64/86 etc...) as they only require bourne shell capability.
 
 The [tos_grs_switch.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/tos_grs_switch.sh) script does 2 things:
