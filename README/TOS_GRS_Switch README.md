@@ -32,7 +32,7 @@ Then purchase one of these kits for each additional joystick: https://thundersti
 
 FYI.... the height of the restrictor gate and servo is about 81mm (from centre top plate where joystick shaft is attached to the tip of the motor servo) if you are needing to plan for controller panel space.
 
-The software that comes with the kit is designed to run on a 32-bit AARM architecture (ie. Pi 3, but not Pi 5 which is 64-bit only) or Windows.  The scripts below should work on any Linux Batocera distribution (x64/86 etc...) as they only require bourne shell capability.
+The software that comes with the kit is designed to run on a 32-bit AARM architecture (ie. Pi 3, but not Pi 5 which is 64-bit only) or Windows.  The scripts below should work on any Linux Batocera distribution (x64/86 etc...) as they only require bourne shell and python 3 (both already included in Batocera), so no additional packages / compile etc... are required.
 
 The [tos_grs_switch.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/tos_grs_switch.sh) script does 2 things:
 1. When a game is launched by Batocera, it checks whether the game - "emulator/rom" is in the [roms4wayWithPath.txt](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/tos_grs/roms4wayWithPath.txt) file, and if so - tells all  TOS GRS joysticks to switch to 4 way orientation (and if not found, 8 way orientation)  
