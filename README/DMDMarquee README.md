@@ -11,6 +11,9 @@ I've uploaded the v40 files in this repo for a Pi3, using the paths linked below
 /usr/lib/libzedmd.so.0.7.4
 /usr/lib/libdmdutil.so.0.7.0
 /usr/lib/libpupdmd.so.0.4.1
+/usr/lib/libcargs.so
+/usr/lib/libserum.so.2.0.1
+/usr/lib/libsockpp.so.1.0.0
 /usr/bin/dmd-play
 /usr/bin/dmdserver
 /usr/bin/dmdserver-config
@@ -26,9 +29,15 @@ cd /usr/lib
 chmod 755 libzedmd.so.0.7.4
 chmod 755 libpupdmd.so.0.4.1
 chmod 755 libdmdutil.so.0.7.0
+chmod 755 libcargs.so
+chmod 755 libserum.so.2.0.1
+chmod 755 libsockpp.so.1.0.0
 ln -s libzedmd.so.0.7.4 libzedmd.so
 ln -s libpupdmd.so.0.4.1 libpupdmd.so
 ln -s libdmdutil.so.0.7.0 libdmdutil.so
+ln -s libserum.so.2.0.1 libserum.so
+ln -s libsockpp.so.1.0.0 libsockpp.so.1
+ln -s libsockpp.so.1 libsockpp.so
 chmod 755 /usr/bin/dmd*
 chmod 755 /usr/share/batocera/services/dmd*
 chmod 755 /usr/share/dmd-simulator/scripts/*
