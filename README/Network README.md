@@ -22,6 +22,8 @@ There's no way to do this currently in Batocera, so I hacked in a static IP via 
 Also need to set the IP in the /etc/hosts file via [S26system](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/etc/init.d/S26system):  
 `        echo "192.168.1.13	${hostname}"          >> /etc/hosts`  
 
+If you are finding SSH session launches slow to prompt with login, this is likely due to DNS failure on your local network from Batocera, trying to resolve the device you are connecting from.  A hack is to add your client's IP and hostname to the /etc/hosts (via the same script above).  
+
 ## SAMBA root share
 I added this to the [smb.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/etc/samba/smb.conf) to be able to share / to NFS clients:  
 ```
