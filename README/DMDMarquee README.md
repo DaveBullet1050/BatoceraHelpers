@@ -31,3 +31,6 @@ You also need to supply your GIF and PNG files and put these in:
 
 ## Starting the service
 In ES, select SYSTEM SETTINGS -> SERVICES.  You should see DMD_REAL listed.  Toggle to start.  You can check for errors in /userdata/system/logs/es_script_stderr.log
+
+## Upgrades...
+I ended up recompiling dmdserver and associated libraries from source from the latest versions.  The versions shipped with Batocera V41+ should be fine though.  Note: the latest dmdserver wouldn't connect to the latest Marquee ESP32 firmware v5.1.2 (v5.1.1 was fine).  v5.1.1 is what I am running with, but it displays a ZeDMD banner often, whereas the v3.6.0 shipped with V41+ was clear / dark. I might revert to the shipped version, as I am using a USB connection between Pi and ESP32 and don't need WiFi support of the latest (v5+) firmwares) 
