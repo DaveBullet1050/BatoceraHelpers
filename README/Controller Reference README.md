@@ -112,10 +112,11 @@ As you can see I map the button (ID) and code (CODE) in the es_input.cfg:
 ### Batocera.conf settings - Retroarch example
 If you configure Batocera (via Emulation Station) to use a "libretro" based core to emulate your games, you can change or map any of the Retroarch functions.
 
-At step 3 above in the launch process Batocera generates 2 Retroarch files
+At step 3 above in the launch process Batocera generates 2 Retroarch files:  
+```
 /userdata/system/configs/retroarch/retroarchcustom.cfg
 /userdata/system/configs/retroarch/cores/retroarch-core-options.cfg 
-
+```  
 I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:
 ```
 <core_name>.retroarch.<setting>=<value>
