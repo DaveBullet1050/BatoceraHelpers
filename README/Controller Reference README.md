@@ -48,4 +48,98 @@ My config files all reference the buttons as follows:
 The full open office spreadsheet to show you how the various hotkey combinations and per game overrides I've setup in batocera.conf is here:  
 [Button mapping spreadsheet](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Button%20mapping.ods)  
 
+## How controller mapping works
+The basic process is
+1. Base ES mapping
+2. Batocera uses the ID from controller axis/buttons in the batocera.conf (globally, per core or per game)
+3. Batocera generates the relevant config files for the emulator.  For example, Retroarch uses 2 config files. One for the emulator core and one for retroarch itself (more on these below)
+4. Batocera launches the emulator, it reads the just generated config files and you play your game with your desired controller mapping
 
+### Emulation Station mapping
+Batocera packages Emulation Station with a bunch of controllers pre-configured.  The mappings are in:
+`/userdata/system/configs/emulationstation/es_input.cfg`  
+
+If you want to change the mapping of buttons system wide, then using ES is the best way to do it (via ES main menu -> CONTROLLER & BLUETOOTH SETTINGS -> CONTROLLER MAPPING)
+
+To get the ID and CODE values to use (see example above), run:
+`sdl2-test -l`  
+
+Which will list all controllers attached and all events supported (joystick axis and buttons) with codes.  And give you a "joystick number:" for each, eg:
+```
+# sdl2-jstest -l
+Found 2 joystick(s)
+
+Joystick Name:     'DragonRise Inc.   Generic   USB  Joystick  '
+Joystick Path:     '/dev/input/event2'
+Joystick GUID:     03000000790000000600000010010000
+Joystick Number:    0
+Number of Axes:     5
+Number of Buttons: 12
+Number of Hats:     1
+Number of Balls:    0
+GameControllerConfig:
+  Name:    'USB gamepad'
+  Mapping: '03000000790000000600000010010000,USB gamepad,a:b2,b:b1,back:b8,dpdown:h0.4,dpleft:h0.8,dpright:h0.2,dpup:h0.1,leftshoulder:b4,leftstick:b10,lefttrigger:b6,leftx:a0,lefty:a1,rightshoulder:b5,rightstick:b11,righttrigger:b7,rightx:a3,righty:a4,start:b9,x:b3,y:b0,platform:Linux,'
+Axis code  0:    0
+Axis code  1:    1
+Axis code  2:    2
+Axis code  3:    3
+Axis code  4:    5
+Button code  0:   288
+Button code  1:   289
+Button code  2:   290
+Button code  3:   291
+Button code  4:   292
+Button code  5:   293
+Button code  6:   294
+Button code  7:   295
+Button code  8:   296
+Button code  9:   297
+Button code 10:   298
+Button code 11:   299
+Hat code  0:   -1
+```  
+
+You can then run:
+`sdl-jstest -e 0`  
+
+And get a running list of events.  Pressing a joystick axis, or buttons will return something like this.  Here's my "A" button:
+`SDL_JOYBUTTONUP: joystick: 0 button: 4 state: 0 code:292`  
+
+As you can see I map the button (ID) and code (CODE) in the es_input.cfg:
+`		<input name="a" type="button" id="4" value="1" code="292" />`  
+
+### Batocera.conf settings - Retroarch example
+If you configure Batocera (via Emulation Station) to use a "libretro" based core to emulate your games, you can change or map any of the Retroarch functions.
+
+At step 3 above in the launch process Batocera generates 2 Retroarch files
+/userdata/system/configs/retroarch/retroarchcustom.cfg
+/userdata/system/configs/retroarch/cores/retroarch-core-options.cfg 
+
+I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:
+```
+<core_name>.retroarch.<setting>=<value>
+<core_name>.retroarchcore.<setting>=<value>
+```
+
+i.e. the settings from:  
+`/userdata/system/configs/retroarch/retroarchcustom.cfg`  
+go into  
+`<core_name>.retroarch.<setting>=<value>`  
+
+and those in:  
+`/userdata/system/configs/retroarch/cores/retroarch-core-options.cfg`  
+go into  
+`<core_name>.retroarchcore.<setting>=<value>`  
+
+If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list:
+
+Do read [retroarch.cfg] (https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.
+
+For example - if you want to launch all c64 games for a retroarch core with a 270 degree screen rotation, we find this in retroarchcustom.cfg as:
+`video_rotation = 0`  
+
+Therefore our batocera.conf should contain:  
+`c64.retroarch.video_rotation=270`  
+
+See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
