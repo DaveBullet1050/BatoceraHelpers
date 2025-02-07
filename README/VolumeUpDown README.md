@@ -48,3 +48,8 @@ The order of buttons is signficant. If the combination doesn't work, swap the or
 I set my amplifier volume knob to half way. This provides enough range for volume adjustment without having to physically access the amp / inside the machine.  To set the initial volume to midway, eg. 55%, set:  
 `audio.volume=55`  
 in your batocera.conf, then you can increase / decrease via the buttons.  
+
+To reload your new multimedia_keys.conf, run:  
+`/etc/init.d/S50triggerhappy restart`  
+
+If you get any errors, this is because by default Batocera launches the triggerhappy daemon to bind the controls to all devices under /dev/input/event*.  This may cause a problem where a controller (e.g. plugged in keyboard) does not support the button you want to use.  In this case, hack the S50triggerhappy script to only listen on controllers you want to bind (e.g. /dev/input/event2 which is always my P1 controls on my zero delay encoder). 
