@@ -135,7 +135,7 @@ go into
 
 If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list:
 
-Do read [retroarch.cfg] (https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.
+Do read [retroarch.cfg](https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.
 
 For example - if you want to launch all c64 games for a retroarch core with a 270 degree screen rotation, we find this in retroarchcustom.cfg as:
 `video_rotation = 0`  
