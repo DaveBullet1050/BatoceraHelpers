@@ -2,50 +2,37 @@
 
 # ES screensaver-start
 #
-# Display a clock in a random colour
+# Display a clock in a random colour if dmd.screensaver=clock, otherwise default behaviour
 
 # Set file locations and PATH
-source /usr/bin/dmd-helper/es-set-vars.sh
+source dmd-set-vars.sh
 
-progname=$(basename "$(readlink -f ${0})"):screensaver-start:
+if [[ -n ${clockScreenSaver} ]]
+then
+	# Check if DMD display is toggled off. If so, abort
+	if [ -f /tmp/dmd-off ]
+	then
+		debug "DMD display is set to off, exiting"
+		exit 1
+	else
+		debug "STARTED.  Playing clock"
+		source dmd-play-if-changed.sh '|clock|'
+		exit 0
+	fi
+	
+else
+	# Default behaviour - play custom screensaver, failing that, play the batocera logo
+	# custom
+	for EXT in gif png
+	do
+		CUS="/userdata/system/dmd/screensaver.${EXT}"
+		if test -e "${CUS}"
+		then
+			source dmd-play-if-changed.sh "${CUS}"
+		exit 0
+		fi
+	done
 
-echo >> ${esScriptLogFile}
-echo "${progname}STARTED.  Playing clock" >> ${esScriptLogFile}
-
-# rand=$(( ( RANDOM % 9 )  + 1 ))
-
-# case ${rand} in
-	# 1)
-		# colour='blue'
-	# ;;
-	# 2)
-		# colour='red'
-	# ;;
-	# 3)
-		# colour='green'
-	# ;;
-	# 4)
-		# colour='magenta'
-	# ;;
-	# 5)
-		# colour='white'
-	# ;;
-	# 6)
-		# colour='orange'
-	# ;;
-	# 7)
-		# colour='yellow'
-	# ;;
-	# 8)
-		# colour='cyan'
-	# ;;
-	# 9)
-		# colour='purple'
-	# ;;
-# esac
-
-#echo "${progname}Colour is: ${colour}" >> ${esScriptLogFile}
-
-source es-dmd-play.sh '|clock|'
-
-exit 0
+	source dmd-play-if-changed.sh "/usr/share/dmd-simulator/images/system/batocera.png"
+	exit 0
+fi

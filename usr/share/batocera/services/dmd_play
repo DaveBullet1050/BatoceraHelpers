@@ -1,0 +1,58 @@
+#!/bin/sh
+
+source dmd-set-vars.sh
+
+start() {
+	if [ -f ${dmdPlayPIDFile} ]
+	then
+		echo -n "Killing the background dmd-play instance..."
+		dmdPlayPID=`cat ${dmdPlayPIDFile}`
+		kill -s SIGINT ${dmdPlayPID}
+	fi
+	echo -n "Starting dmd-play: "
+	# Start dmd-play in a listener mode and store the PID (so we can send it SIGINT to stop playback for the next marquee
+	start-stop-daemon -S -b -q -m -p ${dmdPlayServicePIDFile} --exec /usr/bin/dmd-play -- -lp ${playPort} > /dev/null &
+	RETVAL=$?
+		
+	echo "done"
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping dmd-play: "
+
+	# clear the screen
+	/usr/bin/dmd-play --clear
+
+	start-stop-daemon -K -q -p ${dmdPlayServicePIDFile}
+	RETVAL=$?
+	
+	echo "done"
+	return $RETVAL
+}
+
+status() {
+    if start-stop-daemon --status -q -p ${dmdPlayServicePIDFile}
+    then
+	echo "started"
+    else
+	echo "stopped"
+    fi
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+                status
+                ;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?

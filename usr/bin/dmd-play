@@ -1,38 +1,67 @@
 #!/usr/bin/env python3
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageFile, ImageDraw, ImageFont
 import sys
-import numpy as np
 import argparse
 import time
 import socket
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from string import Formatter
 import signal
 from functools import partial
 
-feature_video = False
-try:
-    import cv2
-    feature_video = True
-except:
+class StopClientException(Exception):
+    # This is used to receive a SIGINT or SIGTERM when acting as a listener and interrupt the current media playing (if any).
     pass
 
+class Connections(object):
 
+    def __init__(self, dmd_server, listener_mode):
+        self.dmd_server = dmd_server
+        self.listener_mode = listener_mode
 
 class DmdPlayer:
-
+    
+    def signal_handler(connections, sig, frame):
+        if connections.listener_mode and sig == signal.SIGINT:
+            # Running in listener/server mode - interrupt whatever is playing (which will return to main thread and allow a new client to connect and play something)
+            raise StopClientException()
+        else:
+            # Whether interactive or listener/server mode - terminate connection to server and exit
+            connections.dmd_server.close()
+            sys.exit(0)
+            
+    def im2rgb565_fast(im):
+        from numpy import array  as nparray
+        from numpy import uint16 as npuint16
+        data = nparray(im.convert('RGB'))
+        R5 = (data[...,0]>>3).astype(npuint16) << 11
+        G6 = (data[...,1]>>2).astype(npuint16) << 5
+        B5 = (data[...,2]>>3).astype(npuint16)
+        x = R5 | G6 | B5
+        return x.tobytes()
+        #return R5 | G6 | B5
+ 
     def im2rgb565(im):
-        data = np.array(im.convert('RGB'))
-        R5 = (data[...,0]>>3).astype(np.uint16) << 11
-        G6 = (data[...,1]>>2).astype(np.uint16) << 5
-        B5 = (data[...,2]>>3).astype(np.uint16)
-        return R5 | G6 | B5
+        data = im.convert('RGB')
+        pixels = data.load()
+        width, height = data.size
+        rgb565_data = bytearray(width*height*2)
+        n = 0
+        for y in range(height):
+            for x in range(width):
+                r, g, b = pixels[x, y]
+                rgb565 = ((r & 0xF8) << 8) | ((g & 0xFC) << 3) | (b >> 3)
+                rgb565_data[n:n+1] = (rgb565 & 0xFF, (rgb565 >> 8) & 0xFF)
+                n += 2
+        return rgb565_data
 
-    def imageConvert(im):
-        return DmdPlayer.im2rgb565(im)
-        #return np.array(im.convert('RGB'))
+    def imageConvert(im, fastMethod = True):
+        if fastMethod:
+            return DmdPlayer.im2rgb565_fast(im)
+        else:
+            return DmdPlayer.im2rgb565(im)
 
     def getHeader(width, height, layer, nbytes):
         endianness = sys.byteorder
@@ -51,12 +80,12 @@ class DmdPlayer:
         header += nbytes .to_bytes(4, endianness)
         return header
 
-    def sendFrame(header, client, layer, im):
-        msg = header + im.tobytes()
+    def sendFrame(header, dmd_server, layer, im):
+        msg = header + im
         msglen = len(msg)
         totalsent = 0
         while totalsent < msglen:
-            sent = client.send(msg[totalsent:])
+            sent = dmd_server.send(msg[totalsent:])
             if sent == 0:
                 raise RuntimeError("socket connection broken")
             totalsent = totalsent + sent
@@ -107,7 +136,7 @@ class DmdPlayer:
             draw.multiline_text((xoffset, yoffset), txt, font=font, spacing=spacing, align=align, fill=fillcolor)
         return im
     
-    def sendImageFile(header, client, layer, file, width, height, once):
+    def sendImageFile(header, dmd_server, layer, file, width, height, once, listener_mode):
         anim_cache = None
         with Image.open(file) as im:
             if hasattr(im, 'is_animated') and im.is_animated:
@@ -121,12 +150,13 @@ class DmdPlayer:
                             once = True
             else:
                 im = DmdPlayer.imageFit(im, width, height)
-                DmdPlayer.sendFrame(header, client, layer, DmdPlayer.imageConvert(im))
+                DmdPlayer.sendFrame(header, dmd_server, layer, DmdPlayer.imageConvert(im, listener_mode == True))
         # close the image to just play the cache
         if anim_cache is not None:
-            DmdPlayer.playAnim(header, client, layer, anim_cache, once)
+            DmdPlayer.playAnim(header, dmd_server, layer, anim_cache, once)
 
-    def sendVideoFile(header, client, layer, file, width, height, once):
+    def sendVideoFile(header, dmd_server, layer, file, width, height, once):
+        import cv2
         while True:
           cap = cv2.VideoCapture(file)
           fps = cap.get(cv2.CAP_PROP_FPS)
@@ -141,7 +171,7 @@ class DmdPlayer:
             if nskip > 0 and f % nskip == 0:
                 im = Image.fromarray(cv2.cvtColor(cv2_im, cv2.COLOR_BGR2RGB))
                 im = DmdPlayer.imageFit(im, width, height)
-                DmdPlayer.sendFrame(header, client, layer, DmdPlayer.imageConvert(im))
+                DmdPlayer.sendFrame(header, dmd_server, layer, DmdPlayer.imageConvert(im))
             if last_rendering is not None:
                 now = time.time()
                 d = now - last_rendering;
@@ -153,11 +183,11 @@ class DmdPlayer:
           if once:
               break
 
-    def playAnim(header, client, layer, anim, once):
+    def playAnim(header, dmd_server, layer, anim, once):
         while True:
             for n in range(len(anim)):
                 ts = time.time()
-                DmdPlayer.sendFrame(header, client, layer, anim[n]["img"])
+                DmdPlayer.sendFrame(header, dmd_server, layer, anim[n]["img"])
                 # just to a more homogene animation by removing time lost in system calls
                 spent_ts = time.time() - ts
                 delay = anim[n]["duration"]/1000
@@ -166,7 +196,7 @@ class DmdPlayer:
             if once:
                 break
 
-    def sendText(header, client, layer, text, color, target_width, target_height, fontfile, gradient, moving_text, fixed_text, speed, move, once, no_fit, line_spacing, align):
+    def sendText(header, dmd_server, layer, text, color, target_width, target_height, fontfile, gradient, moving_text, fixed_text, speed, move, once, no_fit, line_spacing, align, fastMethod = True):
         #text = bytes(text, 'utf-8').decode("unicode_escape") # so that you can use '\n' # this one break utf-8 chars
         text = text.replace("\\n", "\n")
         lines = text.splitlines()
@@ -185,13 +215,13 @@ class DmdPlayer:
             im = DmdPlayer.txt2image(text, font, gradient, img_width, img_height, color, 0, -top, line_spacing, align)
             if not no_fit:
                 im = DmdPlayer.imageFit(im, target_width, target_height) # an optimisation could be to directly fit with an extra argument in txt2image
-            DmdPlayer.sendFrame(header, client, layer, DmdPlayer.imageConvert(im))
+            DmdPlayer.sendFrame(header, dmd_server, layer, DmdPlayer.imageConvert(im, fastMethod))
         elif not fit and (moving_text is not True or fixed_text is True): # it doesn't fix, resize
             im = DmdPlayer.txt2image(text, font, gradient, img_width, img_height, color, 0, -top, line_spacing, align)
             im = im.resize((target_width, img_height * target_width // img_width))
             if not no_fit:
                 im = DmdPlayer.imageFit(im, target_width, target_height) # an optimisation could be to directly fit with an extra argument in txt2image
-            DmdPlayer.sendFrame(header, client, layer, DmdPlayer.imageConvert(im))
+            DmdPlayer.sendFrame(header, dmd_server, layer, DmdPlayer.imageConvert(im, fastMethod))
         else:
             # move the text ; generate all the frames in a cache first
             anim_cache = []
@@ -202,10 +232,10 @@ class DmdPlayer:
             for i in range(1, target_width+reswidth, move):
                 new_im = Image.new('RGB', (target_width, target_height))
                 new_im.paste(im, (target_width-i, 0))
-                anim_cache.append({ "img": DmdPlayer.imageConvert(new_im), "duration": speed })
-            DmdPlayer.playAnim(header, client, layer, anim_cache, once)
+                anim_cache.append({ "img": DmdPlayer.imageConvert(new_im, fastMethod), "duration": speed })
+            DmdPlayer.playAnim(header, dmd_server, layer, anim_cache, once)
 
-    def sendClock(header, client, layer, color, width, height, fontfile, gradient, speed, h12, no_seconds, clock_format, line_spacing, align, color_cycle, skip_factor):
+    def sendClock(header, dmd_server, layer, color, width, height, fontfile, gradient, speed, h12, no_seconds, clock_format, line_spacing, align, color_cycle, skip_factor):
         state = 0
         r = color[0]
         g = color[1]
@@ -224,7 +254,7 @@ class DmdPlayer:
                     localtime = time.strftime("%H:%M", time.localtime())
                 else:
                     localtime = time.strftime("%H:%M:%S", time.localtime())
-            DmdPlayer.sendText(header, client, layer, localtime, (r, g, b), width, height, fontfile, gradient, False, True, speed, 0, True, False, line_spacing, align)
+            DmdPlayer.sendText(header, dmd_server, layer, localtime, (r, g, b), width, height, fontfile, gradient, False, True, speed, 0, True, False, line_spacing, align)
             time.sleep(speed/1000)
             if not color_cycle:
                 continue
@@ -319,7 +349,7 @@ class DmdPlayer:
                 values[field], remainder = divmod(remainder, constants[field])
         return f.format(fmt, **values)
 
-    def sendCountdown(header, client, layer, countdown, color, width, height, fontfile, gradient, speed, countdown_header, countdown_format, countdown_format_0_day, countdown_format_0_hour, countdown_format_0_minute, line_spacing, align):
+    def sendCountdown(header, dmd_server, layer, countdown, color, width, height, fontfile, gradient, speed, countdown_header, countdown_format, countdown_format_0_day, countdown_format_0_hour, countdown_format_0_minute, line_spacing, align):
         target = datetime.strptime(countdown, '%Y-%m-%d %H:%M:%S')
 
         while True:
@@ -336,19 +366,13 @@ class DmdPlayer:
                 txt = DmdPlayer.strfdelta(delta, countdown_format)
             if countdown_header is not None:
                 txt = countdown_header + "\n" + txt
-            DmdPlayer.sendText(header, client, layer, txt, color, width, height, fontfile, gradient, False, True, speed, 0, True, False, line_spacing, align)
+            DmdPlayer.sendText(header, dmd_server, layer, txt, color, width, height, fontfile, gradient, False, True, speed, 0, True, False, line_spacing, align)
             time.sleep(speed/1000)
 
-    def signal_handler(client, sig, frame):
-        #print('You pressed Ctrl+C!.  Closing client')
-        client.close()
-        sys.exit(0)
-
-    def run(feature_video):
+    def set_args():
         parser = argparse.ArgumentParser(prog="dmd-play")
         parser.add_argument("-f", "--file", help="image path file")
-        if feature_video:
-            parser.add_argument("-v", "--video", help="video path file")
+        parser.add_argument("-v", "--video", help="video path file")
         parser.add_argument("-t", "--text", help="text")
         parser.add_argument("--font", default="/usr/share/fonts/dejavu/DejaVuSans.ttf", help="path to the font file")
         parser.add_argument("--clear", action="store_true",            help="clear the screen")
@@ -370,8 +394,8 @@ class DmdPlayer:
         parser.add_argument("-c", "--clock",  action="store_true",     help="display current time")
         parser.add_argument("--no-seconds",  action="store_true",      help="clock: display only hours and minutes, no seconds")
         parser.add_argument("--h12",  action="store_true",             help="clock: 12-hour format with AM and PM (default it 24h)")
-        parser.add_argument("-ccc", "--clock-color-cycle", action="store_true",             help="rainbow effect color cycling when displaying clock")
-        parser.add_argument("-csf", "--clock-skip-factor", type=int, default=10,    help="when -ccc enabled, how quickly color cycles, 1 = slowest, 15 = moderate")
+        parser.add_argument("-ccc", "--clock-color-cycle", action="store_true",             help="if true (default) rainbow effect color cycling only when displaying clock")
+        parser.add_argument("-csf", "--clock-skip-factor", type=int, default=10,    help="when -ccc enabled, how quickly color cycles, 1 = slowest, 15 = faster.  Make less than 256!")
         parser.add_argument("--clock-format", type=str, default=None,  help="clock: strftime-formatted string (superseeds --h12 and --no-seconds)")
         parser.add_argument("-C", "--countdown",                       help="display a countdown (2050-06-30 15:00:00)")
         parser.add_argument("--countdown-header",                      help="equivalent of changing all format with a prefix")
@@ -379,19 +403,22 @@ class DmdPlayer:
         parser.add_argument("--countdown-format-0-day",    default="{H:2}:{M:02}:{S:02}",        help="countdown format when less than 1 day")
         parser.add_argument("--countdown-format-0-hour",   default="{M:2}:{S:02}",               help="countdown format when less than 1 hour")
         parser.add_argument("--countdown-format-0-minute", default="{S:2}",                      help="countdown format when less than 1 minute")
-        parser.add_argument("-p", "--port", type=int, default=6789,    help="network connexion port")
-        parser.add_argument("--host", default="localhost",             help="dmd server host")
+        parser.add_argument("-p", "--port", type=int, default=6789,    help="port dmd server is listening on")
+        parser.add_argument("-lp", "--listener_port", type=int, default=None,    help="Turns dmd-play into a server / listener.  Open a socket (on this port) to receive command line format instructions.  Only valid with --host (all other args are ignored when specified)")
+        parser.add_argument("--host", default="localhost",             help="dmd server hostname or IP (shared / same as dmd-play if -lp specified)")
         parser.add_argument("--width",  type=int, default=128,         help="dmd width")
         parser.add_argument("--height", type=int, default= 32,         help="dmd height")
         parser.add_argument("--hd",    action="store_true",            help="hd format, equivalent of --width 256 --height 64")
         args = parser.parse_args()
 
         allNone = True
+        if args.listener_port is not None:
+            allNone = False
         if args.file is not None:
             allNone = False
         if args.text is not None:
             allNone = False
-        if feature_video and args.video is not None:
+        if args.video is not None:
             allNone = False
         if args.clear is True:
             allNone = False
@@ -402,18 +429,16 @@ class DmdPlayer:
 
         if allNone:
             sys.stderr.write("Missing something to play\n")
-            return
-            
-        # connect
+            return None
+        else:
+            return args
+
+    def run(args, dmd_server, listener_mode):
+        listener_mode = listener_mode
         layer = "main"
         if args.overlay:
             layer = "overlay"
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect((socket.gethostbyname(args.host), args.port))
-        
-        # Register SIGINT signal interrupt handler, so a Ctrl-C will close the client connection
-        signal.signal(signal.SIGINT, partial(DmdPlayer.signal_handler, client))
-
+ 
         width  = args.width
         height = args.height
         if args.hd:
@@ -426,28 +451,78 @@ class DmdPlayer:
             move = args.move
 
         if args.file:
-            DmdPlayer.sendImageFile(header, client, layer, args.file, width, height, args.once)
+            DmdPlayer.sendImageFile(header, dmd_server, layer, args.file, width, height, args.once, listener_mode)
         elif args.text:
             if args.caps:
                 text = args.text.upper()
                 text = re.sub(r'\\N', '\n', text)
             else:
                 text = args.text
-            DmdPlayer.sendText(header, client, layer, text, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.moving_text, args.fixed_text, args.speed, move, args.once, args.no_fit, args.line_spacing, args.align)
+            DmdPlayer.sendText(header, dmd_server, layer, text, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.moving_text, args.fixed_text, args.speed, move, args.once, args.no_fit, args.line_spacing, args.align, args.moving_text is True and args.fixed_text is False)
         elif args.clock:
-            DmdPlayer.sendClock(header, client, layer, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.speed, args.h12, args.no_seconds, args.clock_format, args.line_spacing, args.align, args.clock_color_cycle, args.clock_skip_factor)
+            DmdPlayer.sendClock(header, dmd_server, layer, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.speed, args.h12, args.no_seconds, args.clock_format, args.line_spacing, args.align, args.clock_color_cycle, args.clock_skip_factor)
         elif args.countdown:
-            DmdPlayer.sendCountdown(header, client, layer, args.countdown, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.speed, args.countdown_header, args.countdown_format, args.countdown_format_0_day, args.countdown_format_0_hour, args.countdown_format_0_minute, args.line_spacing, args.align)
-        elif feature_video and args.video:
-            DmdPlayer.sendVideoFile(header, client, layer, args.video, width, height, args.once)
+            DmdPlayer.sendCountdown(header, dmd_server, layer, args.countdown, (args.red, args.green, args.blue), width, height, args.font, args.gradient, args.speed, args.countdown_header, args.countdown_format, args.countdown_format_0_day, args.countdown_format_0_hour, args.countdown_format_0_minute, args.line_spacing, args.align)
+        elif args.video:
+            DmdPlayer.sendVideoFile(header, dmd_server, layer, args.video, width, height, args.once)
         elif args.clear:
-            DmdPlayer.sendText(header, client, layer, "", (args.red, args.green, args.blue), width, height, args.font, args.gradient, False, True, args.speed, move, True, False, args.line_spacing, args.align)
+            DmdPlayer.sendText(header, dmd_server, layer, "", (args.red, args.green, args.blue), width, height, args.font, args.gradient, False, True, args.speed, move, True, False, args.line_spacing, args.align, False)
 
         if args.overlay:
             time.sleep(args.overlay_time/1000)
 
-        #print("Closing client")
-        client.close()
-
 if __name__ == '__main__':
-    DmdPlayer.run(feature_video)
+    args = DmdPlayer.set_args()
+    if args is None:
+        exit
+
+    # Establish dmd_server connection
+    dmd_server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    dmd_server.connect((socket.gethostbyname(args.host), args.port))
+
+    # Have we been given a listener port for incoming client requests to play media? IF so we ignore all other args (they will be passed in as a raw command line on the listener socket we setup below)
+    listener_mode = args.listener_port is not None
+
+    # Register the signal handler so we can handle interrupts from the outside.  Useful to stop a GIF from playing (if in one off mode) or close the current client playing (if in listener mode).  A SIGINT will loop to listen to another client (or close the app if one off), a SIGTERM will exit regardless (closing connections)
+    s = Connections(dmd_server, listener_mode)
+    signal.signal(signal.SIGINT, partial(DmdPlayer.signal_handler, s))
+    signal.signal(signal.SIGTERM, partial(DmdPlayer.signal_handler, s))
+
+    # Only open a listener if not being run interactively
+    if listener_mode:
+        # Only need this module when running as a service
+        import shlex
+
+        # Setup the listener for incoming requests to play media
+        play_client = None
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        client_socket.bind(('', args.listener_port))
+        client_socket.listen(1)
+
+        waiting = True
+        while True:
+            try:
+                # Wait for incoming client connection...
+                play_client, addr = client_socket.accept()
+
+                # Get the command line from the TCP socket and replace
+                message = play_client.recv(1024)
+                # Hack - should get path to exe dynamically rather than hard code
+                new_args = "/usr/bin/dmd-play " + message.decode("utf-8")
+
+                # Shlex split respects strings in speechmarks (unlike standard string class split) meaning filenames with spaces or special characters aren't split up
+                sys.argv = shlex.split(new_args)
+                args = DmdPlayer.set_args()
+                
+                DmdPlayer.run(args, dmd_server, listener_mode)
+                
+            except StopClientException:
+                if play_client is not None:
+                    # Ensure client connection is closed so we can take another
+                    play_client.close()
+                
+    else:
+        # Being run interactively (one off)
+        DmdPlayer.run(args, dmd_server, listener_mode)
+        dmd_server.close()

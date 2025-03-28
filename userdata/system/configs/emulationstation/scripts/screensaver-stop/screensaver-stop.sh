@@ -1,11 +1,15 @@
 #!/bin/bash
 
-source /usr/bin/dmd-helper/es-set-vars.sh
+source dmd-set-vars.sh
 
-progname=$(basename "$(readlink -f ${0})"):screensaver-stop:
+debug "STARTED.  Screensaver ending"
 
-echo >> ${esScriptLogFile}
-echo "${progname}STARTED" >> ${esScriptLogFile}
-
-# Get dmd-toggle to check if we should restore the last marquee or simply clear the screen (DMD may be set to off)
-source dmd-toggle.sh
+# Check if DMD display is toggled off. If so, abort
+if [ -f /tmp/dmd-off ]
+then
+	debug "DMD display is set to off, exiting"
+	return 1
+else
+	# Restore the previous system or game marquee
+	source dmd-restore-last-event.sh
+fi

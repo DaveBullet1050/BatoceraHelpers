@@ -21,15 +21,15 @@ currEvent="$1"
 forced="$2"
 
 # Only proceed to change marquee if the user has settled on the system and there isn't another event that has superceeded this instance
-source /usr/bin/dmd-helper/es-event-proceed.sh 'system-selected' "${currSystem}" "${currEvent}" "${forced}"
+source dmd-event-proceed.sh 'system-selected' "${currSystem}" "${currEvent}" "${forced}"
 if [ $? -ne 0 ]; then exit; fi
 
 # Ok - safe to proceed to change the system Marquee!
-echo "${progname}CHANGING MARQUEE" >> ${esScriptLogFile}
+debug "CHANGING SYSTEM MARQUEE for: ${currSystem}"
 
 # System name has changed.  Find where the marquee images are sourced
 LOGO=$(wget "http://localhost:1234/systems/${currSystem}?localpaths=true" -qO - | jq -r '.logo')
-echo "${progname}LOGO path: ${LOGO}" >> ${esScriptLogFile}
+debug "LOGO path: ${LOGO}"
 
 if test -n "${LOGO}" -a -e "${LOGO}"
 then
@@ -42,37 +42,41 @@ then
 		
 		if test -e "${HPATH}"
 		then
-			echo "${progname}Hash file: ${HPATH} found, setting marquee via dmd-play" >> ${esScriptLogFile}
-			source es-dmd-play.sh "${HPATH}"
+			debug "Hash file: ${HPATH} found, setting marquee via dmd-play"
+			source dmd-play-if-changed.sh "${HPATH}"
 		else
-			echo "${progname}Hash file not found.  Attempting to create" >> ${esScriptLogFile}
+			debug "Hash file not found.  Attempting to create"
 			mkdir -p "/var/run/dmd-simulator/cache" 
 			if rsvg-convert --width=300 --height=300 --keep-aspect-ratio --output="${HPATH}" "${LOGO}" -b black # try to cache
 			then
-				echo "${progname}Hash file created, setting marquee via dmd-play" >> ${esScriptLogFile}
-				source es-dmd-play.sh "${HPATH}"
+				debug "Hash file created, setting marquee via dmd-play"
+				source dmd-play-if-changed.sh "${HPATH}"
 			fi
 		fi
     else
-		echo "${progname}No hash file path, playing logo: ${LOGO} direct via dmd-play" >> ${esScriptLogFile}
-		source es-dmd-play.sh "${LOGO}"
+		debug "No hash file path, playing logo: ${LOGO} direct via dmd-play"
+		source dmd-play-if-changed.sh "${LOGO}"
     fi
 else
 	# fallback : name
 	GNAME=$(wget "http://localhost:1234/systems/${currSystem}?localpaths=true" -qO - | jq -r '.fullname' | txt2http)
 	if test -n "${GNAME}"
 	then
-		echo "${progname}Can't find any image, displaying system name" >> ${esScriptLogFile}
-		source es-dmd-play.sh "${lastSystem}"
+		debug "Can't find any image, displaying system name"
+		source dmd-play-if-changed.sh "${lastSystem}"
 	else
-		echo "${progname}Can't find system name nor image, clearing display" >> ${esScriptLogFile}
+		debug "Can't find system name nor image, clearing display"
+		source dmd-play-launcher.sh "|clock|"
 		# fallback : empty
 		#dmd-play ${DMDOPT} --clear
 		# The latest ZeDMD.bin 5.1.1 firmware displays the bright ZeDMD logo when a clear is sent so my hack is to send a black image.  However this black image has one pixel that has RGB(1,1,1) to fool the zedmd into thinking it's a picture (if you send a full 0,0,0 image, then zedmd still thinks its nothing and displays the ZeDMD logo)
-		source es-dmd-play.sh /userdata/system/dmd/black.png
+		#source dmd-play-if-changed.sh /userdata/system/dmd/black.png
 	fi
 fi
 
-# Finally remove the mutex
-echo "${progname}Removing mutex" >> ${esScriptLogFile}
-rmdir /tmp/dmd-mutex > /dev/null 2>&1
+if [ -z ${playAsService} ]
+then
+	# If running interactively, remove the  mutex
+	debug "System change: ${currGame}, finished.  Removing mutex"
+	rmdir /tmp/dmd-mutex > /dev/null 2>&1
+fi
