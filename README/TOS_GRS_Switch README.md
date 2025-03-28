@@ -74,4 +74,37 @@ Change the above if you place file containing roms that should be in 4-way posit
 Batocera runs all scripts in the /userdata/system/scripts folder on both game startup and shutdown, passing the name of the ROM and whether a game start or stop event has occurred.  The roms4WayWithPath.txt is exactly the same list of pre-configured 4 way MAME ROM list from the Thunderstick site, but qualified with a `mame/` ROM directory. This allows the same ROM across 2 emulator cores to have a different orientation. 
 
 ## Alternative
-This repo https://github.com/ACustomArcade/tos428/releases contains various binaries
+This repo https://github.com/ACustomArcade/tos428/releases contains various binaries.
+
+e.g. For a Pi3b+, download the 64bit exe:
+https://github.com/ACustomArcade/tos428/releases/download/v1.0/tos428-linux-aarch64
+then:
+`chmod 755 tos428-linux-aarch64`  
+
+If you run it, without any parameters, you should get something like:  
+`2025/01/10 08:42:03 Found tos428: /dev/ttyACM0`  
+
+Then you can pass any of the following parameters:
+```
+Usage of ./tos428-linux-aarch64:
+  -d string
+        path to tos428 device. Set to auto to scan for device. On Windows use COM# (default "auto")
+  -exportromlist string
+        exports the built-in 4-way rom list to specified path
+  -info
+        display device info
+  -r string
+        restrictor to apply setting to (default "all")
+  -raw string
+        raw command to send to the device. Used to support features not currently implemented.
+  -rom string
+        auto-detect the way for the specified rom
+  -romlist string
+        file containing list of 4-way roms. Defaults to built-in list.
+  -way int
+        way to set the restrictor (4 or 8)
+```  
+i.e. to change the controller to be 4 way:  
+`./tos428-linux-aarch64 -way 4`  
+
+the above needs no other libraries / install (i.e. there is no GO runtime required, as it is all compiled in).
