@@ -1,5 +1,7 @@
 # TOS GRS - Automatic 4/8 way restrictor gate
 
+These instructions setup a TOS GRS restrictor gate (for Sanwa joysticks) so that it can select between 4 and 8 way joystick modes when a game launches.  Although this is for Batocera, it should work on any other platform, as long as you have python installed.  If Windows, you'll need to adapt the /usr/bin/tos_grs/get_tos_tty.sh script - as this "finds" the TTY port on Linux that the TOS GRS controller is registered to (for sending commands via python).  On Windows this will be a COMx port.
+
 ## TL;DR - I just want to set it up!
 
 1.  Copy these files to these locations (creating directories as required). All default root owner / permissions are fine:
@@ -70,3 +72,6 @@ exePath=/usr/bin/tos_grs
 Change the above if you place file containing roms that should be in 4-way position in a different location.
 
 Batocera runs all scripts in the /userdata/system/scripts folder on both game startup and shutdown, passing the name of the ROM and whether a game start or stop event has occurred.  The roms4WayWithPath.txt is exactly the same list of pre-configured 4 way MAME ROM list from the Thunderstick site, but qualified with a `mame/` ROM directory. This allows the same ROM across 2 emulator cores to have a different orientation. 
+
+## Alternative
+This repo https://github.com/ACustomArcade/tos428/releases contains various binaries
