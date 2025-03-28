@@ -8,7 +8,7 @@ The scripts below and dmd-play update improve performance greatly on slower mach
 ## Dependencies
 You need to be running [ZeDMD firmware 5.1.1 or greater](https://github.com/PPUC/ZeDMD/releases).  I'm running 5.1.4.  You also need the latest dmd-server binary.  Either grab this via Batocera v42 or recompile yourself from the [lbdmdutil repo](https://github.com/vpinball/libdmdutil).  I've uploaded a working dmd-server for Aarm64 (Pi 3b+) here:
 ```
-/usr/bin/dmd-server
+/usr/bin/dmdserver
 ```
 
 ## How to setup / install
@@ -22,7 +22,6 @@ dmd-play
 dmd-event-proceed.sh
 dmd-get-last-event.sh
 dmd-store-last-event.sh
-dmd-play-service-working
 dmd-play-if-changed.sh
 dmd-toggle.sh
 ```
