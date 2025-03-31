@@ -22,7 +22,9 @@ You can set these at an emulator level, see [c64.keys](https://github.com/DaveBu
         },
 ...
 ```
-The above says when "x" button (aka [P1 green button](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-layout)) is pressed, then send the F11 key to the game.  VICE defaults F11 to "warp mode" so I saw no reason to change.  Although VICE will auto-warp drive and tape access, I found any "compute" functions were also slow... so you can hold the P1 green button aka X (or F11 if you have a keyboard plugged in) to "warp" VICE any time.  I didn't combine say the SELECT (hotkey) with the X button, since the green button has no input into the Vic20/C64 (i.e. unused). 
+The above says when "x" button (aka [P1 green button](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-layout)) is pressed, then send the F11 key to the game.  VICE defaults F11 to "warp mode" so I saw no reason to change.  Although VICE will auto-warp drive and tape access, I found any "compute" functions were also slow... so you can hold the P1 green button aka X (or F11 if you have a keyboard plugged in) to "warp" VICE any time.  I didn't combine say the SELECT (hotkey) with the X button, since the green button has no input into the Vic20/C64 (i.e. unused).  
+
+For a complete list of target key enums, see: [Batocera evmapy keys](https://wiki.batocera.org/evmapy#keys)  
 
 The other keys in the c64.keys file are:  
 - pageup (aka P1 pink button) sends the Escape key which defaults in VICE = Run/stop key  
