@@ -39,7 +39,7 @@ There is no way to configure each (player 1 and 2) USB delay encoders with a dif
 	</inputConfig>
 ```  
 
-You don't have to wire your USB zero delay controller to buttons in the same order.  It's just the order I plugged them in.  I've shown this purely so it helps visualise the setup in the various config files in this repo (i.e. when reading batocera.conf and button "5" is referenced, you know which one it is).
+You don't have to wire your USB zero delay controller to buttons in the same order.  It's just the order I plugged them in.  I've shown this purely so it helps visualise the setup in the various config files in this repo (i.e. when reading batocera.conf and button "5" is referenced, you know which one it is).  
 
 ## Physical to virtual mapping
 My config files all reference the buttons as follows:
@@ -54,18 +54,18 @@ The basic process is
 1. Base ES mapping
 2. Batocera uses the ID from controller axis/buttons in the batocera.conf (globally, per core or per game)
 3. Batocera generates the relevant config files for the emulator.  For example, Retroarch uses 2 config files. One for the emulator core and one for retroarch itself (more on these below)
-4. Batocera launches the emulator, it reads the just generated config files and you play your game with your desired controller mapping
+4. Batocera launches the emulator, it reads the just generated config files and you play your game with your desired controller mapping  
 
 ### Emulation Station mapping
-Batocera packages Emulation Station with a bunch of controllers pre-configured.  The mappings are in:
+Batocera packages Emulation Station with a bunch of controllers pre-configured.  The mappings are in:  
 `/userdata/system/configs/emulationstation/es_input.cfg`  
 
-If you want to change the mapping of buttons system wide, then using ES is the best way to do it (via ES main menu -> CONTROLLER & BLUETOOTH SETTINGS -> CONTROLLER MAPPING)
+If you want to change the mapping of buttons system wide, then using ES is the best way to do it (via ES main menu -> CONTROLLER & BLUETOOTH SETTINGS -> CONTROLLER MAPPING).  
 
-To get the ID and CODE values to use (see example above), run:
+To get the ID and CODE values to use (see example above), run:  
 `sdl2-test -l`  
 
-Which will list all controllers attached and all events supported (joystick axis and buttons) with codes.  And give you a "joystick number:" for each, eg:
+Which will list all controllers attached and all events supported (joystick axis and buttons) with codes.  And give you a "joystick number:" for each, eg:  
 ```
 # sdl2-jstest -l
 Found 2 joystick(s)
@@ -101,14 +101,17 @@ Button code 11:   299
 Hat code  0:   -1
 ```  
 
-You can then run:
+You can then run:  
 `sdl-jstest -e 0`  
 
-And get a running list of events.  Pressing a joystick axis, or buttons will return something like this.  Here's my "A" button:
+And get a running list of events.  Pressing a joystick axis, or buttons will return something like this.  Here's my "A" button:  
 `SDL_JOYBUTTONUP: joystick: 0 button: 4 state: 0 code:292`  
 
-As you can see I map the button (ID) and code (CODE) in the es_input.cfg:
+As you can see I map the button (ID) and code (CODE) in the es_input.cfg:  
 `		<input name="a" type="button" id="4" value="1" code="292" />`  
+
+Another utility than can display button codes is:  
+`evtest`  
 
 ### Batocera.conf settings - Retroarch example
 If you configure Batocera (via Emulation Station) to use a "libretro" based core to emulate your games, you can change or map any of the Retroarch functions.
@@ -118,11 +121,11 @@ At step 3 above in the launch process Batocera generates 2 Retroarch files:
 /userdata/system/configs/retroarch/retroarchcustom.cfg
 /userdata/system/configs/retroarch/cores/retroarch-core-options.cfg 
 ```  
-I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:
+I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:  
 ```
 <core_name>.retroarch.<setting>=<value>
 <core_name>.retroarchcore.<setting>=<value>
-```
+```  
 
 i.e. the settings from:  
 `/userdata/system/configs/retroarch/retroarchcustom.cfg`  
@@ -134,11 +137,11 @@ and those in:
 go into  
 `<core_name>.retroarchcore.<setting>=<value>`  
 
-If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list:
+If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list.  
 
-Do read [retroarch.cfg](https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.
+Do read [retroarch.cfg](https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.  
 
-For example - if you want to launch all c64 games for a retroarch core with a 270 degree screen rotation, we find this in retroarchcustom.cfg as:
+For example - if you want to launch all c64 games for a retroarch core with a 270 degree screen rotation, we find this in retroarchcustom.cfg as:  
 `video_rotation = 0`  
 
 Therefore our batocera.conf should contain:  
