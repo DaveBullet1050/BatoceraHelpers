@@ -34,21 +34,23 @@ game-selected/dmd-simulator.sh
 screensaver-stop/screensaver-stop.sh
 ```  
 
-3. If you want the fastest performance - copy down this file (to be able to configure dmd-play to run as a service):
+3. Copt this is to change to the game marquee when the game is launched from ES (instead of selection - configurable - see below):
+`/userdata/system/scripts/dmd_game_marquee.sh`
+
+4. If you want the fastest performance - copy down this file (to be able to configure dmd-play to run as a service):
 ```
 /usr/share/batocera/services/dmd_play
 ```
 
-4. Ensure you make all scripts executable:
+5. Ensure you make all scripts executable:
 ```
 chmod 755 /usr/bin/dmd*
 chmod 755 -R /userdata/system/configs/emulationstation/scripts/*
+chmod 755 /userdata/system/scripts/dmd_game_marquee.sh
 ```
 
-5. Finally persist the changes for reboot by running:
-```
-batocera-save-overlay
-```
+6. Finally persist the file changes you've made under /usr (so not lost on reboot) by running:
+`batocera-save-overlay`  
 
 Now reboot.
 
