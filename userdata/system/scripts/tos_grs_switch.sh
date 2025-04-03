@@ -99,7 +99,7 @@ case $1 in
 		pyCommand="python ${exePath}/tos_grs_command.py ${port} setway,all,${setWay}"
 		echo \$pyCommand: $pyCommand >> ${logfile}
 		setWayResult=`${pyCommand}`
-		if [ $setWayResult == "ok" ]
+		if [[ $setWayResult == "ok" ]]
 		then
 			echo "Command succeeded." >> ${logfile}
 		else
