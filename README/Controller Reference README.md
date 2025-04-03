@@ -9,11 +9,12 @@ I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt
 ## Physical layout
 My mockup panel is shown below:
 ![Test panel](../image/Arcade%20panel%20mockup.png)  
+Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
+Red labels are where the button physically plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0).  
 Backside:  
 ![Test panel back](../image/Arcade%20panel%20mockup%20-%20back.png)  
 
-Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
-Red labels are where the button physically plugs into the USB zero delay encoder (starting at a zero offset, i.e. button 1 plugs into slot 0) as per:  
+Here's the physical USB zero delay encoder (aka Dragonrise as recognised in Linux/Batocera) as per:  
 ![USB Encoder](../image/USB%20zero%20delay%20encoder.png)  
 
 There is no way to configure each (player 1 and 2) USB delay encoders with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
