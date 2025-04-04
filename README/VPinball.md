@@ -1,4 +1,4 @@
-# Virtual Pinball (VPinball) on Batocera (v41 at time of writing)
+# Visual Pinball (VPinball) on Batocera (v41 at time of writing)
 
 What a pain in the backside!  If you are having trouble, I feel your pain!
 
