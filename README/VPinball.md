@@ -39,17 +39,17 @@ Some ROMS may need depend on other ROMS (e.g. afm_113b may need afm_113 as well)
 Some tables just briefly open then close / crash.  A fix script may be what you need. Check: https://github.com/jsm174/vpx-standalone-scripts/tree/master and download the .VBS file contained in the folder for your game (ignore the .patch / other scripts).  The .VBS must have exactly the same filename as your .VPX.  
 
 ### 4. Music and other things
-I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/<vpinball file>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball  
+I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/\<name of table here\>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball  
 
 ### 5. Final things
 If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinball.log for errors.  The machine may just not work under the VPX Standalone emulator that Batocera uses, e.g. Steve Miller Band is noted as a "No" for Standlone emulator support.  I could get the table to launch but not play, even with all the roms present.
 
-If your table launches and you can briefly see it then it closes / crashes - you'll likely need a .VBS patch script (as per above)
-If the table launches and your coin button works, but start button does nothing (no ball appears) - then you are missing one or more ROM zip files
+If your table launches and you can briefly see it then it closes / crashes - you'll likely need a .VBS patch script (as per above).  
+If the table launches and your coin button works, but start button does nothing (no ball appears) - then you are missing one or more ROM zip files.  
 
 # Key sites
 https://vpuniverse.com - tables and roms  
 https://www.vpforums.org - tables and roms
 
 ## Other help
-This dude on Reddit has written a useful guide that may answer some questions: https://www.reddit.com/r/batocera/comments/1abqxow/the_lazy_batocera_v38_builders_guide_to_visual/
+This dude on Reddit has written a useful guide that may answer some questions: https://www.reddit.com/r/batocera/comments/1abqxow/the_lazy_batocera_v38_builders_guide_to_visual/  
