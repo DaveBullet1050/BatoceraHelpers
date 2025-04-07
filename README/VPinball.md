@@ -47,7 +47,30 @@ If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinba
 If your table launches and you can briefly see it then it closes / crashes - you'll likely need a .VBS patch script (as per above).  
 If the table launches and your coin button works, but start button does nothing (no ball appears) - then you are missing one or more ROM zip files.  
 
-# Key sites
+## Flippers stuck in the up position
+I found this on Apollo 13.  This was caused because the vpmInit procedure wasn't being called.  Ensure a call to:
+`vpmInit Me`  
+is in the _Init procedure at the top of your .VBS file (assuming you downloaded one as described above to get the VPX to work).  Could be called GoldenEye_Init etc...... For apollo 13 the procedure was called Table1_Init:
+```
+Sub Table1_Init
+	On Error Resume Next
+	vpmInit Me
+	With Controller
+		.GameName=cGameName
+		.SplashInfoLine = "Sega Apollo 13"&chr(13)&"by UnclePaulie"
+		If Err Then MsgBox "Can't start Game" & cGameName & vbNewLine & Err.Description : Exit Sub
+		.HandleMechanics=0
+		.HandleKeyboard=0
+		.ShowDMDOnly=1
+		.ShowFrame=0
+		.ShowTitle=0
+		.Hidden=varhidden
+		.Games(cGameName).Settings.Value("rol")	= 0
+		.Games(cGameName).Settings.Value("sound") = 1 ' Set sound (0=OFF, 1=ON)	
+		.Run GetPlayerHWnd
+		If Err Then MsgBox Err.Description
+```  
+## Key sites
 https://vpuniverse.com - tables and roms  
 https://www.vpforums.org - tables and roms
 
