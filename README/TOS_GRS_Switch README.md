@@ -1,4 +1,4 @@
-# TOS GRS - Automatic 4/8 way restrictor gate
+# Sanwa Restrictor gate selector (TOS GRS) - Automatic 4/8 way restrictor gate
 
 These instructions setup a TOS GRS restrictor gate (for Sanwa joysticks) so that it can select between 4 and 8 way joystick modes when a game launches.  Although this is for Batocera, it should work on any other platform, as long as you have python installed.  If Windows, you'll need to adapt the /usr/bin/tos_grs/get_tos_tty.sh script - as this "finds" the TTY port on Linux that the TOS GRS controller is registered to (for sending commands via python).  On Windows this will be a COMx port.
 
@@ -6,27 +6,24 @@ These instructions setup a TOS GRS restrictor gate (for Sanwa joysticks) so that
 
 1.  Copy these files to these locations (creating directories as required). All default root owner / permissions are fine:
 ```
-/usr/bin/tos_grs/get_tos_tty.sh
-/usr/bin/tos_grs/tos_grs_command.py
-/userdata/system/scripts/tos_grs_switch.sh
-/userdata/system/configs/tos_grs/roms4wayWithPath.txt
+/userdata/system/services/sanwa_restrictor
+/userdata/system/configs/sanwa_restrictor/roms4way.txt
 ```  
 2. Run:  
 ```
-chmod 755 /usr/bin/tos_grs/get_tos_tty.sh
-chmod 755 /userdata/system/scripts/tos_grs_switch.sh
+chmod 755 /userdata/system/services/sanwa_restrictor
 ```  
-
-3. Run:
-```
-batocera-save-overlay
-```  
-This saves the new files you've added /usr/bin/tos_grs (so not lost on reboot).  
 
 That should be all you need. No additional software (no exes/binaries as previously mentioned). Just shell scripting and a python helper to reliably write to/read from the TOS GRS controller TTY port.  
 
-## Overview
+To enable, go into the main ES configuration menu and select SYSTEM SETTINGS -> SERVICES, then you should be able to see and toggle SANWA_RESTRICTOR to enable.   
 
+The last (and optional) parameter you can set manually in your /userdata/system/batocera.conf is:
+`sanwa_restrictor.dont_store_change=1`  
+
+The above setting will prevent a 4/8 way orientation change during the game from being stored on exit.  This may be useful for kiosk mode or kids playing etc... so they don't muck up your preferred list of games to play 4 way. Without this setting, if the 4/8 way orientation is changed, then this will be stored in the roms4way.txt file and restored next time the game is launched. This is handy so you can "learn" new games or preferences.
+
+## Overview
 The 4/8 way restrictor gate allows selection of 4 way (diamond) or 8 way (square) orientation of the restrictor gate on Sanwa joysticks.  The replacement gate (with servo motor attached and with custom control board) is available here from https://thunderstickstudio.com.
 
 First link is a full kit to do one joystick: https://thunderstickstudio.com/products/tos-grs-4-to-8-way-restrictor-all-in-one-kit
@@ -36,8 +33,10 @@ FYI.... the height of the restrictor gate and servo is about 81mm (from centre t
 
 The software that comes with the kit is designed to run on a 32-bit AARM architecture (ie. Pi 3, but not Pi 5 which is 64-bit only) or Windows.  The scripts below should work on any Linux Batocera distribution (x64/86 etc...) as they only require bourne shell and python 3 (both already included in Batocera), so no additional packages / compile etc... are required.
 
-The [tos_grs_switch.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/tos_grs_switch.sh) script does 2 things:
-1. When a game is launched by Batocera, it checks whether the game - "emulator/rom" is in the [roms4wayWithPath.txt](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/tos_grs/roms4wayWithPath.txt) file, and if so - tells all  TOS GRS joysticks to switch to 4 way orientation (and if not found, 8 way orientation)  
+The [sanwa_restrictor](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/services/sanwa_restrictor) services script is a little odd.  Rather than launching a service / daemon, the script creates the script that handles gameStart and gameStop events on Batocera. And in turn, the shell script it creates embeds the python code needed to send the commands to the controller.  This means we can have a single file doing everything and we can enable/disable it (much easier to deploy as self contained) and by using a service, we can leverage ES built in services menu to enable/disable (thus avoiding needing to edit batocera.conf).  When the service is disabled, it deletes the script that handles gameStart/gameStop events to toggle the restrictor.
+
+The sanwa_restrictor service creates the /userdata/system/scripts/sanwa_change.sh script, which does 2 things:
+1. When a game is launched by Batocera, it checks whether the game - "emulator/rom" is in the [roms4way.txt](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/tos_grs/roms4wayWithPath.txt) file, and if so - tells all  TOS GRS joysticks to switch to 4 way orientation (and if not found, 8 way orientation)  
 2. When a game stops, the script queries the current TOS GRS joystick orientation and if different, updates the roms4wayWithPath.txt - either adding an entry if the orientation is 4 way, or removing if 8 way. Basically a way you can "teach" the config without resorting to manually adding games as 4 way games to the config file (do it by playing and setting - what works best).  The current set pretty much covers the MAME repo, but you can use this to learn other ROMS from other emulators, or MAME games not in the list etc.  
 
 ## Files and commands (should you want to roll your own scripts etc...)
