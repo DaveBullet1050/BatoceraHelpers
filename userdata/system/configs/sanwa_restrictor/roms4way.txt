@@ -301,6 +301,7 @@ mame/dkongj.zip
 mame/dkongjo.zip
 mame/dkongjo1.zip
 mame/ckongdks.zip
+mame/dkong.zip
 mame/dkongo.zip
 mame/dkong3b.zip
 mame/dkong3j.zip
@@ -881,6 +882,7 @@ mame/pettanp.zip
 mame/phantom.zip
 mame/phantoma.zip
 mame/enigma2b.zip
+mame/phoenix.zip
 mame/phoenix2.zip
 mame/phoenixass.zip
 mame/phoenixa.zip
@@ -948,6 +950,7 @@ mame/tryout.zip
 mame/protenn.zip
 mame/puckmanb.zip
 mame/puckmanh.zip
+mame/puckman.zip
 mame/puckmod.zip
 mame/pacmansp.zip
 mame/puckmanf.zip
@@ -1412,7 +1415,3 @@ mame/zookeepbl.zip
 mame/zookeep.zip
 mame/zookeep2.zip
 mame/zookeep3.zip
-daphne/ace.daphne
-daphne/lair2.daphne
-mame/dkong.zip
-mame/phoenix.zip
