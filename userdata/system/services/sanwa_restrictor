@@ -1,0 +1,147 @@
+#!/bin/bash
+sanwa_change_script=/userdata/system/scripts/sanwa_change.sh
+
+create_script () {
+
+# Write the following contents to the user scripts location which is called when a game start / stop event occurs
+cat << '_EOF_' > ${sanwa_change_script}
+#!/bin/bash
+
+roms4wayFile=/userdata/system/configs/sanwa_restrictor/roms4way.txt
+
+get_tos_port() {
+	tos_tty=`grep -l -m1 PRODUCT=2341/8036/100 /sys/class/tty/tty*/device/uevent | cut -f 5 -d"/"`
+
+	if ! [ -z $tos_tty ]
+	then
+		port="/dev/$tos_tty"
+	fi
+}
+
+send_command() {
+# This inline code uses pySerial to send commands to the TOS GRS TTY device.  It's preferred over straight shell echo to device as that was unreliable when trying to read the response emitted.  We assign the result to sendResult to use in the rest of the script
+sendResult=`/usr/bin/python - <<-_EOC_ ${port} ${1}
+import serial
+import sys
+
+try:
+    # Open the TOS GRS port provided - e.g. /dev/ttyACM0.  add a timeout incase there are any issues (so it doesn't hang)
+    tty = serial.Serial(sys.argv[1], timeout=0.1)
+    # Send the command -e.g.  as a set of bytes
+    byteCommand = sys.argv[2].encode()
+    tty.write(byteCommand)
+    tty.flush()
+    # Read the response as a string, stripping newline characters
+    rc = tty.readline().decode().replace("\r\n", "")
+    tty.close()
+    # Output the response so it can be captured shell script side in a variable
+    print(rc)
+except:
+    # Discard errors, just discard low level python error and return a non-success status. Not helpful, but hey
+    sys.exit(1)
+sys.exit(0)
+_EOC_`
+}
+
+get_tos_port
+# Couldn't find device TOS GRS controller is on - abort
+[[ -z ${port} ]] && exit 1
+	
+# Get the ROM name.  This is the romname prefixed by the directory (emulator) it is in - e.g. mame/puckman.zip
+romName=`basename \`dirname "${5}"\``/`basename "${5}"`
+
+# Check if the file containing ROMS for 4 way play exists.  User may have forgotten to configure the default, if not create it
+if ! [ -e ${roms4wayFile} ]
+then
+	mkdir `dirname ${roms4wayFile}`
+	touch ${roms4wayFile}
+fi
+
+# Check if game is in the 4 way file. = 1 - 4 way game, = 0, 8 way game
+is4wayGame=`grep -c -F "${romName}" ${roms4wayFile}`
+
+# Batocera tells us the event, we're only interested in games starting or stopping.
+case $1 in
+    gameStart)
+		if [ $is4wayGame = 1 ]
+		then
+			setWay=4
+		else
+			setWay=8
+		fi
+		send_command "setway,all,${setWay}"
+		[[ $sendResult == "err" ]] && exit 1
+    ;;
+	gameStop)		
+		storeChanges=`/usr/bin/batocera-settings-get sanwa_restrictor.dont_store_change`
+		[[ -n ${storeChanges} ]] && exit 0
+
+		# Get the joystick position. As both joysticks are pivoted together
+		# we only need to sample the first joystick.
+		send_command "getway,1"
+		[[ $sendResult == "err" ]] && exit 1
+
+		# If the current position is 4 way and rom is NOT in the 4 way file, ADD IT
+		if [[ $sendResult == 4* ]]
+		then
+			if [ $is4wayGame -eq 0 ]
+			then
+				echo $romName >> $roms4wayFile
+			fi
+		else
+			# If the current position is 8 way and rom IS in the 4 way file, REMOVE IT
+			if [ $is4wayGame -eq 1 ]
+			then
+				grep -v $romName $roms4wayFile > $roms4wayFile.b
+				mv $roms4wayFile.b $roms4wayFile
+			fi
+		fi
+	;;
+esac
+
+exit 0
+_EOF_
+RETVAL=$?
+chmod 755 ${sanwa_change_script}
+}
+
+start() {
+	echo -n "Creating sanwa_restictor script: "
+	create_script
+	echo "done"
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Removing sanwa_restrictor script: "
+	rm -f ${sanwa_change_script}
+	RETVAL=$?
+	echo "done"
+	return $RETVAL
+}
+
+status() {
+    if [ -e ${sanwa_change_script} ]
+	then
+		echo "started"
+    else
+		echo "stopped"
+    fi
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+                status
+                ;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?

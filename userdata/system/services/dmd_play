@@ -3,12 +3,9 @@
 source dmd-set-vars.sh
 
 start() {
-	if [ -f ${dmdPlayPIDFile} ]
-	then
-		echo -n "Killing the background dmd-play instance..."
-		dmdPlayPID=`cat ${dmdPlayPIDFile}`
-		kill -s SIGINT ${dmdPlayPID}
-	fi
+	# Check if an interactive dmd-play instance is running in the background. If so, kill it first
+	dmd-play-kill.sh
+
 	echo -n "Starting dmd-play: "
 	# Start dmd-play in a listener mode and store the PID (so we can send it SIGINT to stop playback for the next marquee
 	start-stop-daemon -S -b -q -m -p ${dmdPlayServicePIDFile} --exec /usr/bin/dmd-play -- -lp ${playPort} > /dev/null &
