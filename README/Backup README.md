@@ -15,5 +15,5 @@ symbolic link on emulator startup (if missing) and this was causing the rsync er
 The other thing I did was include the overlay file in the backup process.  This is stored in /boot/boot/overlay and is not backed up with the userdata backup.  I want my whole system in one backup process so I included this step in batocera-sync before rsync is called (requires /userdata/backup directory to be created):  
 ```
 	# Backup overlay file.  We back it up to /userdata/backup so it is included in the rsync below rather than keep as a separate file
-	cp /boot/boot/overlay /userdata/backup 2>&1
+	cp /boot/boot/overlay /userdata/overlay 2>&1
 ```  

@@ -6,7 +6,7 @@ If you find Batocera DMD marquee changes sluggish or want a choice about whether
 The scripts below and dmd-play update improve performance greatly on slower machines (e.g. Raspberry Pi 3b).  I've modified dmd-play to be able to run interactively (per marquee) just like Batocera does by default, but also be able to run as a service when launched with the "-lp" option.  This means we don't incur slow startup times and simply send the required marquee command to the already running dmd-play.  Response times go from 1.1 seconds to launch down to 0.02 seconds to just play (a PNG file) for example.
 
 ## Dependencies
-You need to be running [ZeDMD firmware 5.1.1 or greater](https://github.com/PPUC/ZeDMD/releases).  I'm running 5.1.4.  You also need the latest dmd-server binary.  Either grab this via Batocera v42 or recompile yourself from the [lbdmdutil repo](https://github.com/vpinball/libdmdutil).  I've uploaded a working dmd-server for Aarm64 (Pi 3b+) here:
+You need to be running [ZeDMD firmware 5.1.1 or greater](https://github.com/PPUC/ZeDMD/releases).  I'm running 5.1.4.  You also need the latest dmd-server binary.  Either grab this via Batocera v42 or recompile yourself from the [lbdmdutil repo](https://github.com/vpinball/libdmdutil).  I've uploaded a working dmd-server version for Aarm64 (Pi 3b+) here:
 ```
 /usr/bin/dmdserver
 ```
@@ -37,9 +37,9 @@ screensaver-stop/screensaver-stop.sh
 3. Copt this is to change to the game marquee when the game is launched from ES (instead of selection - configurable - see below):  
 `/userdata/system/scripts/dmd_game_marquee.sh`
 
-4. If you want the fastest performance - copy down this file (to be able to configure dmd-play to run as a service):
+4. If you want the fastest performance - copy down this file (you may need to create the services directory) to be able to configure dmd-play to run as a service:
 ```
-/usr/share/batocera/services/dmd_play
+/userdata/system/services/dmd_play
 ```
 
 5. Ensure you make all scripts executable:

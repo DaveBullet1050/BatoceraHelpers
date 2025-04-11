@@ -26,4 +26,4 @@ Now... what would you like to configure?:
 [Network including static IP](./README/Network%20README.md)  
 [Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)  
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)  
-[Virtual Pinball emulator setup v41+](./README/VPinball.md)  
+[Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
