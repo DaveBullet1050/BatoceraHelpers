@@ -35,13 +35,29 @@ The ROMS are in zip format, leave them as a ZIP and copy them into:
 
 Some ROMS may need depend on other ROMS (e.g. afm_113b may need afm_113 as well).  So download similar named ROMS if your table still doesn't play.  
 
-### 3. Check if your table has a patch VBS script
+### 3. ROM has an alias... and VPMAlias.txt isn't supported on Linux  
+Some tables require you to alias the rom.  As this isn't supported, you need to amend the table to use the original rom.  We do this by extracting the VBS script from the (compiled) VPX and editing the rom name to match 
+
+For example, the Fleetwood Mac table (Fleetwood.vpx) will look for a Fleetwood.zip ROM.  Now the actual rom is dollyptb.zip, and the VPMAlias.txt would normally point Fleetwood -> dollyptb.  
+
+To change the table to look for dollyptb do the following:  
+1. Extract the VBS from the VPX via:
+`/usr/bin/vpinball/VPinballX_GL -ExtractVBS /userdata/roms/vpinball/Fleetwood.vpx`
+
+2. Edit the extracted VBS script and change the rom name of the following:
+`Const cGameName = "Fleetwood"		 'The unique alphanumeric name for this table`
+to  
+`Const cGameName = "dollyptb"		 'The unique alphanumeric name for this table`
+
+Then the table should launch correctly.  
+
+### 4. Check if your table has a patch VBS script
 Some tables just briefly open then close / crash.  A fix script may be what you need. Check: https://github.com/jsm174/vpx-standalone-scripts/tree/master and download the .VBS file contained in the folder for your game (ignore the .patch / other scripts).  The .VBS must have exactly the same filename as your .VPX.  
 
-### 4. Music and other things
+### 5. Music and other things
 I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/\<name of table here\>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball  
 
-### 5. Final things
+### 6. Final things
 If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinball.log for errors.  The machine may just not work under the VPX Standalone emulator that Batocera uses, e.g. Steve Miller Band is noted as a "No" for Standlone emulator support.  I could get the table to launch but not play, even with all the roms present.
 
 If your table launches and you can briefly see it then it closes / crashes - you'll likely need a .VBS patch script (as per above).  
