@@ -41,13 +41,13 @@ Some tables require you to alias the rom.  As this isn't supported, you need to 
 For example, the Fleetwood Mac table (Fleetwood.vpx) will look for a Fleetwood.zip ROM.  Now the actual rom is dollyptb.zip, and the VPMAlias.txt would normally point Fleetwood -> dollyptb.  
 
 To change the table to look for dollyptb do the following:  
-1. Extract the VBS from the VPX via:
-`/usr/bin/vpinball/VPinballX_GL -ExtractVBS /userdata/roms/vpinball/Fleetwood.vpx`
+1. Extract the VBS from the VPX via:  
+`/usr/bin/vpinball/VPinballX_GL -ExtractVBS /userdata/roms/vpinball/Fleetwood.vpx`  
 
-2. Edit the extracted VBS script and change the rom name of the following:
-`Const cGameName = "Fleetwood"		 'The unique alphanumeric name for this table`
+2. Edit the extracted VBS script and change the rom name of the following:  
+`Const cGameName = "Fleetwood"		 'The unique alphanumeric name for this table`  
 to  
-`Const cGameName = "dollyptb"		 'The unique alphanumeric name for this table`
+`Const cGameName = "dollyptb"		 'The unique alphanumeric name for this table`  
 
 Then the table should launch correctly.  
 
