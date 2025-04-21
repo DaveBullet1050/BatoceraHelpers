@@ -26,7 +26,7 @@ And check for the rom name specified in the newVal= entry - see below:
 2025-04-04 08:33:45.230 INFO  [27425] [VPinMAMEController::put_GameName@697] newVal=medusa
 2025-04-04 08:33:45.230 INFO  [27425] [VPinMAMEController::put_GameName@702] Game found: name=medusa, description=Medusa, manufacturer=Bally, year=1981
 ```  
-Search for the rom on one of the key sites below or google it., eg: "vpinball rom medusa"
+Search for the rom on one of the [key sites](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/VPinball.md#key-sites) below or google it., eg: "vpinball rom medusa"
 
 I prefer to put all my roms in /userdata/system/configs/vpinball/pinmame/roms. To configure this, press START in ES and select -> GAME SETTINGS -> PER SYSTEM ADVANCED CONFIGURATION -> Visual Pinball X and Toggle the PER TABLE FOLDER so it is "off / disabled"
 
@@ -49,13 +49,13 @@ To change the table to look for dollyptb do the following:
 to  
 `Const cGameName = "dollyptb"		 'The unique alphanumeric name for this table`  
 
-Then the table should launch correctly.  
+Leave the extracted VBS in your roms/vpinball directory (alongside the VPX with the same name) - don't delete.  There is not need to recompile back in.  Then the table should launch correctly.  
 
 ### 4. Check if your table has a patch VBS script
 Some tables just briefly open then close / crash.  A fix script may be what you need. Check: https://github.com/jsm174/vpx-standalone-scripts/tree/master and download the .VBS file contained in the folder for your game (ignore the .patch / other scripts).  The .VBS must have exactly the same filename as your .VPX.  
 
 ### 5. Music and other things
-I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/\<name of table here\>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball  
+I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/\<name of table here\>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball.  This seems to work on all my tables.  
 
 ### 6. Final things
 If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinball.log for errors.  The machine may just not work under the VPX Standalone emulator that Batocera uses, e.g. Steve Miller Band is noted as a "No" for Standlone emulator support.  I could get the table to launch but not play, even with all the roms present.
