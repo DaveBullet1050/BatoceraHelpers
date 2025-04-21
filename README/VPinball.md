@@ -11,7 +11,7 @@ I'm using a [USB zero delay encoder](https://github.com/DaveBullet1050/BatoceraH
 ## Getting a table to work
 
 ### 1. Get the VPX file
-First you need the ".vpx" file (see key sites below for sources).  Put it in:  
+First you need the ".vpx" file (see [key sites](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/VPinball.md#key-sites) below for sources).  Put it in:  
 `/userdata/roms/vpinball`  
 
 If you have a 2nd screen - then you will also need the .b2s file (with same filename as the rom).  You don't need the .b2s file if you are playing on a single screen.  You also don't need the .b2s file if you have a DMD marquee (the vpx alone is enough to drive this).  I have one of [these](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/DMDMarquee%20README.md)  
