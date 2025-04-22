@@ -58,7 +58,7 @@ Some tables just briefly open then close / crash.  A fix script may be what you 
 I found the file locations were a bit hit and miss and didn't quite follow the [Batocera vpinball v41 wiki guide](https://wiki.batocera.org/systems:vpinball).  I found creating a /userdata/roms/vpinball/\<name of table here\>/music as per the wiki didn't work.  This is a bit trial and error.  If the music comes in its own folder, eg: Halloween/ - then simply place this directly under /userdata/roms/vpinball.  This seems to work on all my tables.  
 
 ### 6. Final things
-If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinball.log for errors.  The machine may just not work under the VPX Standalone emulator that Batocera uses, e.g. Steve Miller Band is noted as a "No" for Standlone emulator support.  I could get the table to launch but not play, even with all the roms present.
+If the VPX still doesn't play check the /userdata/system/configs/vpinball/vpinball.log for errors.  The machine may just not work under the VPX Standalone emulator that Batocera uses.
 
 If your table launches and you can briefly see it then it closes / crashes - you'll likely need a .VBS patch script (as per above).  
 If the table launches and your coin button works, but start button does nothing (no ball appears) - then you are missing one or more ROM zip files.  
@@ -92,3 +92,43 @@ https://www.vpforums.org - tables and roms
 
 ## Other help
 This dude on Reddit has written a useful guide that may answer some questions: https://www.reddit.com/r/batocera/comments/1abqxow/the_lazy_batocera_v38_builders_guide_to_visual/  
+
+## Here's a list (as at 23 April 2025) of the tables I have successfully got running  
+1455577933_MedievalMadness_Upgrade(Real_Final).vpx  
+ABBAv2.0.vpx  
+Alien Star (Gottlieb 1984) v2.0.2.vpx  
+Aliens.vpx  
+Apollo 13 (Sega 1995) w VR Room v2.1.4.vpx  
+Attack from Mars LE v55_VPX8.vpx  
+Avatar (Stern 2012) v1.12.vpx  
+Avengers Pro (Stern 2012) v1.48.vpx  
+Back To The Future - The Pinball (Data East 1990) v1.05.vpx  
+Batman [The Dark Knight] (Stern 2008).vpx  
+Beavis and Butt-head_Pinballed.vpx  
+Black Knight (Williams 1980).vpx  
+Cirqus Voltaire (Bally 1997) VPW Mod v1.1.vpx  
+Doctor Who (Bally 1992) VPW Mod v1.1.vpx  
+Duran Duran (Gottlieb 1978).vpx  
+F-14 Tomcat (Williams 1987) VPW Mod 1.0.vpx  
+Flash Gordon (Bally 1981) 2.0.2.vpx  
+Fleetwood.vpx  
+Halloween 1978-1981 (Original 2022) 1.03.vpx  
+Indiana Jones (Stern 2008)-Hanibal-2.6.vpx  
+Iron Maiden (Original 2022) VPW 1.0.12.vpx  
+Iron Mike Tyson (Ali (Stern 1980) mod) v1.5.vpx  
+Lord of the Rings (Stern 2003) VPW 1.6.vpx  
+MAdMax_DOF_1.5.vpx  
+PinBot (Williams 1986).vpx  
+Ripleys Believe It or Not! (Stern 2004) VPWmod v1.1.vpx  
+Star Trek (Bally 1979) v1.4.vpx  
+Star_Trek_The_Next_Generation_Williams_1993_VPW_Mod_v1.1.vpx  
+Star Wars (Data East 1992)_Bigus(MOD)2.0.vpx  
+Steve Miller Band 1.0.2 VR.vpx  
+Tales of the Arabian Nights v4.3.vpx  
+Terminator 2 (Williams 1991) g5k 1.25.vpx  
+The Addams Family (Bally1992) v2.3.2.vpx  
+The Cure (Gottlieb 1978).vpx  
+The Police (Gottlieb 1985).vpx  
+Thunderbirds original 2022 v1.0.2.vpx  
+Time Machine (Data East 1988) v.2.1.vpx  
+Twilight Zone_VPX_2.1.vpx  
