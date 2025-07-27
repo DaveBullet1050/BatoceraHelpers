@@ -26,3 +26,14 @@ And whilst this was fine for ES, I recall having problems when games launched.  
     fi
 ```
 The above hack may not be needed.
+
+# Screen rotation
+
+If you are running under a Retroarch core, then you can get retroarch to do it. I only know of emulator or per game settings. I don't think this can be done on a collection level:  
+
+eg.. for 3ds/nds core games....  
+```
+3ds.retroarch.video_rotation=270
+nds.retroarch.video_rotation=270
+```  
+The above will get batocera to add these at launch for any 3ds or Nds game to the retroarchcustom.cfg and let retro natively orientate the display without scripting  
