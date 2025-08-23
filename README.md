@@ -1,5 +1,5 @@
 # Batocera Helpers
-A bunch of config or how to scripts / info for a [Batocera](https://batocera.org/) gaming machine.  All of this was running successfully on v39 on a Raspberry Pi 3B+.  Therefore some may not work on a later version of Batocera or on another architecture (e.g. x86).  
+A bunch of config or how to scripts / info for a [Batocera](https://batocera.org/) gaming machine.  All of this was running successfully on v39 on a Raspberry Pi 3B+.  I have since moved to Batocera v41 on x64 (Intel PC).
 
 There are no ROMS included in this repo for obvious legal and copyright reasons.  Also the advice I'm giving is on my own account and has not been endorsed by the devs at Batocera (infact they may likely object to much of it!).  So please use at your own risk.  I've included it here as it may help you with any problems you are having (at least understand where things are done and have examples to look at).  Any changes to any Batocera supplied scripts or code can be thought of as sub-optimal hacks, either working around my lack of detailed configuration knowledge or a specific feature that doesn't exist that I wanted to add.
 
@@ -29,8 +29,8 @@ Now... what would you like to configure?:
 [Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
 
 ## Coming...
-Service that monitors a directory for changes - useful for cascading gamelist changes to custom collections
-Sound processing via CamillaDSP
-Controller swapping
-WINE/Windows tips
-Steam tips
+- Service that monitors a directory for changes - useful for cascading gamelist changes to custom collections
+- Sound processing via CamillaDSP  
+- Controller swapping  
+- WINE/Windows tips  
+- Steam tips  
