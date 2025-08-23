@@ -93,13 +93,13 @@ Sub Table1_Init
 https://vpuniverse.com - tables and roms  
 https://www.vpforums.org - tables and roms
 
-# Other (keyboard oriented) controllers  
+## Other (keyboard oriented) controllers  
 Since Visual Pinball is a keyboard oriented game, using Batocera's key2pad or pad2key won't help if you have a controller that generates keyboard inputs.  
 
 Therefore you should edit the custom vpinball ini file:
 `/userdata/system/configs/vpinball/VPinballX.ini`   
 
-If you want to change for example the flippers from L-shift and R-shift keys (default) to say "C" and "J" keys, first from a Batocera shell session run:
+If you want to change for example the flippers from L-shift and R-shift keys (default) to say "C" and "J" keys, first from a Batocera shell session run:  
 `evtest`  
 
 You'll get output like:  
@@ -140,7 +140,7 @@ Event: time 1755981357.105458, -------------- SYN_REPORT ------------
 
 The first event is the button press, the next is the button release.  Your value for VPinballX.ini is the "code" value - e.g. 46 above.  
 
-Edit the VPInballX.ini and append the code value to the key you want, eg:
+Edit the VPInballX.ini and append the code value to the key you want, eg:  
 `LFlipKey = 46`  
 
 Save the ini file.
