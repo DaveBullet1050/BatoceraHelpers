@@ -27,10 +27,10 @@ Now... what would you like to configure?:
 [Side by side cabinet screen flip for MAME games](./README/SideBySide%20README.md)  
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)  
 [Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
+[CamillaDSP - EQ and other audio processing](./README/CamillaDSP.md)
 
 ## Coming...
 - Service that monitors a directory for changes - useful for cascading gamelist changes to custom collections
-- Sound processing via CamillaDSP  
 - Controller swapping  
 - WINE/Windows tips  
 - Steam tips  
