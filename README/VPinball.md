@@ -93,6 +93,58 @@ Sub Table1_Init
 https://vpuniverse.com - tables and roms  
 https://www.vpforums.org - tables and roms
 
+# Other (keyboard oriented) controllers  
+Since Visual Pinball is a keyboard oriented game, using Batocera's key2pad or pad2key won't help if you have a controller that generates keyboard inputs.  
+
+Therefore you should edit the custom vpinball ini file:
+`/userdata/system/configs/vpinball/VPinballX.ini`   
+
+If you want to change for example the flippers from L-shift and R-shift keys (default) to say "C" and "J" keys, first from a Batocera shell session run:
+`evtest`  
+
+You'll get output like:  
+```
+Available devices:
+/dev/input/event0:      Power Button
+/dev/input/event1:      Sleep Button
+/dev/input/event10:     DragonRise Inc.   Generic   USB  Joystick
+/dev/input/event11:     HDA Intel PCH Headphone Mic
+/dev/input/event12:     HDA Intel PCH HDMI/DP,pcm=3
+/dev/input/event13:     DragonRise Inc.   Generic   USB  Joystick
+/dev/input/event14:     HDA Intel PCH HDMI/DP,pcm=7
+/dev/input/event15:     HDA Intel PCH HDMI/DP,pcm=8
+/dev/input/event16:     HDA Intel PCH HDMI/DP,pcm=9
+/dev/input/event17:     batocera hotkeys
+/dev/input/event2:      Power Button
+/dev/input/event3:      Dell KB216 Wired Keyboard
+/dev/input/event4:      Dell KB216 Wired Keyboard System Control
+/dev/input/event5:      Dell KB216 Wired Keyboard Consumer Control
+/dev/input/event6:      Video Bus
+/dev/input/event7:      PixArt Dell MS116 USB Optical Mouse
+/dev/input/event8:      Dell Privacy Driver
+/dev/input/event9:      Dell WMI hotkeys
+Select the device event number [0-17]: 3
+```
+
+In my case, my keyboard is on event 3 - so I type 3 (and press <enter>).  
+
+Then press the key you want for your left flipper, eg: "C".  You'll get something like this:
+```
+Event: time 1755981357.073531, type 4 (EV_MSC), code 4 (MSC_SCAN), value 70006
+Event: time 1755981357.073531, type 1 (EV_KEY), code 46 (KEY_C), value 1
+Event: time 1755981357.073531, -------------- SYN_REPORT ------------
+Event: time 1755981357.105458, type 4 (EV_MSC), code 4 (MSC_SCAN), value 70006
+Event: time 1755981357.105458, type 1 (EV_KEY), code 46 (KEY_C), value 0
+Event: time 1755981357.105458, -------------- SYN_REPORT ------------
+```
+
+The first event is the button press, the next is the button release.  Your value for VPinballX.ini is the "code" value - e.g. 46 above.  
+
+Edit the VPInballX.ini and append the code value to the key you want, eg:
+`LFlipKey = 46`  
+
+Save the ini file.
+
 ## Other help
 This dude on Reddit has written a useful guide that may answer some questions: https://www.reddit.com/r/batocera/comments/1abqxow/the_lazy_batocera_v38_builders_guide_to_visual/  
 
