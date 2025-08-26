@@ -12,3 +12,7 @@ Explanation:
 `nofail`  tells Linux to carry on mounting and booting if the share fails (e.g. the music PC could be off)  
 
 Obviously you can replace the IP address with a hostname, same with the share name.  Don't forget to provide a valud username and password (unless guest access is permitted).  
+
+As you are editing files outside of /userdata, don't forget to run:  
+`batocera-save-overlay`  
+or your `/etc/fstab` edits will be lost on reboot.   
