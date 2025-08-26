@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# This script is intended to be triggered on an event (e.g. from triggerhappy).  The actual event
+# or control doesn't matter.
+#
+# Parameters:
+# $1 - Command to run (only used when $2 = 0
+# $2 - 1 = Button(s) triggering command have been pressed / engaged
+#      0 = Button(s) triggering command have been released
+# $3 - Delay (in seconds) between button press and release.  If this is exceeded, the command will be
+# performed (only used when $1 = 1)
+
+# Number of miliseconds the button has to be held to initiated a shutdown before being released
+
+delay_command_time_file='/tmp/delay_command_time'
+
+case $2 in
+	1)
+		date +%s%N > ${delay_command_time_file}
+		echo "pressed: $@" >> /tmp/delay-command
+		exit
+	;;
+	0)
+		echo "released: $@" >> /tmp/delay-command
+		if [ -s ${delay_command_time_file} ]
+		then
+			initiated_time=`cat ${delay_command_time_file}`
+			rm ${delay_command_time_file}
+			
+			curr_time=`date +%s%N`
+			
+			time_diff=`diff-msecs.sh ${initiated_time} ${curr_time}`
+			echo "time_diff: $time_diff" >> /tmp/delay-command
+			
+			if [ ${time_diff} -ge ${3} ]
+			then
+				echo "released: $1" >> /tmp/delay-command
+				`$1`
+				echo "result:$retval" >> /tmp/delay-command
+			fi
+			exit
+		fi
+	;;
+esac

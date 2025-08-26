@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# This script re-generates the custom "Arcade" collection EmulationStation CFG with any new games added to
+# either MAME or Daphne collections.  It has to be manually run, as there is no 
+# easy way to hook into the "GAME SETTINGS -> UPDATE GAMELISTS" ES menuitem (i.e. no specific ES event)
+
+arcade_cfg_file="/userdata/system/configs/emulationstation/collections/custom-Arcade.cfg"
+
+cd /userdata
+ls -dw1 ./roms/mame/*.zip > $arcade_cfg_file
+ls -dw1 ./roms/daphne/*.daphne >> $arcade_cfg_file
+

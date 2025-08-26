@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Returns the /dev/input/eventX of the dragonwise USB device requested
+echo '' | evtest 2>&1 > /dev/null | sed -n '/Dragon/p' | sort -V | sed -n ${1}p | cut -f1 -d:
+

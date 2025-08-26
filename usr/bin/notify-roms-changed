@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Define the directory to monitor
+MONITOR_DIRS="/userdata/roms/mame /userdata/roms/daphne"
+#MONITOR_DIRS="/tmp"
+
+# Define the events to monitor (e.g., create, modify, delete, move)
+# For a full list of events, consult the inotifywait man page.
+#EVENTS="create,modify,delete,moved_from,moved_to"
+# Moved_from and to events are only triggered if moving files between monitored rom directories.  and you get 2 events format
+# one file move (otherwise you get nothing). however as it is highly unlikely I will be moving between mame and daphne
+# I don't bother with moved between events
+#EVENTS="create,delete,moved_from,moved_to"
+EVENTS="create,delete"
+
+# Start inotifywait in a continuous loop
+#inotifywait -m -e "$EVENTS" --format '%T %w%f %e' --timefmt '%Y-%m-%d %H:%M:%S' ${MONITOR_DIRS} | while read -r timestamp filepath event; do
+inotifywait -m -e "$EVENTS" ${MONITOR_DIRS} | while read -r x; do
+	echo "changed" >> /tmp/notify-log
+	#update-arcade-collection
+done

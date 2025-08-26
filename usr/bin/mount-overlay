@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Mount overlay for edits in /tmp/overlay
+
+mount -o remount,rw /boot
+mkdir /tmp/overlay
+mount /boot/boot/overlay /tmp/overlay
