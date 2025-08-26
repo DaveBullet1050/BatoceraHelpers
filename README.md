@@ -28,6 +28,7 @@ Now... what would you like to configure?:
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)  
 [Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
 [CamillaDSP - EQ and other audio processing](./README/CamillaDSP.md)  
+[Mounting a music share / drive from another PC or SAMBA linux host](./README/Mounting%20music%20share%20README.md)  
 [Other assorted random helper scripts or utiliites](./README/RandomHelperScripts%20README.md)  
 
 ## Coming...
