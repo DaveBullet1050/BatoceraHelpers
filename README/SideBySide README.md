@@ -33,8 +33,10 @@ To get this to work you need to:
 Then with either 3 above choose:  
 GAME RENDERING AND SHADERS -> SHADER SET and choose CURVATURE  
 
-2. Set the graphics API to us to OpenGL. I couldn't find the global menu item setting for this, so it is system level under:  
-- START -> GAME SETTINGS -> PER SYSTEM ADVANCED GAME CONFIGURATION -> (choose which system, e.g. MAME) -> GRAPHICS API -> OPENGL  
+2. Set the graphics API to us to OpenGL. I couldn't find the global menu item setting in ES for this, so it is system level under:  
+- START -> GAME SETTINGS -> PER SYSTEM ADVANCED GAME CONFIGURATION -> (choose which system, e.g. MAME) -> GRAPHICS API -> OPENGL
+Alternatively, you could try this in /userdata/system/batocera.conf:  
+`global.gfxbackend=gl`  
 
 3. Copy down these files:  
 ```
