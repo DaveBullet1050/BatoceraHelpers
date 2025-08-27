@@ -1,0 +1,50 @@
+#!/bin/bash
+
+camilladsp_pid_file="/tmp/camilladsp.pid"
+
+start() {
+	echo -n "Starting camilladsp:"
+	# Start dmd-play in a listener mode and store the PID (so we can send it SIGINT to stop playback for the next marquee
+
+	start-stop-daemon -S -b -q -m -p ${camilladsp_pid_file} --exec /usr/bin/camilladsp /userdata/system/configs/camilladsp/2channel-bass-merge.yaml &
+	RETVAL=$?
+		
+	echo "done"
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping camilladsp: "
+
+	start-stop-daemon -K -q -p ${camilladsp_pid_file}
+	RETVAL=$?
+	
+	echo "done"
+	return $RETVAL
+}
+
+status() {
+    if start-stop-daemon --status -q -p ${camilladsp_pid_file}
+    then
+	echo "started"
+    else
+	echo "stopped"
+    fi
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+                status
+                ;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?

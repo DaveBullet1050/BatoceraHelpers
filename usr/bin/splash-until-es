@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Switch from splash screen to ES when ready, but terminate regardless after 30 seconds (so we don't
+# end up in an infinite loop
+
+count=0
+es_running="0"
+
+echo $(date +"%F %T,%3N")": splash-until-es started" >> /var/run/boot.log
+
+while [ $es_running = "0" -a $count -lt 30 ]
+do
+	sleep 0.5
+	count=$((count+1))
+	es_running=`pgrep -f -c "emulationstation --exit"`
+	echo $(date +"%F %T,%3N")": splash-until-es checking" >> /var/run/boot.log
+done
+echo $(date +"%F %T,%3N")": splash-until-es emulationstation started - switching" >> /var/run/boot.log
+chvt 2

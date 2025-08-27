@@ -1,0 +1,53 @@
+#!/bin/bash
+
+pid_file="/var/run/notify_roms_changed.pid"
+
+start() {
+	echo -n "Starting notify-roms-changed service: "
+	start-stop-daemon -S -b -q -m -p ${pid_file} -x /usr/bin/notify-roms-changed > /dev/null
+	RETVAL=$?
+		
+	echo "done"
+	return $RETVAL
+}
+
+stop() {
+	echo -n "Stopping notify-roms-changed service: "
+
+	#start-stop-daemon -K -q -p ${pid_file}
+	# start-stop-daemon will call the parent shell but not the child inotifywait process that spawns
+	# so use this to kill the whole process tree
+	pid=`cat ${pid_file}`
+	pkill -P ${pid}
+	
+	RETVAL=$?
+	
+	echo "done"
+	return $RETVAL
+}
+
+status() {
+    if start-stop-daemon --status -q -p ${pid_file}
+    then
+	echo "started"
+    else
+	echo "stopped"
+    fi
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+			status
+			;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?

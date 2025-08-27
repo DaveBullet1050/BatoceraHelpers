@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# This script is intended to be triggered on an event (e.g. from triggerhappy).  The actual event
+# or control doesn't matter.
+#
+# Parameters:
+# $1 - 1 = Shutdown button has been pressed / engaged
+#      0 = Shutdown button has been released
+# $2 - Delay (in seconds) between button press and release.  If this is exceeded, shutdown will be
+# performed (only used when $1 = 1)
+
+# Number of miliseconds the button has to be held to initiated a shutdown before being released
+delay=3000
+
+shutdown_time_file='/tmp/shutdown_requested'
+
+case $1 in
+	1)
+		date +%s%N > ${shutdown_time_file}
+		#rm /tmp/shutting_down
+		exit
+	;;
+	0)
+		if [ -s ${shutdown_time_file} ]
+		then
+			initiated_time=`cat ${shutdown_time_file}`
+			rm ${shutdown_time_file}
+			
+			curr_time=`date +%s%N`
+			
+			time_diff=`diff-msecs.sh ${initiated_time} ${curr_time}`
+			
+			if [ ${time_diff} -ge ${delay} ]
+			then
+				#echo "shutting down" > /tmp/shutting_down
+				/sbin/shutdown -hP now
+			fi
+			exit
+		fi
+	;;
+esac

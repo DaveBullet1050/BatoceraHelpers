@@ -16,6 +16,6 @@ EVENTS="create,delete"
 # Start inotifywait in a continuous loop
 #inotifywait -m -e "$EVENTS" --format '%T %w%f %e' --timefmt '%Y-%m-%d %H:%M:%S' ${MONITOR_DIRS} | while read -r timestamp filepath event; do
 inotifywait -m -e "$EVENTS" ${MONITOR_DIRS} | while read -r x; do
-	echo "changed" >> /tmp/notify-log
-	#update-arcade-collection
+	#echo "changed" >> /tmp/notify-log
+	update-arcade-collection
 done

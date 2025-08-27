@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Displays the splash screen on the desired console terminal. If none provided
+# then defaults to the currently active terminal on the console
+
+desired_tty=$1
+
+if [ -n "$desired_tty" ]
+then
+	chvt $desired_tty
+else
+	desired_tty=`fgconsole`
+fi
+#clear > /dev/tty$1
+echo p | fbv -c /usr/share/batocera/splash/boot-logo.png > /dev/null
+retval=$?
+echo ' ' > /dev/tty$desired_tty
+
+exit $retval

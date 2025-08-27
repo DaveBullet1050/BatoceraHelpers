@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 source dmd-set-vars.sh
 
 start() {
 	# Check if an interactive dmd-play instance is running in the background. If so, kill it first
-	dmd-play-kill.sh
+	source dmd-kill-play.sh
 
 	echo -n "Starting dmd-play: "
 	# Start dmd-play in a listener mode and store the PID (so we can send it SIGINT to stop playback for the next marquee
