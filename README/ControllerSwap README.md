@@ -6,7 +6,7 @@ I want to be able to control which games have controller swapping - so need a pe
 Player 1 <-> 3  (if player 3 controller present)  
 Player 2 <-> 4  (if player 4 controller present)  
 
-The script needs to not swap if the extra controllers are plugged in (to not break anything). i.e. if there are only 2 controllers detected, then don't swap players 1 and 2 for 3 and 4 as there is no player 3 and 4 controllers on the system.  
+The script needs to skip swapping if the extra controllers are NOT plugged in. i.e. if there are only 2 controllers detected, then don't swap players 1 and 2 for 3 and 4 if there is no player 3 and 4 controllers physically plugged into the system.  
 
 There are only 2 things required:
 1. A configuration file - to tell the launcher which roms should have controllers swapped - in "system/rom" format - e.g. mame/1944.zip.  Hand edit this file to include the systems/roms you want included:  
