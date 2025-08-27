@@ -10,8 +10,8 @@ The script needs to not swap if the extra controllers are plugged in (to not bre
 
 There are only 2 things required:
 1. A configuration file - to tell the launcher which roms should have controllers swapped - in "system/rom" format - e.g. mame/1944.zip:  
-`/userdata/system/configs/controller/controller_swap.cfg`  
+[/userdata/system/configs/controller/controller_swap.cfg](/userdata/system/configs/controller/controller_swap.cfg)  
 2. A hacked emulatorlauncher.py:  
-`/usr/lib/python3.11/site-packages/configgen/emulatorlauncher.py` - this checks whether the launched "system/rom" exists in the configuration file, and if player 3 controller is present, it becomes player 1.  Likewise if player 4 controller is present it becomes player 2 (and player 1 becomes 3 and player 2 becomes 4 - hence swapped)  
+[/usr/lib/python3.11/site-packages/configgen/emulatorlauncher.py](/usr/lib/python3.11/site-packages/configgen/emulatorlauncher.py) - this checks whether the launched "system/rom" exists in the configuration file, and if player 3 controller is present, it becomes player 1.  Likewise if player 4 controller is present it becomes player 2 (and player 1 becomes 3 and player 2 becomes 4 - hence swapped)  
 
 To ensure the correct order of controllers, you can fix these by setting from ES via START -> CONTROLLER AND BLUETOOTH SETTINGS then set the default controller for each player under "PLAYER ASSIGNMENTS".  
