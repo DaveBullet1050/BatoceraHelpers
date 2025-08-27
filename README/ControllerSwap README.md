@@ -14,7 +14,7 @@ There are only 2 things required:
 2. A hacked emulatorlauncher.py:  
 [/usr/lib/python3.11/site-packages/configgen/emulatorlauncher.py](/usr/lib/python3.11/site-packages/configgen/emulatorlauncher.py) - this checks whether the launched "system/rom" exists in the configuration file, and if player 3 controller is present, it becomes player 1.  Likewise if player 4 controller is present it becomes player 2 (and player 1 becomes 3 and player 2 becomes 4 - hence swapped)
 
-Remmember to run:  
+Remember to run:  
 `batocera-save-overlay`  
 from the command line to save the updated .py file above, or it will be lost on reboot.  
 
