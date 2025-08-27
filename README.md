@@ -29,10 +29,10 @@ Now... what would you like to configure?:
 [Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
 [CamillaDSP - EQ and other audio processing](./README/CamillaDSP.md)  
 [Mounting a music share / drive on another PC or SAMBA linux host](./README/Mounting%20music%20share%20README.md)  
+[Run script on directory change - auto update custom collections](.README/RunScriptOnDirectoryChange%20README.md)  
 [Other assorted random helper scripts or utiliites](./README/RandomHelperScripts%20README.md)  
 
 ## Coming...
-- Service that monitors a directory for changes - useful for cascading gamelist changes to custom collections
 - Controller swapping  
 - WINE/Windows tips  
 - Steam tips  
