@@ -1,0 +1,10 @@
+{
+    "actions_player1": [
+        {
+            "trigger": "start",
+            "type": "key",
+			"hold": 2.0,
+            "target": "KEY_ESC"
+        }
+    ]
+}

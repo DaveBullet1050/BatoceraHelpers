@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# DEPRECATED.  Replaced by sanwa_change.sh
+
 # Introduction and links
 # ----------------------
 # This script drives a TOS GRS switchable restrictor gate for Sanwa joysticks.

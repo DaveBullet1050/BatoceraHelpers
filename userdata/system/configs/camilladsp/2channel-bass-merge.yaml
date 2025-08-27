@@ -1,0 +1,108 @@
+devices:
+  queuelimit: 4
+  capture:
+    channels: 2
+    device: hw:Loopback,1
+    format: S16LE
+    type: Alsa
+  chunksize: 1024
+  playback:
+    channels: 2
+    device: hw:0,0
+    format: S16LE
+    type: Alsa
+  samplerate: 44100
+ 
+mixers:
+  2to2chan:
+    description: "2 channel passthrough"
+    channels:
+      in: 2
+      out: 2
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+            inverted: false
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+            inverted: false
+  2to4chan:
+    description: "2 channel passthrough"
+    channels:
+      in: 2
+      out: 4
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: 0
+            inverted: false
+      - dest: 1
+        sources:
+          - channel: 1
+            gain: 0
+            inverted: false
+      - dest: 2
+        sources:
+          - channel: 0
+            gain: 0
+            inverted: false
+      - dest: 3
+        sources:
+          - channel: 1
+            gain: 0
+            inverted: false
+  4to2chan:
+    description: "2 channel passthrough"
+    channels:
+      in: 4
+      out: 2
+    mapping:
+      - dest: 0
+        sources:
+          - channel: 0
+            gain: -6.5
+          - channel: 1
+            gain: -6.5
+          - channel: 2
+            gain: -1
+      - dest: 1
+        sources:
+          - channel: 0
+            gain: -6.5
+          - channel: 1
+            gain: -6.5
+          - channel: 3
+            gain: -1
+
+filters:
+  highpass:
+    type: BiquadCombo
+    parameters:
+      type: LinkwitzRileyHighpass
+      freq: 100
+      order: 4
+  lowpass:
+    type: BiquadCombo
+    parameters:
+      type: LinkwitzRileyLowpass
+      freq: 100
+      order: 4
+
+pipeline:
+  - type: Mixer
+    name: 2to4chan
+  - type: Filter
+    channels: [0,1]
+    names:
+      - lowpass
+  - type: Filter
+    channels: [2,3]
+    names:
+      - highpass
+  - type: Mixer
+    name: 4to2chan

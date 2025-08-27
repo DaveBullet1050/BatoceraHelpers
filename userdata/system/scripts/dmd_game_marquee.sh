@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # Will set the marquee of the game on launch and revert to the system when the game stops
-# only if dmd.change.gamemarquee=launch
+# only if dmd.change.select=yes is not set in batocera.conf
 
 source dmd-set-vars.sh
 

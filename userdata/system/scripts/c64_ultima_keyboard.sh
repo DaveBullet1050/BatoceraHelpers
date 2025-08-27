@@ -6,8 +6,8 @@
 
 # Debugging (optional). Uncomment /tmp/game_start_stop.log and comment the /dev/null line
 # if you want to debug
-#logfile='/dev/null'
-logfile='/tmp/game_start_stop.log'
+logfile='/dev/null'
+#logfile='/tmp/game_start_stop.log'
 
 echo >> ${logfile}
 

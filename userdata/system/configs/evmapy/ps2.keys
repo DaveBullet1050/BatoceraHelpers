@@ -1,0 +1,11 @@
+{
+  "actions_player1":[
+		{
+      "trigger": ["start"],
+      "type": "exec",
+	  "hold": 2.0,
+      "target": [ "batocera-es-swissknife --emukill" ],
+      "description": "Exit the emulator"
+		}
+	]
+}		

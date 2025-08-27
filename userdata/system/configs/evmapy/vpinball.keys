@@ -1,0 +1,149 @@
+{
+  "axes": [
+        {
+            "name": "ABS_X",
+            "code": 0,
+            "min": 0,
+            "max": 255
+        },
+        {
+            "name": "ABS_Y",
+            "code": 1,
+            "min": 0,
+            "max": 255
+        }
+  ],
+    "buttons": [
+    {
+      "name": "a",
+      "code": 292
+    },
+    {
+      "name": "b",
+      "code": 291
+    },
+    {
+      "name": "l2",
+      "code": 294
+    },
+    {
+      "name": "l3",
+      "code": 298
+    },
+    {
+      "name": "pagedown",
+      "code": 293
+    },
+    {
+      "name": "pageup",
+      "code": 290
+    },
+    {
+      "name": "r2",
+      "code": 295
+    },
+    {
+      "name": "x",
+      "code": 289
+    },
+    {
+      "name": "y",
+      "code": 288
+    },
+    {
+      "name": "start",
+      "code": 297
+    },
+    {
+      "name": "select",
+      "code": 296
+    }
+  ],   
+  "actions_player1":[
+		{
+      "trigger": ["select", "start"],
+      "type": "key",
+	  "hold": 2.0,
+      "target": [ "KEY_Q" ],
+      "description": "Exit the emulator"
+		},
+		{
+      "trigger": ["select"],
+      "type": "key",
+      "target": [ "KEY_ESC" ],
+      "description": "Reset the table, sometimes required for PinMame"
+		},
+		{
+      "trigger": ["l2"],
+      "type": "key",
+      "target": [ "KEY_5" ],
+      "description": "Insert coin"
+		},
+		{
+      "trigger": ["r2"],
+      "type": "key",
+      "target": [ "KEY_1" ],
+      "description": "Start game"
+		},
+		{
+      "trigger": ["a"],
+      "type": "key",
+      "target": [ "KEY_LEFTSHIFT" ],
+      "description": "Left flipper"
+		},
+		{
+      "trigger": ["pagedown"],
+      "type": "key",
+      "target": [ "KEY_RIGHTSHIFT" ],
+      "description": "Right flipper"
+		},		
+		{
+      "trigger": ["x"],
+      "type": "key",
+      "target": [ "KEY_LEFTCTRL" ],
+      "description": "Left magna save"
+		},
+		{
+      "trigger": ["pageup"],
+      "type": "key",
+      "target": [ "KEY_RIGHTCTRL" ],
+      "description": "Right magna save"
+		},
+		{
+      "trigger": ["ABS_Y:min"],
+      "type": "key",
+      "target": [ "KEY_SPACE" ],
+      "description": "Nudge up"
+		},
+		{
+      "trigger": ["ABS_X:min"],
+      "type": "key",
+      "target": [ "KEY_Z" ],
+      "description": "Nudge left"
+		},
+		{
+      "trigger": ["ABS_X:max"],
+      "type": "key",
+      "target": [ "KEY_SLASH" ],
+      "description": "Nudge right"
+		},
+		{
+      "trigger": ["ABS_Y:max"],
+      "type": "key",
+      "target": [ "KEY_ENTER" ],
+      "description": "Pull plunger"
+		},		
+		{
+      "trigger": ["y"],
+      "type": "key",
+      "target": [ "KEY_2" ],
+      "description": "Buy extraball for a credit"
+		},
+		{
+      "trigger": ["b"],
+      "type": "key",
+      "target": [ "KEY_LEFTALT" ],
+      "description": "Lockbar fire button"
+		}
+    ]
+}
