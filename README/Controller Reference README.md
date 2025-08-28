@@ -147,4 +147,12 @@ For example - if you want to launch all c64 games for a retroarch core with a 27
 Therefore our batocera.conf should contain:  
 `c64.retroarch.video_rotation=270`  
 
+If you want to disable inputs for a key or button you can assign "nul" to these, eg:  
+```
+global.retroarch.input_hold_fast_forward_btn=nul
+global.retroarch.input_load_state_btn=nul
+global.retroarch.input_save_state_btn=nul
+```  
+Strip the _btn suffix if you want to disable the keyboard binding for that operation.  
+
 See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
