@@ -1,8 +1,8 @@
 # Swapping controllers on selected games
 
-In my situation I have 2 permanent USB zero delay arcade controllers - for player 1 and 2.  On occasion, I want to be able to plug in additional gamepad type controllers (e.g. USB 8bitdo - dual shock like controllers) and have these used as player 1 and 2.  Unfortunately Batocera doesn't have a per game "priority" or ability to assign which controllers should be used.  
+Some emulators (e.g.Nintendo64) allow an override for which controllers map to players, but some do not.  In my situation I have 2 permanent USB zero delay arcade controllers - for player 1 and 2.  On occasion, I want to be able to plug in additional gamepad type controllers (e.g. USB 8bitdo - dual shock like controllers) and have these used as player 1 and 2 (when present).  Unfortunately Batocera doesn't have a per game "priority" or ability to assign which controllers should be used when an emulator doesn't support it.  
 
-I want to be able to control which games have controller swapping - so need a per game configuration file.  If the game is present in the file, then the following controllers are swapped:  
+To set which games have controller swapping, we need a per game configuration file.  If the game is present in the file, then the following controllers are swapped:  
 Player 1 <-> 3  (if player 3 controller present)  
 Player 2 <-> 4  (if player 4 controller present)  
 
@@ -18,9 +18,9 @@ Remember to run:
 `batocera-save-overlay`  
 from the command line to save the updated .py file above, or it will be lost on reboot.  
 
-To ensure the correct order of controllers, you can fix these by setting from ES via START -> CONTROLLER AND BLUETOOTH SETTINGS then set the default controller for each player under "PLAYER ASSIGNMENTS".
+To ensure the correct order of your default controllers (in player 1 and 2 for example), you can fix these by setting from ES via START -> CONTROLLER AND BLUETOOTH SETTINGS then set the default controller for each player under "PLAYER ASSIGNMENTS".
 
 ## Improvements  
 - I should probably fold in the .cfg file into batocera.conf for easier management.  I didn't want to blow that out though at the cost of file read performance.  
 - Also should support swapping at a system level (rather than listing each rom in a system)
-- A better improvement would be a per system or game assignement order - than a crude swap, with a default order.. that way it would be possible to configure any combination, with some sort of fall backs (being the default for the system or game)
+- A better improvement would be a per system or game assignement order - than a crude swap, with a default order.. that way it would be possible to configure any order / combination, with some sort of fall backs (being the default for the system or game)
