@@ -63,7 +63,7 @@ Batocera packages Emulation Station with a bunch of controllers pre-configured. 
 If you want to change the mapping of buttons system wide, then using ES is the best way to do it (via ES main menu -> CONTROLLER & BLUETOOTH SETTINGS -> CONTROLLER MAPPING).  
 
 To get the ID and CODE values to use (see example above), run:  
-`sdl2-test -l`  
+`sdl2-jstest -l`  
 
 Which will list all controllers attached and all events supported (joystick axis and buttons) with codes.  And give you a "joystick number:" for each, eg:  
 ```
