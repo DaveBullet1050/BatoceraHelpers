@@ -155,4 +155,12 @@ global.retroarch.input_save_state_btn=nul
 ```  
 Strip the _btn suffix if you want to disable the keyboard binding for that operation.  
 
+You can add an _axis suffix if you want the input to be a joystick direction (instead of button or keyboard).  eg:  
+```
+global.retroarch.input_hold_fast_forward_axis=+0
+global.retroarch.input_hold_fast_forward_btn=7
+global.retroarch.input_hold_fast_forward=q
+```  
+Sets the fast forward control to be activated (with hotkey pressed) either on right joystick movement , button number 7 (indexed from 0 on my USB encoder - see above) or letter Q on keyboard.  
+
 See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
