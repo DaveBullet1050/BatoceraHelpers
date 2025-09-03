@@ -30,7 +30,7 @@ Now... what would you like to configure?:
 [CamillaDSP - EQ and other audio processing](./README/CamillaDSP.md)  
 [Swapping controllers on a per game basis](./README/ControllerSwap%20README.md)  
 [Mounting a music share / drive on another PC or SAMBA linux host](./README/Mounting%20music%20share%20README.md)  
-[Run script on directory change - auto update custom collections](.README/RunScriptOnDirectoryChange%20README.md)  
+[Run script on directory change - auto update custom collections](./README/RunScriptOnDirectoryChange%20README.md)  
 [Other assorted random helper scripts or utiliites](./README/RandomHelperScripts%20README.md)  
 
 ## Coming... 
