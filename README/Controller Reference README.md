@@ -1,6 +1,6 @@
 # Controller Reference
 
-This page documents how I've configured the 2 Zero delay "DragonRise" decoders on my system.
+This page documents how I've configured the 2 USB-zero delay "Dragonrise" branded decoders on my system.  These were sourced from AliExpress. I went for the cheapest I could find.  They work well!  
 
 Looking at the back of the Pi 3b+, I simply plugged them into the top left (player 1) and top right (player 2) USB ports.  I've never had a problem with them "switching" and mucking up the order of player 1 or 2 on reboot.  (i.e. they seem to be sticky).  
 
