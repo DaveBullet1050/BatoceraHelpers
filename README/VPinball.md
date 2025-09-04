@@ -1,13 +1,5 @@
 # Visual Pinball (VPinball) on Batocera (v41)  
 
-## Mapping controller buttons  
-I ended up bypassing all the controller mapping in the vpinballx.ini.  I couldn't find reliable documentation to map button and axis numeric values.  It all seemed a bit hit and miss. Not all buttons were recognised.
-So I created my own custom evmapy.json that I just get evmapy.py to copy in when it exists for the system in the evmapy folder.  I also set grab: true to ensure pad2key / evmapy handles all controller events and none are passed through to VPinball to interpret and cause confusion / spurious movements.
-
-Here is my custom evmapy [vpinball.json](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/evmapy/vpinball.json), which is copied over if present by system via this custom [evmapy.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/lib/python3.11/site-packages/configgen/utils/evmapy.py)  
-
-I'm using a [USB zero delay encoder](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md), but once you have your [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg) for your controller, you should be able to re-map the required button references and codes in the vinpball.json to work for you.  Note: Unlike the source .keys files that batocera uses for pad2key and generates an evmapy compatible json, evmapy does not support a description for each axis/button, hence why the buttons I've mapped are not described in the json (adding a description causes an evmapy error).  
-
 ## Getting a table to work
 
 ### 1. Get the VPX file
@@ -187,3 +179,11 @@ The Police (Gottlieb 1985).vpx
 Thunderbirds original 2022 v1.0.2.vpx  
 Time Machine (Data East 1988) v.2.1.vpx  
 Twilight Zone_VPX_2.1.vpx  
+
+## Mapping controller buttons  
+I ended up bypassing all the controller mapping in the vpinballx.ini.  I couldn't find reliable documentation to map button and axis numeric values.  It all seemed a bit hit and miss. Not all buttons were recognised.
+So I created my own custom evmapy.json that I just get evmapy.py to copy in when it exists for the system in the evmapy folder.  I also set grab: true to ensure pad2key / evmapy handles all controller events and none are passed through to VPinball to interpret and cause confusion / spurious movements.
+
+Here is my custom evmapy [vpinball.json](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/evmapy/vpinball.json), which is copied over if present by system via this custom [evmapy.py](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/lib/python3.11/site-packages/configgen/utils/evmapy.py)  
+
+I'm using a [USB zero delay encoder](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md), but once you have your [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg) for your controller, you should be able to re-map the required button references and codes in the vinpball.json to work for you.  Note: Unlike the source .keys files that batocera uses for pad2key and generates an evmapy compatible json, evmapy does not support a description for each axis/button, hence why the buttons I've mapped are not described in the json (adding a description causes an evmapy error).  
