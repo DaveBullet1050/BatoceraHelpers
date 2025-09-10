@@ -10,3 +10,10 @@ I created 3 scripts to do the job:
 By adding the above 3 files and toggling the service on, any time you add Daphne or MAME rom then UPDATE GAME LISTS, the custom Arcade collection will also be updated to include new (or removed) roms.
 
 You can edit the contents of update-arcade-collection and notify-roms-changed to update other custom collections and monitor other folders (e.g. you may want to have a combined Playstation custom collection for all PS games, regardless of generation).  
+
+## Collection update failure woes  
+If you are getting bogus entries in your collections, it could be this parameter in your:  
+`/userdata/system/configs/emulationstation/es_settings.cfg`  
+
+Ensure if you have this value it is set to false:  
+`<bool name="ParseGamelistOnly" value="false" />`  
