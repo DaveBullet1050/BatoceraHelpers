@@ -5,7 +5,7 @@ This repo is not a fork from Batocera.  The scripts provided are meant to be ins
 
 As with any system, before you apply any of these changes, do a backup!  You can do this via plugging in a USB stick formatted to exFAT, the via the main ES menu: System Settings -> Backup User Data (Target Device = should show your USB stick) -> Start.
 
-If making any changes to files in any other location other than /userdata, remember to run:  
+If making any changes to files in any other location other than under /boot or /userdata (i.e. anywhere else under root - "/"), remember to run:  
 `batocera-save-overlay`  
 To persist your changes (otherwise they will be lost on reboot).  
 
