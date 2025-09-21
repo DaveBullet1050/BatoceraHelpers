@@ -16,3 +16,12 @@ Obviously you can replace the IP address with a hostname, same with the share na
 As you are editing files outside of /userdata, don't forget to run:  
 `batocera-save-overlay`  
 or your `/etc/fstab` edits will be lost on reboot.   
+
+Depending on startup order / timings, you may find the mount fails to wait until the network is up.  I edited the script:  
+`/etc/init.d/S99userservices`  
+
+To sleep for 5 seconds at the end then mount the music directory, ie:  
+```
+sleep 5
+mount /mnt/music
+```  
