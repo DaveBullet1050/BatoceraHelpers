@@ -13,12 +13,13 @@ These instructions setup a TOS GRS restrictor gate (for Sanwa joysticks) so that
 ```
 chmod 755 /userdata/system/services/sanwa_restrictor
 ```  
+3. Enable the service:  
+In the main Batocera menu (Emulation station) press: `F4`  to restart ES (so the new service is found).  
+Then enable the service by presssing `START` then selecting `SYSTEM SETTINGS -> SERVICES` then toggling the new `SANWA_RESTRICTOR` to enable.  
 
 That should be all you need. No additional software (no exes/binaries as previously mentioned). Just shell scripting and a python helper to reliably write to/read from the TOS GRS controller TTY port.  
 
-To enable, go into the main ES configuration menu and select SYSTEM SETTINGS -> SERVICES, then you should be able to see and toggle SANWA_RESTRICTOR to enable.   
-
-The last (and optional) parameter you can set manually in your /userdata/system/batocera.conf is:
+The last (and optional) parameter you can set manually in your /userdata/system/batocera.conf is:  
 `sanwa_restrictor.dont_store_change=1`  
 
 The above setting will prevent a 4/8 way orientation change during the game from being stored on exit.  This may be useful for kiosk mode or kids playing etc... so they don't muck up your preferred list of games to play 4 way.  
