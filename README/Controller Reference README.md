@@ -123,19 +123,21 @@ At step 3 above in the launch process Batocera generates 2 Retroarch files:
 ```  
 I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:  
 ```
-<core_name>.retroarch.<setting>=<value>
-<core_name>.retroarchcore.<setting>=<value>
+<system_name>.retroarch.<setting>=<value>
+<system_name>.retroarchcore.<setting>=<value>
 ```  
 
 i.e. the settings from:  
 `/userdata/system/configs/retroarch/retroarchcustom.cfg`  
 go into  
-`<core_name>.retroarch.<setting>=<value>`  
+`<system_name>.retroarch.<setting>=<value>`  
 
 and those in:  
 `/userdata/system/configs/retroarch/cores/retroarch-core-options.cfg`  
 go into  
-`<core_name>.retroarchcore.<setting>=<value>`  
+`<system_name>.retroarchcore.<setting>=<value>`  
+
+`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  
 
 If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list.  
 
