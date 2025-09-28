@@ -137,7 +137,7 @@ and those in:
 go into  
 `<system_name>.retroarchcore.<setting>=<value>`  
 
-`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  
+`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  Use `global` if you want your setting to apply to all systems.  
 
 If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list.  
 
