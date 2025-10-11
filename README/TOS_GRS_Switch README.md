@@ -23,7 +23,7 @@ The last (and optional) parameter you can set manually in your /userdata/system/
 `sanwa_restrictor.dont_store_change=1`  
 
 The above setting will prevent a 4/8 way orientation change during the game from being stored on exit.  This may be useful for kiosk mode or kids playing etc... so they don't muck up your preferred list of games to play 4 way.  
-Without this setting, if the 4/8 way orientation is changed, then this will be stored in the roms4way.txt file and restored next time the game is launched. This is handy so you can "learn" new games or preferences.  
+Without this setting, if the 4/8 way orientation is changed (using the supplied button from the TOS GRS kit to toggle 4 or 8 way orientation), then the new orientation will be stored in the roms4way.txt file and restored next time the game is launched. This is handy so you can "learn" new games or preferences.  
 
 ## Overview
 The 4/8 way restrictor gate allows selection of 4 way (diamond) or 8 way (square) orientation of the restrictor gate on Sanwa joysticks.  The replacement gate (with servo motor attached and with custom control board) is available here from https://thunderstickstudio.com.
