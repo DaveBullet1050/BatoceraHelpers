@@ -18,7 +18,7 @@ Here's the physical USB zero delay encoder (aka Dragonrise as recognised in Linu
 ![USB Encoder](../image/USB%20zero%20delay%20encoder.png)  
 
 Here's another image showing the connectors and what they do:  
-![USB Encoder](../image/USBEncoder2.png)  
+![USB Encoder other pins](../image/USBEncoder2.png)  
 
 There is no way to configure each (player 1 and 2) USB delay encoders with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
 
