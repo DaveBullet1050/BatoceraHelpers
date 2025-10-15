@@ -113,6 +113,11 @@ And get a running list of events.  Pressing a joystick axis, or buttons will ret
 As you can see I map the button (ID) and code (CODE) in the es_input.cfg:  
 `		<input name="a" type="button" id="4" value="1" code="292" />`  
 
+Alternatively run:  
+`sdl-jstest -t 0`  
+
+to get a visual representation of the controller inputs and a '#' being displayed on a button push or axis movement.   
+
 Another utility than can display button codes is:  
 `evtest`  
 
