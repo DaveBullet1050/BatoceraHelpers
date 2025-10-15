@@ -9,6 +9,8 @@ If making any changes to files in any other location other than under /boot or /
 `batocera-save-overlay`  
 To persist your changes (otherwise they will be lost on reboot).  
 
+These instructions assume your Batocera machine is booting, Wifi / networking is up and you can connect to the machine via SSH (and you understand what this means) or use the console for running commands.  Whilst you don't need any Linux/Shell command line knowledge, having it helps!  
+
 This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  If using any of the config or scripts linked under these pages, simply copy to the same structure in this repo - to your Batocera machine.  i.e. files under /usr/bin/tos_grs get copied to the same location (create directories if required).  The help pages below link to the relevant files for configuring that feature:  
 
 Start here. I use a USB Zero delay encoder with Sanwa sticks and buttons.  It's important as it is referenced throughout these guides and in the config files I've uploaded:  
