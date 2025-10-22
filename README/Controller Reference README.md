@@ -174,3 +174,12 @@ global.retroarch.input_hold_fast_forward=q
 Sets the fast forward control to be activated (with hotkey pressed) either on right joystick movement , button number 7 (indexed from 0 on my USB encoder - see above) or letter Q on keyboard.  
 
 See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
+
+## Spinner setup  
+For Retroarch, you need to configure 2 settings in your batocera.conf:  
+```
+global.retroarch.input_player1_mouse_index=1
+global.retroarchcore.mame_mouse_enable=enabled
+```
+
+Note: the mouse_index above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  You can create the script referenced in the [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) which should correctly assign the mouse_index
