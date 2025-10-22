@@ -17,6 +17,9 @@ Backside:
 Here's the physical USB zero delay encoder (aka Dragonrise as recognised in Linux/Batocera) as per:  
 ![USB Encoder](../image/USB%20zero%20delay%20encoder.png)  
 
+Here's another image showing the connectors and what they do:  
+![USB Encoder other pins](../image/USBEncoder2.png)  
+
 There is no way to configure each (player 1 and 2) USB delay encoders with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
 
 ```
@@ -110,6 +113,11 @@ And get a running list of events.  Pressing a joystick axis, or buttons will ret
 As you can see I map the button (ID) and code (CODE) in the es_input.cfg:  
 `		<input name="a" type="button" id="4" value="1" code="292" />`  
 
+Alternatively run:  
+`sdl-jstest -t 0`  
+
+to get a visual representation of the controller inputs and a '#' being displayed on a button push or axis movement.   
+
 Another utility than can display button codes is:  
 `evtest`  
 
@@ -123,19 +131,21 @@ At step 3 above in the launch process Batocera generates 2 Retroarch files:
 ```  
 I find it easiest to launch a retroarch game, then look at what values are in the above files, then reverse engineer what should go into batocera.conf, eg:  
 ```
-<core_name>.retroarch.<setting>=<value>
-<core_name>.retroarchcore.<setting>=<value>
+<system_name>.retroarch.<setting>=<value>
+<system_name>.retroarchcore.<setting>=<value>
 ```  
 
 i.e. the settings from:  
 `/userdata/system/configs/retroarch/retroarchcustom.cfg`  
 go into  
-`<core_name>.retroarch.<setting>=<value>`  
+`<system_name>.retroarch.<setting>=<value>`  
 
 and those in:  
 `/userdata/system/configs/retroarch/cores/retroarch-core-options.cfg`  
 go into  
-`<core_name>.retroarchcore.<setting>=<value>`  
+`<system_name>.retroarchcore.<setting>=<value>`  
+
+`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  Use `global` if you want your setting to apply to all systems.  
 
 If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list.  
 
@@ -164,3 +174,12 @@ global.retroarch.input_hold_fast_forward=q
 Sets the fast forward control to be activated (with hotkey pressed) either on right joystick movement , button number 7 (indexed from 0 on my USB encoder - see above) or letter Q on keyboard.  
 
 See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
+
+## Spinner setup  
+For Retroarch, you need to configure 2 settings in your batocera.conf:  
+```
+global.retroarch.input_player1_mouse_index=1
+global.retroarchcore.mame_mouse_enable=enabled
+```
+
+Note: the mouse_index above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  You can create the script referenced in the [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) which should correctly assign the mouse_index

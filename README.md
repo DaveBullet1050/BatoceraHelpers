@@ -1,13 +1,15 @@
 # Batocera Helpers
 A bunch of config or how to scripts / info for a [Batocera](https://batocera.org/) gaming machine.  All of this is running successfully on vanilla Batocera v41 on an x64 (Intel PC).  I say "vanilla" as there are pre-packaged Batocera images with ROMS etc.. and they may have incompatible scripts / updates to those contained in this repo.   
 
-This repo is not a fork from Batocera.  The scripts provided are meant to be installed "copy down" into the same location on your Batocera machine as in this repo.  Also the advice I'm giving is on my own account and has not been endorsed by the devs at Batocera.  Most of these changes can be removed by simply deleting the /boot/overlay file.  So please use at your own risk.  I've included it here as it may help you with any problems you are having (at least understand where things are done and have examples to look at).  Batocera may provide other ways to implement these, but I couldn't find them, hence my own customisations.  
+This repo is not a fork from Batocera.  The scripts provided are meant to be installed "copy down" into the same location on your Batocera machine as in this repo.  Also the advice I'm giving is on my own account and has not been endorsed by the devs at Batocera.  Most of these changes can be removed by simply deleting the `/boot/boot/overlay` file.  So please use at your own risk.  I've included it here as it may help you with any problems you are having (at least understand where things are done and have examples to look at).  Batocera may provide other ways to implement these, but I couldn't find them, hence my own customisations.  
 
 As with any system, before you apply any of these changes, do a backup!  You can do this via plugging in a USB stick formatted to exFAT, the via the main ES menu: System Settings -> Backup User Data (Target Device = should show your USB stick) -> Start.
 
-If making any changes to files in any other location other than /userdata, remember to run:  
+If making any changes to files in any other location other than under /boot or /userdata (i.e. anywhere else under root - "/"), remember to run:  
 `batocera-save-overlay`  
 To persist your changes (otherwise they will be lost on reboot).  
+
+These instructions assume your Batocera machine is booting, Wifi / networking is up and you can connect to the machine via SSH (and you understand what this means) or use the console for running commands.  Whilst you don't need any Linux/Shell command line knowledge, having it helps!  
 
 This repo contains my batocera overlay file (expanded into the directories and files you see) plus other config / scripts (under /userdata).  If using any of the config or scripts linked under these pages, simply copy to the same structure in this repo - to your Batocera machine.  i.e. files under /usr/bin/tos_grs get copied to the same location (create directories if required).  The help pages below link to the relevant files for configuring that feature:  
 
