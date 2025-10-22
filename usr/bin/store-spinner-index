@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Returns the index number spinner named below.  To get your spinner name, find your spinner device by filename under:
+# /dev/input/by-id.  This example is for the thunderstick ultra spinner - TS-BSP-ULTRA
+#
+# An exact filename is not required, a partial will work as long as it differentiates from other devices in the directory
+
+spinner='usb-Baolian_industry_Co.__Ltd_TS-BSP-Ultra'
+
+# Find the index by listing only input devices suffixed with a mouse type, then subtract 1 as Retroarch expects a zero offset index
+spinner_index=$((`ls -l /dev/input/by-id | grep -e "-event-mouse" | awk '{print $11" "$9}' | sort -V | grep -n "$spinner" | cut -f1 -d:` -1))
+
+# Finally store in batocera.conf
+batocera-settings-set global.retroarch.input_player1_mouse_index $spinner_index
+
+# And ensure mame core has mouse enabled
+batocera-settings-set global.retroarchcore.mame_mouse_enable enabled
