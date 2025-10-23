@@ -2,7 +2,7 @@
 
 This page documents how I've configured the 2 USB-zero delay "Dragonrise" branded decoders on my system.  These were sourced from AliExpress. I went for the cheapest I could find.  They work well!  
 
-Looking at the back of the Pi 3b+, I simply plugged them into the top left (player 1) and top right (player 2) USB ports.  I've never had a problem with them "switching" and mucking up the order of player 1 or 2 on reboot.  (i.e. they seem to be sticky).  
+Depending on your PC/Pi - I found the player controls would sometimes swap on reboot.  The [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_use_dragonrise_encoders_and_player_1_and_player_2_s_inputs_are_swapped) has a solution which I applied and have not since had a problem.  
 
 I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt-joystick-precursor-to-jlx-tp-8yt/) with the [TOS GRS 4/8 way servo switched restrictor gates](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate).  I am also using 30mm screw in Sanwa buttons for the player buttons, with a mix of 24mm buttons for coin, select and start and Happ style P1/2 start buttons.  I am also using a cheapo CH-616 coin acceptor, allowing coins to add credits for MAME games.
 
