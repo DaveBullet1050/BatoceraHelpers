@@ -182,4 +182,9 @@ global.retroarch.input_player1_mouse_index=1
 global.retroarchcore.mame_mouse_enable=enabled
 ```
 
-Note: the mouse_index above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  You can create the script referenced in the [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) which should correctly assign the mouse_index
+Note: the mouse_index above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  The [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) provides a solution on each game launch, however this depends on enabling retroarch logging and uses the last game launch value, which may change between games *if* you plug / unplug mouse devices.  
+
+I've created a simpler script here, that doesn't require retroarch logging and just looks at udev mouse devices, where the eventXX number infers order.  Put this in /usr/bin or similar and create a launch script as per the wiki above:  
+`/usr/bin/store-spinner-index`  
+
+Edit the top variable to be the name of your spinner device as described in the script.  The script also ensures mouse control is enabled in mame under retroarch (otherwise the spinner won't work).  
