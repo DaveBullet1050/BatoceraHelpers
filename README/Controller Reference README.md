@@ -178,13 +178,21 @@ See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/ma
 ## Spinner setup  
 For Retroarch, you need to configure 2 settings in your batocera.conf:  
 ```
-global.retroarch.input_player1_mouse_index=1
+global.retroarch.input_player1_mouse_index=<correct index number>
 global.retroarchcore.mame_mouse_enable=enabled
 ```
 
-Note: the mouse_index above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  The [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) provides a solution on each game launch, however this depends on enabling retroarch logging and uses the last game launch value, which may change between games *if* you plug / unplug mouse devices.  
+Note: the *input_player1_mouse_index* above will change in your system (and may change depending on order assigned for controllers by udev on reboot).  The [wiki](https://wiki.batocera.org/diy-arcade-controls?s[]=spinner#i_have_a_two_devices_that_are_recognized_as_mice_and_i_have_to_reconfigure_them_every_launch) provides a solution on each game launch, however this depends on enabling retroarch logging and uses the last game launch value, which may change between games *if* you plug / unplug mouse devices.  
 
-I've created a simpler script here, that doesn't require retroarch logging and just looks at udev mouse devices, where the eventXX number infers order.  Put this in /usr/bin or similar and create a launch script as per the wiki above:  
-`/usr/bin/store-spinner-index`  
+I've created a simpler script here, that doesn't require retroarch logging and just looks at udev mouse devices (where the eventXX number infers order).  Put this in /usr/bin:  
+[/usr/bin/get-spinner-index](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/get-spinner-index)  
 
-Edit the top variable to be the name of your spinner device as described in the script.  The script also ensures mouse control is enabled in mame under retroarch (otherwise the spinner won't work).  
+Edit the top variable:  
+`spinner='usb-Baolian_industry_Co.__Ltd_TS-BSP-Ultra'`  
+to be the name of your spinner device as described in the script (i.e. enough of the filename to uniquely match your spinner under /dev/input/by-id)  
+
+Download this script, which will set the correct index each game launch:  
+[/userdata/system/scripts/store_spinner_index.sh](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/scripts/store_spinner_index.sh)  
+
+Finally (as a one off), ensure you manually add the following to your batocera.conf:  
+`global.retroarchcore.mame_mouse_enable=enabled`  
