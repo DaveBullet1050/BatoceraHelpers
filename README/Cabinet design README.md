@@ -4,7 +4,7 @@ The design was done in Sketchup 7 and is available [here](https://github.com/Dav
 Note: the sketchup model is pretty basic.  There's no advanced concepts of grouping lines etc.. into components. I mainly use sketchup for exact dimensions and checking for angles, interference, positioning etc... before committing to cuts.  This isn't the kind of model you send to a CNC machine!
 
 ## Features
-- Side by side 2 player cabinet with storage at bottom via 2 hinged doors
+- Side by side 2 player cabinet with storage at bottom via 2 hinged doors (just big enough to hold a Logitech FBB wheel (G923 model) and pedals 
 - Cabinet access from rear
 - Removable monitor panel.  Takes a 27" LCD widescreen monitor
 - LED DMD Marquee (DIY)
