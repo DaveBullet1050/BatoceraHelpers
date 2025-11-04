@@ -1,6 +1,8 @@
 # Cabinet design
 The design was done in Sketchup 7 and is available [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Cocktail%20cabinet%20model%20-%20v12a%20-%20upright%20with%20marque%20-%20sketchup%20v7.skp) as well as block layout for sides [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Cocktail%20cabinet%20model%20-%20v12a%20-%20blocking.skp) and side panel dimensions [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Cocktail%20cabinet%20model%20-%20v12%20-%20side%20panels.skp).  
 
+Note: the sketchup model is pretty basic.  There's no advanced concepts of grouping lines etc.. into components. I mainly use sketchup for exact dimensions and checking for angles, interference, positioning etc... before committing to cuts.  This isn't the kind of model you send to a CNC machine!
+
 If you don't have Sketchup, here's some screenshots:  
 <img width="817" height="897" alt="image" src="https://github.com/user-attachments/assets/4c13f71a-0c13-4ea7-8d33-13548b6180ae" />  
 <img width="765" height="880" alt="image" src="https://github.com/user-attachments/assets/01daf3a5-8ba6-44da-8a0b-b1794444fd36" />  
