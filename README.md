@@ -16,6 +16,9 @@ This repo contains my batocera overlay file (expanded into the directories and f
 Start here. I use a USB Zero delay encoder with Sanwa sticks and buttons.  It's important as it is referenced throughout these guides and in the config files I've uploaded:  
 [Controller reference](./README/Controller%20Reference%20README.md#controller-reference)  
 
+Cabinet design:  
+[Cabinet design](./README/Cabinet%20design%20README.md)  
+
 Now... what would you like to configure?:  
 [Batocera backup](./README/Backup%20README.md)  
 [Coin acceptor / slot](./README/CoinAcceptor%20README.md#coin-acceptor--slot)  
