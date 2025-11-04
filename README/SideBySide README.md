@@ -16,11 +16,18 @@ When pressing Select - P1 Start, retroarch sequences from the stock shader (righ
 
 The other small hit is frame skipping on a Pi3B+.  The shader adds some compute and I don't think the Pi3B+ has enough grunt to maintain the frame rate, so you are aware of play not being as smooth. I've since moved to an x64 box (both i3 6th gen and 12th gen processors) and there is no performance hit with shaders.  
 
-## Stock and CRT flippable shaders
+## Stock and Curvature (aka CRT effect) flippable shaders
 
 The problem with the above shaders, is they have a stock rendering. I wanted the option if a game (or system or indeed globally) we have "curvature" set for the shaderset (in batocera.conf), then I want to have 2 CRT shaders - one rightside up and one upside down to toggle between.  If the game/system/global setting is anything other than "curvature", then I want the stock shaders to be used (again a rightside up and upside down pair).  
 
-I created a script that would be called by batocera on game start event that would check the setting above, then copy over the source shader pair as appropriate to the folder where retroarch looks for shaders.  Then by pressing my "toggle" button (select + P1 start), I either get stock or curvature shaders with an upside down option.  
+I created a script that would be called by batocera on game start event that would check for the "shaderset" in batocera.conf, then copy over the source shader pair as appropriate to the folder where retroarch looks for shaders.  Then by pressing my "toggle" button (select + P1 start), I either get stock or curvature shaders with an upside down option.  
+
+The shaderset option is set at either a global, system or per rom (game) level.  A setting of "curvature" will swap in the shaders to have normal and flipped views with curvature effect.  Any other setting (default if missing) will swap in the "stock" shaders (without curvature), some examples:  
+```
+c20["Road Race.prg"].shaderset=none
+global.shaderset=none
+mame.shaderset=curvature
+```  
 
 To get the upside down CRT (curvature) shader, I ended up customising the GLCore code to include the flip logic.  This was easier than chaining shadersets in Retroarch to do the same thing (and likely more performant).  
 
@@ -49,4 +56,5 @@ Alternatively, you could try this in /userdata/system/batocera.conf:
 
 Assuming you have configured an equivalent shader toggle button above, the above script will swap in the correct shaders into the shaders directory used by Retroarch to toggle between stock or curvature options.    
 
-
+## Curvature shader toggle
+I created the [curvature_shader](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/services/curvature_shader) which is under the Batocera services menu.  It is a toggle that sets the global.shaderset in batocera.conf to ether "curvature" or "none", thus toggling the use of the curvature shaderset across all systems and roms (unless there a per system or rom overrides in the batocera.conf)  
