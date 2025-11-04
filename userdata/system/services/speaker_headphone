@@ -1,0 +1,57 @@
+#!/bin/bash
+
+# Toggles between internal speaker or headphone output
+
+start() {
+	echo -n "Setting audio to headphone output"
+	
+	amixer -D hw:0 set 'Speaker' off
+	amixer -D hw:0 set 'Headphone' on
+
+	echo "done"
+}
+
+stop() {
+	echo -n "Setting audio to speaker output"
+	
+	amixer -D hw:0 set 'Speaker' on
+	amixer -D hw:0 set 'Headphone' off
+
+	echo "done"
+}
+
+status() {
+	speaker_off=`amixer -D hw:0 get 'Speaker' | grep 'Front Left:' | grep -c '\[off\]'`
+	if [[ $speaker_off == 1 ]]
+	then
+		echo 'Speaker output is off'
+	else
+		echo 'Speaker output is on'
+	fi
+	
+	headphone_off=`amixer -D hw:0 get 'Headphone' | grep 'Front Left:' | grep -c '\[off\]'`
+	if [[ $headphone_off == 1 ]]
+	then
+		echo 'Headphone output is off'
+	else
+		echo 'Headpone output is on'
+	fi
+	
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+                status
+                ;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?

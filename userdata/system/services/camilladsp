@@ -4,7 +4,6 @@ camilladsp_pid_file="/tmp/camilladsp.pid"
 
 start() {
 	echo -n "Starting camilladsp:"
-	# Start dmd-play in a listener mode and store the PID (so we can send it SIGINT to stop playback for the next marquee
 
 	start-stop-daemon -S -b -q -m -p ${camilladsp_pid_file} --exec /usr/bin/camilladsp /userdata/system/configs/camilladsp/2channel-bass-merge.yaml &
 	RETVAL=$?

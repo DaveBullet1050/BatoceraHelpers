@@ -1,0 +1,27 @@
+#!/bin/bash
+
+start() {
+	echo -n "Applying curvature shader globally:"
+	batocera-settings-set global.shaderset curvature
+}
+
+stop() {
+	echo -n "Removing curvature shader globally:"
+	batocera-settings-set global.shaderset none
+}
+
+case "$1" in
+	start)
+			start
+			;;
+	stop)
+			stop
+			;;
+	status)
+                ;;
+	*)
+			echo "Usage: $0 {start|stop}"
+			exit 1
+esac
+
+exit $?
