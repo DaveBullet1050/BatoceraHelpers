@@ -197,7 +197,7 @@ Download this script, which will set the correct index each game launch:
 Finally (as a one off), ensure you manually add the following to your batocera.conf:  
 `global.retroarchcore.mame_mouse_enable=enabled`  
 
-## Custom controller mappipngs (i.e. stopping Batocera from generating per game launch)
+## Custom controller mappings (i.e. stopping Batocera from generating per game launch)
 Batocera is good in that it will regenerate configuration files when launching mame under retroarch or stand alone.  This includes controller axis/button mappings (obtained from ES config). You may want avoid this, and use (for example) mame's internal input assignments at a per game or system wide level.  This may be easier to allow tailoring specific game controls.  A good example is where you want for Robotron 2084 for example, to map within mame, the player 2 joystick as the directional fire "button".  It's not possible to do this via batocera.conf nor retroarch settings.  
 
 To prevent Batocera from regenerating controller mappings, set one of these in your batocera.conf:  
