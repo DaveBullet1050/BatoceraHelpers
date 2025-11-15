@@ -3,17 +3,17 @@
 There's an open source project called [Sunshine](https://github.com/LizardByte/Sunshine) that runs as a server, allowing remote display of the Batocera desktop (ES/gaming emulator) from a client running Moonlight.  Both Sunshine and Moonlight are multiplatform.  
 
 ## Simplest installation on Batocera
-Deploy this [service](https://github.com/n2qz/batocera-service-sunshine/tree/master) and start it.  You can then connect from a client running Moonlight.  This service will automatically download the sunshine server for you.  Start the service by going into the main batocera (ES) menu by pressing START -> SYSTEM SETTINGS -> SERVICES and toggle on SUNSHINE.
+Deploy this [service](https://github.com/n2qz/batocera-service-sunshine/tree/master) and start it.  You can then connect from a client running Moonlight.  This service will automatically download the sunshine server for you.  Start the service by going into the main batocera (ES) menu by pressing `START -> SYSTEM SETTINGS -> SERVICES` and toggle on SUNSHINE.
 
 ## Alternative installation
 If you want to control which version is downloaded, follow these steps:
 1. Choose the appropriate binary from the assets under the [latest release](https://github.com/LizardByte/Sunshine/releases).  For Batocera on x86/64, download `sunshine.Appimage` (binary).
-2. Move the sunshine.Appimage to /usr/bin/sunshine (i.e. rename it)
+2. Move the sunshine.Appimage to `/usr/bin/sunshine` (i.e. rename it)
 3. chmod 755 /usr/bin/sunshine 
 4. Run `batocera-save-overlay 100` (the 100 is to allow for enough space in the overlay file to store the binary) 
 5. Download the [/userdata/system/services/sunshine](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/services/sunshine) service
 6. Run `chmod 755 /userdata/system/services/sunshine`
-7. Finally - go into the main batocera (ES) menu by pressing START -> SYSTEM SETTINGS -> SERVICES and toggle on SUNSHINE to start the service  
+7. Finally - go into the main batocera (ES) menu by pressing `START -> SYSTEM SETTINGS -> SERVICES and toggle on SUNSHINE` to start the service  
 
 If the service started succesfully, you should be able to connect to it from a PC/client via browsing to `batocera.local:47990`.  
 
