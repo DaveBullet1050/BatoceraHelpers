@@ -16,7 +16,7 @@ All configuration is held in [/userdata/system/batocera.conf](https://github.com
 
 ### 1. Define the controllers to the system
 
-This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "handheld" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  Create the following (in batocera.conf - anywhere in the file is fine):  
+This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "handheld" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  Create the following (in batocera.conf - anywhere and any order in batocera.conf is fine):  
 ```
 global.controller.aliases=arcade,handheld,wheel
 
@@ -34,10 +34,11 @@ global.controller.alias.c=Logitech G923 Racing Wheel for PlayStation 4 and PC
 ```
 As long as the list of names after aliases, each match a defined alias under "global.controller.alias.<your alias name>"  
 
-Now we can refer to just the aliases in our order rules.  To find the full name of the controller, connect the controller to your system and open up the [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg) and look for the name of the controller(s) next to the *INPUT_PxNAME* element, eg:   
+To find the full name of the controller to assign to your alias, connect the controller to your system and open up the [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg) and look for the name of the controller(s) next to the *INPUT_PxNAME* element, eg:   
 ```
 	<string name="INPUT P1NAME" value="DragonRise Inc.   Generic   USB  Joystick  " />
 ```  
+Now we can refer to just the aliases in our order rules...  
 
 ### 2. Configure the preferred controller order using aliases
 
@@ -55,10 +56,11 @@ Note: The controllers don't need to be plugged in permanently, when a game launc
 We don't have to assign all available controllers.  For example, we may know the game is limited to 2 players.  We can set the max number of assignments with the following:  
 ```
 mame["simpsons.zip"].controller.players=4
-mame["outrun.zip"].controller.order=1
-megadrive.controller.order=2
-global.controller.order=4
+mame["outrun.zip"].controller.players=1
+megadrive.controller.players=2
+global.controller.players=4
 ```  
+If not defined, 4 players will be assumed.  
 
 ### Explanation of examples
 For simpsons, the configuration says if there are multiple arcade controllers, assign these first to players 1,2,3,4.  If you run out of arcade controls, start assigning handheld controllers.  e.g. If we had 2 handheld then plugged in an arcade controller, the arcade will be assigned to player 1 (priority) then handheld to players 2 and 3.  Even though simpsons is configured for 4 player controls, a 4th control couldn't be assigned because only 3 were physically plugged into the system.  
