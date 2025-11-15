@@ -16,7 +16,7 @@ All configuration is held in [/userdata/system/batocera.conf](https://github.com
 
 ### 1. Define the controllers to the system
 
-This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "handheld" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  Create the following (in batocera.conf - anywhere in the file is fine):  
+This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "handheld" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  Create the following (in batocera.conf - anywhere and any order in batocera.conf is fine):  
 ```
 global.controller.aliases=arcade,handheld,wheel
 
