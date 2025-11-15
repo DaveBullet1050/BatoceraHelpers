@@ -37,6 +37,7 @@ Now... what would you like to configure?:
 [Mounting a music share / drive on another PC or SAMBA linux host](./README/Mounting%20music%20share%20README.md)  
 [Run script on directory change - auto update custom collections](./README/RunScriptOnDirectoryChange%20README.md)  
 [Windows / WINE emulation tips](./README/Windows%20README.md)  
+[Streaming from Batocera - using Sunshine and Moonlight](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Streaming%20README.md)  
 [Other assorted random helper scripts or utiliites](./README/RandomHelperScripts%20README.md)  
 
 ## Coming...  
