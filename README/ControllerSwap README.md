@@ -34,7 +34,7 @@ global.controller.alias.c=Logitech G923 Racing Wheel for PlayStation 4 and PC
 ```
 As long as the list of names after aliases, each match a defined alias under "global.controller.alias.<your alias name>"  
 
-To find the full name of the controller to assign to your alias, connect the controller to your system and open up the [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg) and look for the name of the controller(s) next to the *INPUT_PxNAME* element, eg:   
+To find the full name of the controller to assign to your alias, connect the controller to your system and open up the [es_settings.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_settings.cfg) and look for the name of the controller(s) next to the *INPUT_PxNAME* element, eg:   
 ```
 	<string name="INPUT P1NAME" value="DragonRise Inc.   Generic   USB  Joystick  " />
 ```  
