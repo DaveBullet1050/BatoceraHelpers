@@ -145,7 +145,7 @@ and those in:
 go into  
 `<system_name>.retroarchcore.<setting>=<value>`  
 
-`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  Use `global` if you want your setting to apply to all systems.  
+`<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  Use `global` if you want your setting to apply to all systems.  <system_name> can specify a specific game of that system too (by following with square brackets and rom/filename of game in speech marks) - e.g. mame["robotron.zip"].retroarch.....  
 
 If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blob/master/input/input_keymaps.c) has the full list.  
 
@@ -198,7 +198,7 @@ Finally (as a one off), ensure you manually add the following to your batocera.c
 `global.retroarchcore.mame_mouse_enable=enabled`  
 
 ## Custom controller mappings (i.e. stopping Batocera from generating per game launch)
-Batocera is good in that it will regenerate configuration files when launching mame under retroarch or stand alone.  This includes controller axis/button mappings (obtained from ES config). You may want avoid this, and use (for example) mame's internal input assignments at a per game or system wide level.  This may be easier to allow tailoring specific game controls.  A good example is where you want for Robotron 2084 for example, to map within mame, the player 2 joystick as the directional fire "button".  It's not possible to do this via batocera.conf nor retroarch settings.  
+Batocera is good in that it will regenerate configuration files when launching mame under retroarch or stand alone.  This includes controller axis/button mappings (obtained from ES config). You may want avoid this, and use (for example) mame's internal input assignments at a per game or system wide level.  This may be easier to allow tailoring specific game controls.  A good example is where you want for Robotron 2084 for example, to map within mame, the player 2 joystick as the directional fire "button".  It's possible but messy to do this via batocera.conf retroarch settings.  
 
 To prevent Batocera from regenerating controller mappings, set one of these in your batocera.conf:  
 
