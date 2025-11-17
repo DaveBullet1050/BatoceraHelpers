@@ -15,13 +15,13 @@ If you want to control which version is downloaded, follow these steps:
 6. Run `chmod 755 /userdata/system/services/sunshine`
 7. Finally - go into the main batocera (ES) menu by pressing `START -> SYSTEM SETTINGS -> SERVICES and toggle on SUNSHINE` to start the service  
 
-If the service started succesfully, you should be able to connect to it from a PC/client via browsing to `batocera.local:47990`.  
-
-## Initial connection
-Sunshine expects a pin to be generated and entered on the Moonlight client.  When you open up Moonlight, it should auto-discover the sunshine server.  When you connect from moonlight, moonlight will prompt you for a pin number.  Go to the Sunshine configuration URL (above) and select **PIN** from the menu, then enter a pin number (e.g. 1234) and the hostname of the moonlight client that is connecting.  You can then enter that pin on the moonlight client.  The connection should succeed and pin remembered for next time.
+If the service started succesfully, you should be able to connect to it for configuration purposes via browsing to `batocera.local:47990`.  
 
 ## Moonlight client
-You need a moonlight client to connect and effectively "remote desktop / stream" your Batocera machine.  The http service above is purely for configuration.  Download the appropriate Moonlight client.  Here's a [link to the PC version](https://github.com/moonlight-stream/moonlight-qt/releases).  
+You need a Moonlight client to connect and effectively "remote desktop / stream" your Batocera machine.  The http service above is purely for configuration.  Download the appropriate Moonlight client.  Here's a [link to the PC version](https://github.com/moonlight-stream/moonlight-qt/releases).  
+
+## Initial connection
+Sunshine expects a pin to be generated and entered on the Moonlight client.  When you open up Moonlight, it should auto-discover the sunshine server (and display 3 options to connect).  When you connect for example to the Batocera "Desktop" from Moonlight (Desktop being the single display that Batocera uses for the main menu and main emulation UI), moonlight will prompt you for a pin number.  Go to the Sunshine configuration URL (above) and select **PIN** from the menu, then enter a pin number (e.g. 1234) and the hostname of the moonlight client that is connecting.  You can then enter that pin on the moonlight client.  The connection should succeed and pin remembered for next time.
 
 ## Keyboard only play
 If the PC you are going to use it from has no gamepads and only a keyboard and you want to send all keyboard commands to the sunshine server (e.g. Alt-F4 to close the game/emulator on Batocera), browse to the configuration URL: `batocera.local:47990` and change settings as shown:  
