@@ -9,7 +9,7 @@ Deploy this [service](https://github.com/n2qz/batocera-service-sunshine/tree/mas
 If you want to control which version is downloaded, follow these steps:
 1. Choose the appropriate binary from the assets under the [latest release](https://github.com/LizardByte/Sunshine/releases).  For Batocera on x86/64, download `sunshine.Appimage` (binary).
 2. Move the sunshine.Appimage to `/usr/bin/sunshine` (i.e. rename it)
-3. chmod 755 /usr/bin/sunshine 
+3. Run `chmod 755 /usr/bin/sunshine`
 4. Run `batocera-save-overlay 100` (the 100 is to allow for enough space in the overlay file to store the binary) 
 5. Download the [/userdata/system/services/sunshine](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/services/sunshine) service
 6. Run `chmod 755 /userdata/system/services/sunshine`
