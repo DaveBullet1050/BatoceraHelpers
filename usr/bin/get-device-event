@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Returns the /dev/input/eventX of the requested  device when passed the matching filename from  /dev/input/by-id
+
+ls -l /dev/input/by-id | grep "$1" | awk '{ sub(/..\//,"/dev/input/", $11); print $11}'

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Returns the /dev/input/eventX of the Dell USB mouse
+
+#echo '' | evtest 2>&1 > /dev/null | sed -n '/Dell MS116 USB Optical Mouse/p' | cut -f1 -d:
+get-device-event usb-PixArt_Dell_MS116_USB_Optical_Mouse

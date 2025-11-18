@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Returns the /dev/input/eventX of the Dell USB mouse
+
+#echo '' | evtest 2>&1 > /dev/null | sed -n '/Logitech USB Optical Mouse/p' | cut -f1 -d:
+get-device-event usb-0000_USB_OPTICAL_MOUSE

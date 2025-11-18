@@ -65,7 +65,8 @@ rs_fix_min_dates() {
 rs_sync() {
     FSID=$1
     FSDEV=$(blkid | grep "UUID=\"${FSID}\"" | sed -e s+'^\([^:]*\):.*$'+'\1'+)
-    FSTYPE=$(blkid | grep "UUID=\"${FSID}\"" | sed -e s+'^.* TYPE=\"\([^\"]*\)\"$'+'\1'+)
+	# DMT v41 bug.  the .* was missing before $ in the sed command below meaning the file system was never extracted - e.g. if ntfs, meaning the default batocera-mount would treat everything as vfat and fail to mount an ntfs drive (i.e. such as the samsung 1Tb ssd)
+    FSTYPE=$(blkid | grep "UUID=\"${FSID}\"" | sed -e s+'^.* TYPE=\"\([^\"]*\)\".*$'+'\1'+)
     MOUNTPOINT="/var/run/batocera-sync"
     
     if test -z "${FSDEV}"
@@ -91,7 +92,6 @@ rs_sync() {
 	    return 1
 	fi
     fi
-       
     # rsync
     if test -n "${EXISTINGMP}"
     then
@@ -104,8 +104,11 @@ rs_sync() {
 	MOUNTDIR="${MOUNTDIR}/batocera"
     fi
 
-	# Backup overlay file.  We back it up to /userdata/backup so it is included in the rsync below rather than keep as a separate file
-	cp /boot/boot/overlay /userdata/backup 2>&1
+	# Backup overlay file.  We back it up to /userdata/overlay so it is included in the rsync below rather than keep as a separate file
+	#cp /boot/boot/overlay /userdata/overlay 2>&1
+	
+	# Backup the entire boot partition - including overlay file
+	rsync -av /boot /userdata/boot_backup/
 
     EXITCODE=1
     # don't use -a to avoid links, special directories on vfat... (i got no problem to backup on ntfs (except a slower time))
@@ -115,8 +118,8 @@ rs_sync() {
 	RSYNCOPT="-rpt --exclude system/bluetooth" # exclude bluetooth while it contains : chars not supported on fat32
         rs_fix_min_dates "/userdata" # if fails, will take a longer time
     fi
-	# Skip symbolic links.  There's one symlink that Daphne creates on game launch and if we back it up to a device that can't handle symlinks. rsync throws an error and this is reported as an error in Batocera / Emulation station... so suppress so we know if the backup worked or not legitimately
-    if rsync $RSYNCOPT -v --no-links --modify-window=2 --delete-during "/userdata/" "${MOUNTDIR}" 2>&1 # modify-window because all file system such as fat32 doesn't have the same time precision
+	# DMT Skip symbolic links.  There's one symlink that Daphne creates on game launch and if we back it up to a device that can't handle symlinks. rsync throws an error and this is reported as an error in Batocera / Emulation station... so suppress so we know if the backup worked or not legitimately. Also ignore various directories	
+    if rsync $RSYNCOPT -v --exclude _no_backup --exclude system/.kodi --exclude system/swapfile --exclude system/logs --no-links --modify-window=2 --delete-during "/userdata/" "${MOUNTDIR}" 2>&1 # modify-window because all file system such as fat32 doesn't have the same time precision
     then
 	EXITCODE=0
     fi
