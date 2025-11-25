@@ -39,7 +39,7 @@ Each game must be placed in its own ".daphne" suffixed directory under /userdata
 
 You also need the BIOS files for the particular game in the following folder, eg:  
 ```
-/userdata/system/configs/daphne/singe
+/userdata/roms/daphne/roms
 ...
 ├── lair.zip
 ...
