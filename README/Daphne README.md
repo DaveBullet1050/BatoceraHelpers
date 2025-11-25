@@ -1,6 +1,6 @@
 # Daphne (laserdisc games)
 
-Daphne seems to be broken in v40, so if your games are crashing, then revert to v39.  v41 may have fixed the hypseus/singe (aka Daphne) emulator, but I haven't tested it.
+Daphne seems to be broken in v40, so if your games are crashing, then revert to v39 or run v41+.  v41 has fixed the hypseus/singe (aka Daphne) emulator.
 
 ## Controller config
 Hypseus uses its own contoller configuration files, but Batocera invoked Hypseus with a "--gamepad" option and I couldn't get Hypseus to recognise my controller buttons nor joystick.  The solution was to hack the Batocera [Daphne Generator](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/lib/python3.11/site-packages/configgen/generators/daphne/daphneGenerator.py) script to omit the --gamepad option.  Then I could get Hypseus to recognise my controller and use my own controller [custom.ini](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/daphne/custom.ini).  
