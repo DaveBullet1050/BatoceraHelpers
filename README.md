@@ -1,6 +1,8 @@
 # Batocera Helpers
 A bunch of config or how to scripts / info for a [Batocera](https://batocera.org/) gaming machine.  All of this is running successfully on vanilla Batocera v41 on an x64 (Intel PC).  I say "vanilla" as there are pre-packaged Batocera images with ROMS etc.. and they may have incompatible scripts / updates to those contained in this repo.   
 
+**The scripts / changes in this repo will only work on Batocera version 41.  Do not apply to other versions! or you WILL break your system!**
+
 This repo is not a fork from Batocera.  The scripts provided are meant to be installed "copy down" into the same location on your Batocera machine as in this repo.  Also the advice I'm giving is on my own account and has not been endorsed by the devs at Batocera.  Most of these changes can be removed by simply deleting the `/boot/boot/overlay` file.  So please use at your own risk.  I've included it here as it may help you with any problems you are having (at least understand where things are done and have examples to look at).  Batocera may provide other ways to implement these, but I couldn't find them, hence my own customisations.  
 
 As with any system, before you apply any of these changes, do a backup!  You can do this via plugging in a USB stick formatted to exFAT, the via the main ES menu: System Settings -> Backup User Data (Target Device = should show your USB stick) -> Start.
