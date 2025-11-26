@@ -1,6 +1,6 @@
 # Dynamic controller order
 
-Some emulators (e.g.Nintendo64) allow an override for which controllers map to players, but some do not.  In my situation I have 2 permanent USB zero delay arcade (Dragonwise) controllers for player 1 and 2.  On occasion, I want to be able to plug in additional handheld controllers, e.g. USB 8bitdo or a wheel and have these used as priority (when present).  Unfortunately Batocera doesn't have a per game "priority" or ability to assign which controllers should be used when an emulator doesn't support it.  I wanted something universal, that didn't care about emulation system being used.  
+Some emulators (e.g.Nintendo64) allow an override for which controllers map to players, but some do not.  In my situation I have 2 permanent USB zero delay arcade (Dragonwise) controllers for player 1 and 2.  On occasion, I want to be able to plug in additional handheld controllers, e.g. USB 8bitdo or a wheel and have these used as priority (when present).  Unfortunately Batocera doesn't have a per game "priority" or ability to assign which controllers should be used when an emulator doesn't support it.  I wanted something universal, that didn't care about emulation system being used and allowed for occasionally connected controllers (not losing configuration if unplugged).  
 
 ## Required changes
 Copy down the following 2 files:  
