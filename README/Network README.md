@@ -26,7 +26,7 @@ wlan2     IEEE 802.11  ESSID:"Colony5"
 If on, run:  
 `iwconfig <wifi_device> power off`  
 
-This may be sticky, but if not, you can add the command to your networking init.d startup script [S07network](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/etc/init.d/S07network).  
+This may be sticky, but if not, you can add the command to your networking init.d startup script [S07network](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/etc/init.d/S07network).  Remember to run: `batocera-save-overlay`  to persist the script edit between reboots.  
 
 ## Router woes - dropping connections
 My Wifi modem/router was set to "auto" channel config.  This meant the router would either change channels or choose a conflicting channel.  In both cases, there would be a disconnect without reconnect on Batocera.  Ensure you change the channel on your router to a static setting.  For me in New Zealand, I used channel 3 and haven't had a problem since.  No changes are needed Batocera side.
