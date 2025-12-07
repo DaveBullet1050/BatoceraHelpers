@@ -3,6 +3,8 @@
 ## Phantom or "stuck" joystick direction repeats
 If you are using a USB zero delay encoder, you may experience repeated joystick presses once you launch a game.  i.e. when you trigger down or right, the emulator keeps receiving inputs in that direction (symptom is in game menus just scroll indefinitely or characters are just going in one direction in game).  
 
+This is possibly due to these encoder boards starting up in analogue mode (RED LED). There is a MODE connector on the board, so you can connect a button to it and toggle to digital (d-pad) mode = GREEN LED, but I didn't want to have yet another button to remember to push each time.  I haven't tested digital mode to see if it fixes the problem. The solution below allows these boards to behave in their default (analogue) mode, without having to toggle it via another button.
+
 I found the problem is in the generated SDL_GAMECONTROLLERCONFIG environment variable, inspected by WINE to check what controller movements are supported.  When "dpad" directions (dpup, dpdown, dpleft, dpright) are added for zero delay encoder type controllers, this causes the repeat problem.  I also found Batocera was not generating the required "leftx:a0,lefty:a1" which meant the joysticks weren't working at all in other windows games.
 
 My solution was to edit the:
