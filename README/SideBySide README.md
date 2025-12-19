@@ -2,17 +2,47 @@
 
 Early MAME games (e.g. Puckman) only supported a single joystick / set of controls for both players.  To get player 2 controls to work, you configure the game to be "Cocktail" cabinet mode.  To do this, go into MAME settings (do this by running up the MAME game to reconfigure and pressing your MAME menu button - the START button in my system) then go Dip Switches -> Cabinet and toggle to "Cocktail".  This will persist.
 
-The problem is my cabinet separate controls for each player (side by side), meaning both players are looking at the screen in the same orientation.  So - when games like Puckman go into cocktail mode to activate the opposite player 2 controls, the screen flips upside down.
+The problem is my cabinet has separate controls for P1 and P2 (side by side), meaning both players are looking at the screen in the same orientation.  When games like Puckman go into cocktail mode to activate the opposite player 2 controls, the screen flips upside down.
 
 To work around this, I make use of Retroarch shaders, which allow fine grained control over display.  For example, if you want a CRT curvature effect with scanlines, then shaders will provide this on an LCD monitor.  By pressing a button (or hotkey + button) you can cycle between shaders when players die to flip / unflip the screen.  It's not automated, but at least allows you to stay seated and use your own controls.
 
-I ended up using a custom shader: [upside_down.glslp](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/share/batocera/shaders/upside_down.glslp) which flips the screen in the X/Y axis.  To activate, I have a hotkey setup (Select + P1 Start button) in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf):  
+I ended up using a custom shader: [upside_down.glslp](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/share/batocera/shaders/upside_down.glslp) which flips the screen in the X/Y axis.
+
+To activate, you have one of 2 options:
+
+## Activate via Retroarch hotkey
+The easiest is to setup another button (when pressed in combination with your SELECT aka HOTKEY button) to select previous/next shader.  
+
+I have a hotkey setup (Select + P1 Start button) in [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf):  
 ```
 global.retroarch.input_shader_prev_btn=7
 global.retroarch.input_shader_next_btn=7
 global.retroarch.input_shader_toggle_btn=nul
 ```
-When pressing Select - P1 Start, retroarch sequences from the stock shader (right side up) to the custom upside down shader.  It does require a manual press every time player 1 / 2 dies, as MAME ROMS were never designed to run under emulators, therefore have no events that can be hooked for automatic changing of the shader.  
+When pressing Select - P1 Start, retroarch sequences from the stock shader (right side up) to the custom upside down shader.
+
+## Activate via single button press (no hotkey)
+I didn't want to use a HOTKEY combo to toggle the shader.  Unless you entirely disable the hotkey function in Retroarch (via a batocera.conf setting), you have no option but to use a network command to Retroarch.  Luckily, Retroarch supports shader toggling in the [Retroarch network control interface](https://docs.libretro.com/development/retroarch/network-control-interface/)  
+
+Therefore, I use triggerhappy daemon (thd) to run a script, which sends the appropriate command to a running Retroarch instance.  You need the following file:  
+[/usr/bin/toggle-shader](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/usr/bin/toggle-shader)  
+
+(don't forget to run:  
+`chmod 755 /usr/bin/toggle-shader`  
+after downloading so it becomes executable)  
+
+Also ensure you have enabled retroarch's network interface via adding this to your batocera.conf:  
+`global.retroarch.network_cmd_enable=true`  
+
+Finally, add this line:  
+`BTN_BASE5	1	toggle-shader`  
+to your:  
+`/userdata/system/configs/multimedia_keys.conf`  
+
+Remember to replace the `BTN_BASE5` with the button code you want to map.  you can find this by running the `evtest` utility and entering the device number (when prompted) of the controller that has your toggle button connected.  This can be any controller - not limited to player 1  
+
+
+Regardless of how you set it up above, it does require a manual press every time player 1 / 2 dies, as MAME ROMS were never designed to run under emulators, therefore have no events that can be hooked for automatic changing of the shader.  
 
 The other small hit is frame skipping on a Pi3B+.  The shader adds some compute and I don't think the Pi3B+ has enough grunt to maintain the frame rate, so you are aware of play not being as smooth. I've since moved to an x64 box (both i3 6th gen and 12th gen processors) and there is no performance hit with shaders.  
 
