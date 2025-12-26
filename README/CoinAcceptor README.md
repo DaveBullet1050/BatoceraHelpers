@@ -13,7 +13,7 @@ Normally the white wire is meant to be connected to the relay (IN2) and not the 
 
 The way it works...
 1. When power is supplied to your arcade machine, the 12vDC power goes on and turns on the coin acceptor
-2. When either player turns their toggle switch on, this supplies power to their relay.  The relay supplies power to IN1 which causes NC1 connection to go open and this disables the coin button from working
+2. When either player turns their toggle switch on, this supplies power to their octocoupler relay and also the 12v relay to complete the negative circuit to activate the octocoupler for that player.  The octocoupler relay supplies power to IN1 which causes NC1 connection to go open and this disables the coin button from working
 3. When a coin is inserted into the acceptor, a pulse is emitted on IN2 which completes the circuit between COM2 and NO2 simulating a button push on the coin button  
 
 All parts were sourced from AliExpress.  Links at time of writing are below:  
@@ -21,3 +21,6 @@ All parts were sourced from AliExpress.  Links at time of writing are below:
 [Toggle switch with LED backlight](https://www.aliexpress.com/item/32814414923.html?spm=a2g0o.productlist.main.3.69901b3764ez3Z&algo_pvid=fb907c37-1f58-40f6-ad25-6c075c5c95ef&algo_exp_id=fb907c37-1f58-40f6-ad25-6c075c5c95ef-1&pdp_npi=4%40dis%21NZD%212.89%212.89%21%21%211.59%211.59%21%402103277f17355238135144180e49b3%2164734284584%21sea%21NZ%21122820545%21X&curPageLogUid=tLwVwM3lHhdS&utparam-url=scene%3Asearch%7Cquery_from%3A)  
 [Coin Acceptor - 926 model, has an alloy faceplate](https://www.aliexpress.com/item/1005004200444389.html?spm=a2g0o.productlist.main.1.341c4467fCja3Z&algo_pvid=09f349dc-2a50-4bbf-a8a9-88cfbe1c3497&algo_exp_id=09f349dc-2a50-4bbf-a8a9-88cfbe1c3497-0&pdp_npi=4%40dis%21NZD%2153.03%2153.03%21%21%2129.22%2129.22%21%40210318e817355238562922771e6c7b%2112000028358860456%21sea%21NZ%21122820545%21X&curPageLogUid=zYEhJbyOZq8n&utparam-url=scene%3Asearch%7Cquery_from%3A)  
 [USB zero delay encoder](https://www.aliexpress.com/item/1005007864535321.html?spm=a2g0o.productlist.main.13.3ab84c8cCxk797&algo_pvid=938f849f-19ea-46b6-aa73-233cf19e21d1&algo_exp_id=938f849f-19ea-46b6-aa73-233cf19e21d1-6&pdp_npi=4%40dis%21NZD%2111.75%216.13%21%21%2147.32%2124.71%21%402103277f17355240160963766e49b4%2112000042739682455%21sea%21NZ%21122820545%21X&curPageLogUid=tDm0b6UBd21K&utparam-url=scene%3Asearch%7Cquery_from%3A)  
+
+If you need to program your acceptor, these instructions may help:
+<img width="800" height="540" alt="image" src="https://github.com/user-attachments/assets/dd8e2d52-b5f9-436a-b138-c90f66f6df71" />
