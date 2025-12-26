@@ -33,7 +33,11 @@ See the mockup panel [here](https://github.com/DaveBullet1050/BatoceraHelpers/bl
 - Pinball flipper buttons (side mounted) plus magna save buttons
 - Front "lip" ~47mm deep (plus t-molding) for wheel clamp/mounting
 
-## Screenshots
+## Built cabinet
+Here's the final version:  
+<img width="645" height="883" alt="arcade front - finished" src="https://github.com/user-attachments/assets/779089bf-0e6d-4c5b-9ca1-42b66fc381cd" />
+
+## Model screenshots
 If you don't have Sketchup, here's some screenshots:  
 <img width="817" height="897" alt="image" src="https://github.com/user-attachments/assets/4c13f71a-0c13-4ea7-8d33-13548b6180ae" />  
 <img width="765" height="880" alt="image" src="https://github.com/user-attachments/assets/01daf3a5-8ba6-44da-8a0b-b1794444fd36" />  
