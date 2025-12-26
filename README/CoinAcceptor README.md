@@ -5,7 +5,7 @@ A coin acceptor emits a pulse, usually +5v when a suitable coin is inserted.  I'
 2. I wanted to decouple the earths / voltages of the coin acceptor, should it short or do something peculiar and therefore not blow up my zero delay encoders.  The octocoupler relay achieves this and also removes the need to worry about a common signal ground (as without this, you'll get random pulses/credits appearing in your games!)  
 
 Refer to the circuit diagram below:
-![Coin acceptor circuit diagram](../image/Coin%20acdeptor%20circuit%20diagram.png)
+![Coin acceptor circuit diagram](../image/Coin%20acceptor%20circuit%20diagram.png)
 
 Everything prefixed with "P1" is duplicated for Player 2 (i.e. the power supply and coin slot are the same).  This allows a single coin acceptor mechanism to be used for 2 players, with each one separately enabled or disabled via their own toggle switch.
 
