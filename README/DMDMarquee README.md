@@ -1,5 +1,7 @@
 # Getting a DIY DMD marquee working on Batocera V41+ 
-I wanted to build a do it yourself marquee as per [these instructions](https://wiki.batocera.org/hardware:diy_zedmd).
+I wanted to build a do it yourself marquee as per [these instructions](https://wiki.batocera.org/hardware:diy_zedmd).  
+
+<img width="1024" height="402" alt="image" src="https://github.com/user-attachments/assets/d8cb6486-317d-4ce3-8ba7-23fa2ddffb24" />
 
 If you find Batocera DMD marquee changes sluggish or want a choice about whether to change the game marquee on selection in ES or only on launch, then this is for you.
 
