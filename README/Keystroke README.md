@@ -49,7 +49,7 @@ c64["Gateway to Apshai.d64"].retroarch.input_player1_y_btn=nul
 c64["Gateway to Apshai.d64"].retroarch.input_player1_x_btn=nul
 c64["Gateway to Apshai.d64"].retroarch.input_player1_l_btn=nul
 ```
-The above means that retroarch will not consume Y, X or L button mappings, since I have a pad2key profile for that game, that maps those buttons to generate keypresses F3, F5 and F7.  
+The above means that retroarch (only for Gateway to Apshai on the c64) will not consume Y, X or L button mappings, since I have a pad2key profile for that game, that maps those buttons to generate keypresses F3, F5 and F7.  
 
 Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  That led me to the following solution for how to map one key press to another for VICE games...
 
