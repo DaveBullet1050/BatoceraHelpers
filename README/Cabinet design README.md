@@ -35,7 +35,7 @@ See the mockup panel [here](https://github.com/DaveBullet1050/BatoceraHelpers/bl
 
 ## Built cabinet
 Here's the final version:  
-<img width="645" height="883" alt="arcade front - finished" src="https://github.com/user-attachments/assets/779089bf-0e6d-4c5b-9ca1-42b66fc381cd" />
+<img width="719" height="959" alt="image" src="https://github.com/user-attachments/assets/436c9755-e404-40d9-adc4-898f35e05425" />
 
 ## Model screenshots
 If you don't have Sketchup, here's some screenshots:  
