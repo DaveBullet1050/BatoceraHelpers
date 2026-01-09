@@ -1,11 +1,28 @@
 # Getting a DIY DMD marquee working on Batocera V41+ 
-I wanted to build a do it yourself marquee as per [these instructions](https://wiki.batocera.org/hardware:diy_zedmd).  
-
 <img width="1024" height="402" alt="image" src="https://github.com/user-attachments/assets/d8cb6486-317d-4ce3-8ba7-23fa2ddffb24" />
 
+I wanted to build a do it yourself marquee as per [these instructions](https://wiki.batocera.org/hardware:diy_zedmd).
+
+These are the very parts I ordered.  Incase the links die, I've included images so you can search for other suitable parts:  
+[ESP32 + breakout board](https://www.aliexpress.com/item/1005005626482837.html?spm=a2g0o.order_list.order_list_main.96.3f6318021ItRT4)  
+Make sure you get the ESP32 + breakout board (to easily connect the pins to the panels). I think the S3 is supported, but I bought the plain ESP32. Check the [Github ZeDMD page](https://github.com/PPUC/ZeDMD)  
+<img width="420" height="434" alt="image" src="https://github.com/user-attachments/assets/a45d4d3e-6bb4-49b5-8b0b-5bb700c5525f" />  
+
+[AC/DC voltage adjustable adapter](https://www.aliexpress.com/item/1005007154093960.html?spm=a2g0o.order_list.order_list_main.106.3f6318021ItRT4)  
+The display runs best ~4.2v.  This has an analogue voltage adjustment and does sag a little when warm, but that's ok.  Anything ~4v is fine.  It does not affect brightness at all (I use 10 out of 15 as the batocera setting and it is plenty bright)  
+<img width="352" height="305" alt="image" src="https://github.com/user-attachments/assets/1c61efb9-62c3-41e0-8663-7aaf10de0955" />  
+
+[P5 LED panels for a 128x32 display](https://www.aliexpress.com/item/1005007440817037.html?spm=a2g0o.order_detail.order_detail_item.3.113df19c8kxllu)  
+You can go for smaller or larger (Px).  These measure 300mm wide (each) so 600mm wide total when joined together.  Just order 1 of these as it comes with the 2 panels. Just ensure for the standard definition panels (62x32) you have the "D" pin on the HUB-75 connector as per:  
+<img width="213" height="243" alt="image" src="https://github.com/user-attachments/assets/eb3d3eeb-d4c4-4afc-acae-d8249ba9c4ae" />  
+<img width="430" height="343" alt="image" src="https://github.com/user-attachments/assets/f9aa7f69-b1d2-456f-855a-4ec4f1d84e4e" />  
+
+[This guide](https://www.pincabpassion.net/t14796-zedmd-installation-english) is extremely useful.  
+
+# Speeding up marquee changes
 If you find Batocera DMD marquee changes sluggish or want a choice about whether to change the game marquee on selection in ES or only on launch, then this is for you.
 
-The scripts below and dmd-play update improve performance greatly on slower machines (e.g. Raspberry Pi 3b).  I've modified dmd-play to be able to run interactively (per marquee) just like Batocera does by default, but also be able to run as a service when launched with the "-lp" option.  This means we don't incur slow startup times and simply send the required marquee command to the already running dmd-play.  Response times go from 1.1 seconds to launch down to 0.02 seconds to just play (a PNG file) for example.
+The scripts below and dmd-play update improve performance greatly on slower machines (e.g. Raspberry Pi 3b).  It's less of an issue on a much faster machine and may not be required.  I've modified dmd-play to be able to run interactively (per marquee) just like Batocera does by default, but also be able to run as a service when launched with the "-lp" option.  This means we don't incur slow startup times and simply send the required marquee command to the already running dmd-play.  On a P33b+, marquee update times go from 1.1 seconds (mainly to launch dmd-play on every change) down to 0.02 seconds (since dmd-play is running as a service).  
 
 ## Dependencies
 You need to be running [ZeDMD firmware 5.1.1 or greater](https://github.com/PPUC/ZeDMD/releases).  I'm running 5.1.4.  You also need the latest dmd-server binary.  Either grab this via Batocera v42 or recompile yourself from the [lbdmdutil repo](https://github.com/vpinball/libdmdutil).  I've uploaded a working dmd-server version for Aarm64 (Pi 3b+) here:
@@ -92,4 +109,4 @@ dmd.screensaver.clock=yes
 ```  
 
 ## Upgrades...
-I ended up recompiling dmdserver and associated libraries from source from the latest versions.  The versions shipped with Batocera V41+ should be fine though.  Note: the latest dmdserver wouldn't connect to the latest Marquee ESP32 firmware v5.1.2 (v5.1.1 was fine).  v5.1.4 is what I am running with, but it displays a ZeDMD banner often, whereas the v3.6.0 shipped with V41+ was clear / dark. I might revert to the shipped version, as I am using a USB connection between Pi and ESP32 and don't need WiFi support of the latest (v5+) firmwares) 
+I ended up recompiling dmdserver and associated libraries from source from the latest versions.  The versions shipped with Batocera V41+ should be fine though.  Note: the latest dmdserver wouldn't connect to the latest Marquee ESP32 firmware v5.1.2 (v5.1.1 was fine).  v5.1.4 is what I am running with, but it displays a ZeDMD banner often, whereas the v3.6.0 shipped with V41+ was clear / dark. I might revert to the shipped version, as I am using a USB connection between Pi and ESP32 and don't need WiFi support of the latest (v5+) firmwares).  Edit: I recompiled the 5.1.4 firmware to remove the DisplayLogo at boot.  There is no out of the box option / feature to suppress the logo when the ESP32 firmware is starting up, so a recompile is required as per the ZeDMD Github page (using platformio).  
