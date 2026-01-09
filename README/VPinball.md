@@ -140,6 +140,8 @@ Save the ini file.
 ## Other help
 This dude on Reddit has written a useful guide that may answer some questions: https://www.reddit.com/r/batocera/comments/1abqxow/the_lazy_batocera_v38_builders_guide_to_visual/  
 
+Jason (jsm174 on discord) has a very comprehensive VPinball site: https://www.jsm174.com/.  He also has a v39 specific guide [here](https://gist.github.com/jsm174/19e9841174dada68d01026b2763f0f06).  As this is v39 specific, many of these steps may have been included by default in v40+, but it may still help with some setups (e.g. Pinscape).   
+
 ## Here's a list (as at 23 April 2025) of the tables I have successfully got running  
 1455577933_MedievalMadness_Upgrade(Real_Final).vpx  
 ABBAv2.0.vpx  

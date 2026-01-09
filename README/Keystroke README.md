@@ -24,6 +24,8 @@ You can set these at an emulator level, see [c64.keys](https://github.com/DaveBu
 ```
 The above says when "x" button (aka [P1 green button](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-layout)) is pressed, then send the F11 key to the game.  VICE defaults F11 to "warp mode" so I saw no reason to change.  Although VICE will auto-warp drive and tape access, I found any "compute" functions were also slow... so you can hold the P1 green button aka X (or F11 if you have a keyboard plugged in) to "warp" VICE any time.  I didn't combine say the SELECT (hotkey) with the X button, since the green button has no input into the Vic20/C64 (i.e. unused).  
 
+You can also create a "pad2key" profile via the main Batocera (ES) menu at either system or game level.  Hold down the button to launch the game, and a popup "per game" menu will show, allowing you to create/edit a pad to key profile. In there, you can map which of your joystick axes or buttons generate what keys.
+
 For a complete list of target key enums, see: [Batocera evmapy keys](https://wiki.batocera.org/evmapy#keys)  
 
 The other keys in the c64.keys file are:  
@@ -40,6 +42,14 @@ You can see more examples here:
 [c64 keys](https://github.com/DaveBullet1050/BatoceraHelpers/tree/main/userdata/roms/c64)  
 
 The c64 examples above allow a joystick to control movement (and player attack via a button), by sending the joystick and firebutton as the default movement keys in Ultima (being @ : ; and /).  
+
+One more thing, and this may be related to Game Focus mode.  If you are playing c64 games via vice under RetroArch (as a libretro core) which is the default in Batocera, you need to unmap the buttons you are planning to override with a pad2key profile.  If you don't, Retroarch will "Consume" the button presses and never give these to evmapy (for pad2key generation).  To "unmap" buttons in Retroarch, that you want to map via a pad2key profile, you assign them to "nul" in batocera.conf, eg:  
+```
+c64["Gateway to Apshai.d64"].retroarch.input_player1_y_btn=nul
+c64["Gateway to Apshai.d64"].retroarch.input_player1_x_btn=nul
+c64["Gateway to Apshai.d64"].retroarch.input_player1_l_btn=nul
+```
+The above means that retroarch (only for Gateway to Apshai on the c64) will not consume Y, X or L button mappings, since I have a pad2key profile for that game, that maps those buttons to generate keypresses F3, F5 and F7.  
 
 Whilst pad2key supports controller event -> key generation, I couldn't find a way to get it to do key event -> key generation (i.e. press one key and have it generate another).  I believe evmapy (on which pad2key is based?) handles this but never got to the bottom of it.  That led me to the following solution for how to map one key press to another for VICE games...
 
