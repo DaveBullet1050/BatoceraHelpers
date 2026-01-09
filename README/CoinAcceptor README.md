@@ -1,4 +1,5 @@
 # Coin acceptor / slot
+<img width="1279" height="959" alt="image" src="https://github.com/user-attachments/assets/84bb4768-604c-4f81-96e6-a4a3134d5012" />
 
 A coin acceptor emits a pulse, usually +5v when a suitable coin is inserted.  I've chosen to use an octocoupler relay to "capture" this pulse and then close the contacts of the relay across the button that's normally used for getting credits in emulators like MAME.  I've made this a little more complex that I needed to in two ways:
 1. I wanted the coin button to be disabled when the coin acceptor is "turned on" for the player.  This means you are forced to get credits by inserting coins and not cheating by using the button
