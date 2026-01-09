@@ -3,6 +3,10 @@ Here's the final version:
 <img width="719" height="959" alt="image" src="https://github.com/user-attachments/assets/436c9755-e404-40d9-adc4-898f35e05425" />
 Back:  
 <img width="647" height="959" alt="image" src="https://github.com/user-attachments/assets/117c9c82-f63d-4af6-a224-b938ee0997a7" />  
+With wheel mounted:  
+<img width="747" height="1024" alt="image" src="https://github.com/user-attachments/assets/cd073f07-6f2f-4e3a-953c-493c517ae566" />
+
+[Video walkthrough](https://photos.app.goo.gl/R6MjYh2qbDSR5x3t8)
 
 The design was done in Sketchup 7 and is available [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12a%20-%20upright%20with%20marque%20-%20sketchup%20v7.skp) as well as block layout for sides [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12a%20-%20blocking.skp) and side panel dimensions [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12%20-%20side%20panels.skp).  
 
