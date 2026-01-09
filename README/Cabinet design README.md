@@ -1,4 +1,9 @@
 # Cabinet design
+Here's the final version:  
+<img width="719" height="959" alt="image" src="https://github.com/user-attachments/assets/436c9755-e404-40d9-adc4-898f35e05425" />
+Back:  
+<img width="647" height="959" alt="image" src="https://github.com/user-attachments/assets/117c9c82-f63d-4af6-a224-b938ee0997a7" />  
+
 The design was done in Sketchup 7 and is available [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12a%20-%20upright%20with%20marque%20-%20sketchup%20v7.skp) as well as block layout for sides [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12a%20-%20blocking.skp) and side panel dimensions [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/image/Cocktail%20cabinet%20model%20-%20v12%20-%20side%20panels.skp).  
 
 Note: the sketchup model is pretty basic.  There's no advanced concepts of grouping lines etc.. into components. I mainly use sketchup for exact dimensions and checking for angles, interference, positioning etc... before committing to cuts.  This isn't the kind of model you send to a CNC machine!
@@ -20,22 +25,18 @@ Note: the sketchup model is pretty basic.  There's no advanced concepts of group
 See the mockup panel [here](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/Controller%20Reference%20README.md#physical-layout).  
 
 - Sanwa joysticks with 6 buttons per player, plus per player coin and start buttons
-- Joysticks mounted underside for removal or future upgrade
-- Separate PC power on/off pushbutton (wired to the left button of a sacrificial mouse, connected to the PC's "power on" USB port)
+- Joysticks are mounted underside for removal or future upgrade
+- Separate PC power on/off pushbutton (wired to the left button of a sacrificial mouse, connected to the PC's "power on" USB port) - see black button on control panel
 - TOS GRS Sanwa restrictor gate toggle button (between 4 and 8 way joystick orientation - both player joysticks simultaneously)
 - Select (hotkey) button
 - Start button
 - Screen flip button (handles cocktail mode games - see [this writeup](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/SideBySide%20README.md))
-- Spinner (Thunderstick.com ultra USB)
+- Spinner [Thunderstick.com ultra USB](https://thunderstickstudio.com/products/usb-spinner)
 - All buttons (apart from power off/on) connected to a Dragonwise USB zero delay encoder (one per player)
 - Two USB ports (front mounted) for plugging in a wheel, keyboard/mouse or extra controllers (for 4 player games)
-- 24v power (for wheel or lightguns)
+- 24v power (for wheel or lightguns - next to additional USB ports)
 - Pinball flipper buttons (side mounted) plus magna save buttons
-- Front "lip" ~47mm deep (plus t-molding) for wheel clamp/mounting
-
-## Built cabinet
-Here's the final version:  
-<img width="719" height="959" alt="image" src="https://github.com/user-attachments/assets/436c9755-e404-40d9-adc4-898f35e05425" />
+- Front "lip" ~47mm deep (plus t-molding) for Logitech G923 wheel clamp/mounting
 
 ## Model screenshots
 If you don't have Sketchup, here's some screenshots:  
