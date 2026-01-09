@@ -7,6 +7,9 @@ Depending on your PC/Pi - I found the player controls would sometimes swap on re
 I am using [Sanwa JLF-TP-8YT joysticks](https://focusattack.com/sanwa-jlf-tp-8yt-joystick-precursor-to-jlx-tp-8yt/) with the [TOS GRS 4/8 way servo switched restrictor gates](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate).  I am also using 30mm screw in Sanwa buttons for the player buttons, with a mix of 24mm buttons for coin, select and start and Happ style P1/2 start buttons.  I am also using a cheapo CH-616 coin acceptor, allowing coins to add credits for MAME games.
 
 ## Physical layout
+Here's the final control panel. The only difference to the mock/test panel (see below), is I added a spinner, blue button next to spinner and a black button.  The black button is used to power down the PC if held for ~3 seconds.  A double click will power back up (this is just connected to the left mouse button of an old mouse, connected to the "wake on USB" port of the PC to perform the wakeup).  The blue button (next to spinner) is used as a [shader flipper in retroarch](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/README/SideBySide%20README.md)  
+<img width="1279" height="959" alt="image" src="https://github.com/user-attachments/assets/bd57a15e-767d-4c69-b37e-db49f1ce81f4" />  
+
 My mockup panel is shown below:
 ![Test panel](../image/Arcade%20panel%20mockup.png)  
 Black labels are what you see in Emulation Station and RetroArch - essentially mapping to a virtual gamepad style controller (aka XBox/PS etc...)
@@ -20,6 +23,7 @@ Here's the physical USB zero delay encoder (aka Dragonrise as recognised in Linu
 Here's another image showing the connectors and what they do:  
 ![USB Encoder other pins](../image/USBEncoder2.png)  
 
+## Controller axes and button mapping
 There is no way to configure each (player 1 and 2) USB delay encoders with a different button configuration.  ES / Batocera only has one configuration for one type of controller, therefore you must lay out Player 2 buttons the same way (albeit there are no physical select and start buttons as per player 1).  The purple glowing button on the top left is the TOS / GRS 4/8 way selector which connects to its own controller board (which itself is USB attached to the Pi).  Refer to the last in: [es_input.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_input.cfg), ie:  
 
 ```
