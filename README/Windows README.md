@@ -10,7 +10,7 @@ I found the problem is in the generated SDL_GAMECONTROLLERCONFIG environment var
 My solution was to edit the:
 ```
 /usr/lib/python3.11/site-packages/configgen/generators/wine/wineGenerator.py
-/usr/lib/python3.11/site-packages/configgen/generators/controller.py
+/usr/lib/python3.11/site-packages/configgen/controller.py
 ```
 
 scripts so that I could configure which systems / games to skip dpad settings or add leftx/lefty.
