@@ -4,9 +4,14 @@ Batocera is great at mapping a multitude of controllers.  The problem is the ord
 
 Whilst you can set controller assignment to  player order system wide, via the CONTROLLER menu, there's 2 problems:  
 1. If you disconnect a controller (e.g. a Bluetooth or USB controller), then this mapping is lost
-2. Inconsistency in overriding on a per system or game basis.  Some emulators (e.g.Nintendo64) allow you to override which controllers get assigned, but some don't.  Again, if you disconnect a controller - then the order preference is lost  
+2. Inconsistency in overriding on a per system or game basis.  Some emulators (e.g.Nintendo64) allow you to override which controllers get assigned, but some don't  
 
-In my situation I have 2 permanent USB zero delay arcade (Dragonwise) controllers for player 1 and 2.  On occasion, I want to be able to plug in additional handheld controllers, e.g. USB 8bitdo or a wheel and have these used as priority (when present).  Unfortunately Batocera doesn't have a per game "priority" or ability to assign which controllers should be used when an emulator doesn't support it.  I wanted something universal, that didn't care about emulation system being used and allowed for occasionally connected controllers (not losing configuration if unplugged).  
+In my situation I have:  
+- 2 permanent USB zero delay arcade (Dragonwise) controllers for player 1 and 2.
+- 2 additional handheld controllers (USB 8bitdo Pro)
+- 1 additional wheel (Logitech G923)
+
+The handhelds and wheel aren't always present.  I want to fix the order assigned and have a fall back when not present, to guaratee the order assigned to players.  I wanted something universal, that didn't care about emulation system being used and allowed for occasionally connected controllers (not losing order if unplugged).  
 
 ## Required changes
 Copy down the following 2 files:  
