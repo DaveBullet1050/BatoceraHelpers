@@ -1,5 +1,7 @@
 # Preferred controller order
 
+Batocera is great at mapping a multitude of controllers.  The problem is the order they are assigned isn't static if you unplug or swap controllers regularly.  This page is about having a "sticky" order for controllers, using the ones available at the time of game launch in a preferred order.  
+
 Whilst you can set controller assignment to  player order system wide, via the CONTROLLER menu, there's 2 problems:  
 1. If you disconnect a controller (e.g. a Bluetooth or USB controller), then this mapping is lost
 2. Inconsistency in overriding on a per system or game basis.  Some emulators (e.g.Nintendo64) allow you to override which controllers get assigned, but some don't.  Again, if you disconnect a controller - then the order preference is lost  
