@@ -35,7 +35,7 @@ Now... what would you like to configure?:
 [TOS GRS - Automatic 4/8 way restrictor gate](./README/TOS_GRS_Switch%20README.md#tos-grs---automatic-48-way-restrictor-gate)  
 [Visual Pinball emulator (VPinball) setup v41+](./README/VPinball.md)  
 [CamillaDSP - EQ and other audio processing](./README/CamillaDSP.md)  
-[Swapping controllers on a per game basis](./README/ControllerSwap%20README.md)  
+[Preferred controller order](./README/PreferredControllerOrder%20README.md)  
 [Mounting a music share / drive on another PC or SAMBA linux host](./README/Mounting%20music%20share%20README.md)  
 [Run script on directory change - auto update custom collections](./README/RunScriptOnDirectoryChange%20README.md)  
 [Windows / WINE emulation tips](./README/Windows%20README.md)  
