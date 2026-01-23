@@ -184,7 +184,7 @@ For games that require key presses, we can get that by the pad2key function in B
 
 However, you may find your buttons still don't generate the key presses.  To make sure this works, you need to turn game focus mode off (this is called "keyboard passthrough" in either system or game options) plus you may need to disable retroarch from providing its own button mapping for the button you are trying to send key presses for.  To do this, add this to your batocera.conf (example only):  
 `<system_name>["<game_rom_filename>"].retroarch.input_player1_<button>_btn=null`  
-e.g.
+e.g.  
 `prboom["doom1_shareware.wad"].retroarch.input_player1_x_btn=nul`  
 
 This stops retroarch from hijacking or capturing the button press, meaning your pad2key will work and send the key you've mapped when you created the game (or system) level pad 2 key profile.  
