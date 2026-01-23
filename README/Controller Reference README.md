@@ -156,7 +156,7 @@ If you need keymaps, [input_keymaps.c](https://github.com/libretro/RetroArch/blo
 Do read [retroarch.cfg](https://github.com/libretro/RetroArch/blob/master/retroarch.cfg) thoroughly as it explains a lot on how retroarchcustom settings works.  
 
 For example - if you want to launch all c64 games for a retroarch core with a 270 degree screen rotation, we find this in retroarchcustom.cfg as:  
-`video_rotation = 0`  
+`video_rotation = 270`  
 
 Therefore our batocera.conf should contain:  
 `c64.retroarch.video_rotation=270`  
@@ -178,6 +178,16 @@ global.retroarch.input_hold_fast_forward=q
 Sets the fast forward control to be activated (with hotkey pressed) either on right joystick movement , button number 7 (indexed from 0 on my USB encoder - see above) or letter Q on keyboard.  
 
 See my [batocera.conf](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/batocera.conf) for various examples.
+
+### Providing key overrides and these being "ignored" by libretro/RetroArch
+For games that require key presses, we can get that by the pad2key function in Batocera.  This inputs key(s) when a button (or joystick axis) is pressed.  You can create these at a system or game level as per the [wiki](https://wiki.batocera.org/remapping_controls_per_emulator#pad2key).  
+
+However, you may find your buttons still don't generate the key presses.  To make sure this works, you need to turn game focus mode off (this is called "keyboard passthrough" in either system or game options) plus you may need to disable retroarch from providing its own button mapping for the button you are trying to send key presses for.  To do this, add this to your batocera.conf (example only):  
+`<system_name>["<game_rom_filename>"].retroarch.input_player1_<button>_btn=null`  
+e.g.
+`prboom["doom1_shareware.wad"].retroarch.input_player1_x_btn=nul`  
+
+This stops retroarch from hijacking or capturing the button press, meaning your pad2key will work and send the key you've mapped when you created the game (or system) level pad 2 key profile.  
 
 ## Spinner setup  
 For Retroarch, you need to configure 2 settings in your batocera.conf:  
