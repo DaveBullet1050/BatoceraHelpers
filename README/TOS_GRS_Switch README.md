@@ -2,7 +2,7 @@
 These instructions setup a [TOS GRS restrictor gate](https://thunderstickstudio.com/products/tos-grs-switchable-4-to-8-way-restrictor-all-in-one-kit-1) for Sanwa JLF joysticks, so that it can automatically rotate the supplied restrictor gate between 4 and 8 way orientation for each game on launch:  
 <img width="358" height="410" alt="image" src="https://github.com/user-attachments/assets/ebbf296a-9fea-4ae5-9e31-60d9d3fa6cf0" />  
 
-This will work on any Batocera version (even old ones).  Anything from v38 and above will be good.  This is no risk to breaking your system no any issues with future upgrades.  
+This will work on any Batocera version (even old ones).  Anything from v38 and above will be good.  There is no risk of breaking your system and no problems applying future upgrades.  
 
 Why do I need this?  Well, many old arcade games, eg. Pacman cannot handle diagonal movement of 8 way mode.  So by using a square restrictor gate, and having a servo rotate it between diamond and square, we get 4 way and 8 way joystick support.  This is what the thunderstick studio product achieves.  
 
