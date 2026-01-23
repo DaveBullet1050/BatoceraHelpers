@@ -3,7 +3,8 @@ sanwa_change_script=/userdata/system/scripts/sanwa_change.sh
 
 create_script () {
 
-# Write the following contents to the user scripts location which is called when a game start / stop event occurs
+# Write the following contents to the user scripts location which is called when a game start / stop event occurs.  Ensure the scripts directory exists
+mkdir -p `dirname $sanwa_change_script`
 cat << '_EOF_' > ${sanwa_change_script}
 #!/bin/bash
 
