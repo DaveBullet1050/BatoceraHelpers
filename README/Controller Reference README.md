@@ -141,12 +141,12 @@ I find it easiest to launch a retroarch game, then look at what values are in th
 
 i.e. the settings from:  
 `/userdata/system/configs/retroarch/retroarchcustom.cfg`  
-go into  
+go into batocera.conf as:  
 `<system_name>.retroarch.<setting>=<value>`  
 
 and those in:  
 `/userdata/system/configs/retroarch/cores/retroarch-core-options.cfg`  
-go into  
+go into batocera.conf as:  
 `<system_name>.retroarchcore.<setting>=<value>`  
 
 `<system_name>` matches the folder under `/userdata/roms` i.e. the name of the emulation system (e.g. c64, c20, mame, megadrive etc...).  Use `global` if you want your setting to apply to all systems.  <system_name> can specify a specific game of that system too (by following with square brackets and rom/filename of game in speech marks) - e.g. mame["robotron.zip"].retroarch.....  
