@@ -10,15 +10,17 @@ These don't warrant their own page:
 Although the [press_f1.py](./usr/bin/press_key_f1.py) is designed to send a key, it is hardcoded to only send F1 and requires a physical keyboard plugged in.
 
 The [press_key.py](./userdata/system/scripts/press_key.py) script allows a single or 2 keys to be pressed.  If 2 keys are passed, the first is held whilst the second is pressed, eg:  
+`press_key.py enter`  
+will press and release the ENTER key.  
 `press_key.py alt f4`  
-will hold down ALT whilst F4 is pressed.
+will hold down ALT then press F4 then release both.  
 
 ### Installing additional libraries
 The only downside, is the press_key.py requires 2 additional python modules not installed by default with Batocera, being:
-``
+```
 Xlib
 pynput
-```
+```  
 
 As there is no "pip" to install additional python packages, the easiest option is to just manually install them in a custom location on your SHARE drive (i.e. /userdata) so you don't cause Batocera upgrade problems in future.
 
