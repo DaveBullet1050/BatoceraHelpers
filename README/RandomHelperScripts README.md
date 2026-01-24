@@ -9,7 +9,7 @@ These don't warrant their own page:
 ## Generating key presses
 Although the [press_f1.py](./usr/bin/press_key_f1.py) is designed to send a key, it is hardcoded to only send F1 and requires a physical keyboard plugged in.
 
-The [press_key.py](./userdata/system/scripts/press_key.py) script allows a single or 2 keys to be pressed.  If 2 keys are passed, the first is held whilst the second is pressed, eg:  
+The [press_key.py](./userdata/system/bin/press_key.py) script allows a single or 2 keys to be pressed.  If 2 keys are passed, the first is held whilst the second is pressed, eg:  
 `press_key.py enter`  
 will press and release the ENTER key.  
 `press_key.py alt f4`  
