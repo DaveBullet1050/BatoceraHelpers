@@ -8,10 +8,10 @@ Whilst you can set controller assignment to  player order system wide, via the C
 
 In my situation I have:  
 - 2 permanent USB zero delay arcade (Dragonwise) controllers for player 1 and 2.
-- 2 additional handheld controllers (USB 8bitdo Pro)
+- 2 additional dualshock controllers (USB 8bitdo Pro)
 - 1 additional wheel (Logitech G923)
 
-The handhelds and wheel aren't always present.  I want to fix the order assigned and have a fall back when not present, to guaratee the order assigned to players.  I wanted something universal, that didn't care about emulation system being used and allowed for occasionally connected controllers (not losing order if unplugged).  
+The dualshocks and wheel aren't always present.  I want to fix the order assigned and have a fall back when not present, to guaratee the order assigned to players.  I wanted something universal, that didn't care about emulation system being used and allowed for occasionally connected controllers (not losing order if unplugged).  
 
 ## Required changes
 Copy down the following 2 files:  
@@ -27,17 +27,17 @@ All configuration is held in [/userdata/system/batocera.conf](https://github.com
 
 ### 1. Define the controllers to the system
 
-This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "handheld" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  
+This is so we can use these when re-ordering.  Since some controller names are long, we create "aliases" so we can use them in the order "rules" (on a per game, system or global basis).  Each alias corresponds to a single model of controller.  For example, say we have 2 USB controllers "Dragonwise" we call "arcade" and an 8bit do controller we call "dualshock" and finally a Logitech G923 racing wheel, we'll simply shorten to "wheel".  
 
 First, we need to find the full name of the controllers to assign to your aliases.  Connect the controller(s) to your system and open up the [es_settings.cfg](https://github.com/DaveBullet1050/BatoceraHelpers/blob/main/userdata/system/configs/emulationstation/es_settings.cfg) and look for the name of the controller(s) next to the *INPUT_PxNAME* element, eg:   
 ```
 	<string name="INPUT P1NAME" value="DragonRise Inc.   Generic   USB  Joystick  " />
 ```
-Then you can add the following to your batocera.conf (anywhere is fine):    
+Then you can add the following to your batocera.conf (anywhere is fine and the order of the alias names or order of entries doesn't matter):  
 ```
-global.controller.aliases=arcade,handheld,wheel
+global.controller.aliases=arcade,dualshock,wheel
 
-global.controller.alias.handheld=8BitDo Pro 2 Wired Controller
+global.controller.alias.dualshock=8BitDo Pro 2 Wired Controller
 global.controller.alias.arcade=DragonRise Inc.   Generic   USB  Joystick
 global.controller.alias.wheel=Logitech G923 Racing Wheel for PlayStation 4 and PC
 ```
@@ -58,10 +58,10 @@ Now we can refer to just the aliases in our order rules...
 
 As with many batocera.conf settings, we can provide ROM/game specific (e.g. simpsons.zip), system specific (e.g. mame, c64, megadrive) or universal (global) settings.  Batocera will use game over system over global where these match.  Here are 3 examples:  
 ```
-mame["simpsons.zip"].controller.order=arcade,handheld
-mame["outrun.zip"].controller.order=wheel,handheld,arcade
-megadrive.controller.order=handheld,arcade,wheel
-global.controller.order=arcade,handheld,wheel
+mame["simpsons.zip"].controller.order=arcade,dualshock
+mame["outrun.zip"].controller.order=wheel,dualshock,arcade
+megadrive.controller.order=dualshock,arcade,wheel
+global.controller.order=arcade,dualshock,wheel
 ```  
 Note: The controllers don't need to be plugged in permanently, when a game launches, the mapping will use the next best controller in the order list when assigning to the players.  
 
@@ -77,9 +77,9 @@ global.controller.players=4
 If not defined, 4 players will be assumed.  
 
 ### Explanation of examples
-For simpsons, the configuration says if there are multiple arcade controllers, assign these first to players 1,2,3,4.  If you run out of arcade controls, start assigning handheld controllers.  e.g. If we had 2 handheld then plugged in an arcade controller, the arcade will be assigned to player 1 (priority) then handheld to players 2 and 3.  Even though simpsons is configured for 4 player controls, a 4th control couldn't be assigned because only 3 were physically plugged into the system.  
+For simpsons, the configuration says if there are multiple arcade controllers, assign these first to players 1,2,3,4.  If you run out of arcade controls, start assigning dualshock controllers.  e.g. If we had 2 dualshock then plugged in an arcade controller, the arcade will be assigned to player 1 (priority) then dualshock to players 2 and 3.  Even though simpsons is configured for 4 player controls, a 4th control couldn't be assigned because only 3 were physically plugged into the system.  
 
-For outrun, if we have a wheel, use that for player 1, if no wheel is present, look for a handheld and use that.  Finally find an arcade controller if no wheel nor handheld are present.  Since outrun is set as a 1 player game, only 1 controller will be assigned.  
+For outrun, if we have a wheel, use that for player 1, if no wheel is present, look for a dualshock and use that.  Finally find an arcade controller if no wheel nor dualshock are present.  Since outrun is set as a 1 player game, only 1 controller will be assigned.  
 
 That's all you need to do.  
 
