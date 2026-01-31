@@ -63,7 +63,7 @@ mame["outrun.zip"].controller.order=wheel,dualshock,arcade
 megadrive.controller.order=dualshock,arcade,wheel
 global.controller.order=arcade,dualshock,wheel
 ```  
-Note: The controllers don't need to be plugged in permanently, when a game launches, the mapping will use the next best controller in the order list when assigning to the players.  
+Note: The controllers don't need to be plugged in permanently, when a game launches, the mapping will use the next best controller in the order list when assigning to the players.  For example, megadrive (as a system) is configured to start assigning dualshock controllers to all players (then when they run out, start assigning arcade controllers, then finally wheel controllers).  Should there be no dualshock controllers connected, the arcade controllers connected will be used from player 1 etc...  
 
 ### 3. Set number of players (controllers) you want to assign
 
