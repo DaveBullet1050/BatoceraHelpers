@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# Sets the deadzone and fuzz values to suppress constant AXIS_Z input events on a Dragonrise USB zero delay encoder
+#
+# Pass the number of the encoder to change / suppress
+
+encoder_device=`get-dragonrise-device ${1}`
+
+if [ ! -z ${encoder_device} ]
+then
+	evdev-joystick --evdev ${encoder_device} --axis 2 --fuzz 255 --deadzone 127 > /dev/null
+fi
