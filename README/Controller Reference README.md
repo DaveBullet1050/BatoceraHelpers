@@ -225,11 +225,10 @@ Generate mappings for all systems, except mame:
 ## Dragonwise USB encoder phantom Z axis inputs cancelling screen saver
 The Dragonrise encoders emit a constant deadzone (127) value on the AXIS_Z.  This happens regardless of analogue (axes) or digital (HAT) mode the encoder is in.  This causes Batocera to think there has been an input and therefore wakes up ES.  
 
-Although this may not completely eliminate these phantom inputs, run the following command to suppress constant AXIS_Z inputs.  Do this for each USB encoder:  
-`evdev-joystick --evdev /dev/input/event17 --axis 2 --fuzz 255 --deadzone 127`  
+The [suppress-dragonrise-z-axis](/usr/bin/suppress-dragonrise-z-axis) takes a single parameter being the number of your encoder.  i.e. for player 1, run:  
+`suppress-dragonrise-z-axis 1`  
 
-Replace:  
-`/dev/input/event17`  
-with the event corresponding to your USB encoder (run "evtest" to display).  
+You'll need to do this for each controller on startup.  Easiest to add to a script such as your:  
+`/etc/init.d/S99userservices`  
 
-I'll eventually script this so it auto-detects and applies the values on 2 joysticks.  
+You'll also need the [get-dragonrise-device](/usr/bin/get-dragonrise-device) script on your system (the suppress script uses it to find the device for the requested player).  
